@@ -36,15 +36,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2be2272d527baaf40a4eec880c65187f, type: 3}
+  m_Script: {fileID: 11500000, guid: a323fe53d41264dddb9fa02dabb8a67a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scale: .200000003
   heightScale: 5
-  timeModifier: 0
-  heightModifier: 0
+  side_size: 50
   cube: {fileID: 100000, guid: 981fbc03130a9324199cf4debf443b01, type: 2}
-  colorList: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

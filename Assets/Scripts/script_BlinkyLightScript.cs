@@ -60,8 +60,8 @@ public class script_BlinkyLightScript : MonoBehaviour
 	{
 		CheckButtonState ();
 
-		Debug.Log ("Button 1: " + button_01_state);
-		Debug.Log ("Button 2: " + button_02_state);
+		//Debug.Log ("Button 1: " + button_01_state);
+		//Debug.Log ("Button 2: " + button_02_state);
 	}
 
 	void CheckButtonState()
@@ -94,11 +94,6 @@ public class script_BlinkyLightScript : MonoBehaviour
 		}
 	}
 
-
-	public void Test ()
-	{
-		Debug.Log ("test");
-	}
 }
 
 

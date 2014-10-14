@@ -57,7 +57,7 @@ public class script_perlinNoise_geometry : MonoBehaviour
 
 	void TimeModifier ()
 	{
-		Debug.Log("TimeModifier: " + timeModifier);
+		//Debug.Log("TimeModifier: " + timeModifier);
 		
 		if ( Input.GetMouseButton(1) || arduinoScript.button_01_state == 1 )
 		{
@@ -71,7 +71,7 @@ public class script_perlinNoise_geometry : MonoBehaviour
 	
 	void HeightModifier ()
 	{
-		Debug.Log("HeightModifier: " + heightModifier);
+		//Debug.Log("HeightModifier: " + heightModifier);
 		
 		if ( Input.GetMouseButton(0) || arduinoScript.button_02_state == 1 )
 		{

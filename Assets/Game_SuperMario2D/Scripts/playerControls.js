@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////
 ////// Part of Bachelor project in Digital Design 2014 (BADDe14) //////
 
-// Player Controller - Super Mario Clone (2D)
+// Player Controller - Super Mario World Clone (2D)
 
 // Controls: 
 // a or left arrow 		- Move left
@@ -62,6 +62,8 @@ function Update ()
 		jumpEnabled 		= false;
 		runJumpEnabled 		= false;
 		crouchJumpEnabled 	= false;
+		
+		startPos 			= transform.position.y;											// this if ro camera to subtract from on zooming in and out 
 		
 		velocity = Vector3( Input.GetAxis("Horizontal"), 0, 0 );
 

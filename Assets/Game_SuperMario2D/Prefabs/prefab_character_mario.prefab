@@ -13,10 +13,9 @@ GameObject:
   - 23: {fileID: 2300000}
   - 143: {fileID: 14300000}
   - 82: {fileID: 8200000}
-  - 114: {fileID: 11400014}
-  - 114: {fileID: 11400012}
-  - 114: {fileID: 11400010}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400006}
+  - 114: {fileID: 11400004}
   m_Layer: 8
   m_Name: player
   m_TagString: Player
@@ -203,8 +202,8 @@ GameObject:
   - 92: {fileID: 9200008}
   - 124: {fileID: 12400008}
   - 81: {fileID: 8100008}
-  - 114: {fileID: 11400026}
   - 114: {fileID: 11400002}
+  - 114: {fileID: 11400008}
   m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -252,8 +251,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.93249989, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 2.34369993, z: -2.72830007e-08}
+  m_LocalScale: {x: .75, y: .75, z: .75}
   m_Children:
   - {fileID: 400000}
   - {fileID: 400022}
@@ -500,7 +499,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .405601233, g: .749482453, b: .889705896, a: .552941203}
+  m_BackGroundColor: {r: .968627453, g: .874509811, b: .686274529, a: .552941203}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -543,7 +542,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 25
+  orthographic size: 15
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -764,11 +763,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6d0174cc2967432bad3ed56f5937fb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d0df7dafea4f445dbe571a459ee6d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {fileID: 0}
-  soundDie: {fileID: 8300000, guid: 3681b9367de89354ea6300e0b699ac89, type: 3}
+  jumpSound: {fileID: 8300000, guid: a7b5fbc4af10dbe419906673504e880f, type: 3}
+  crouchJumpSound: {fileID: 8300000, guid: a31bb6b29b7e9ea4e9ea014d97fb5e91, type: 3}
+  particleJump: {fileID: 400004, guid: 754a7a7c55ee2ce4493a0e4079785280, type: 2}
+  projectileFire: {fileID: 5400000, guid: 3191a03df6b9e7840af0b9b855dbd7a9, type: 2}
+  projectile_socket_left: {fileID: 400012}
+  projectile_socket_right: {fileID: 400014}
+  material_player_MarioSmall: {fileID: 2100000, guid: c3a56c4259cf7984182f838dfbfeea80,
+    type: 2}
+  material_player_MarioLarge: {fileID: 2100000, guid: eae8ef839e7fc5b48b59c2f582017986,
+    type: 2}
+  material_player_MarioFire: {fileID: 2100000, guid: 7be48dd7353472544812e574c0a99c7c,
+    type: 2}
+  changeMario: 0
+  hasFire: 0
+  active_player_state: 1
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -784,31 +796,9 @@ MonoBehaviour:
   player: {fileID: 100000}
   cameraHeight: 0
   smoothTime: .200000003
-  borderX: 4
-  borderY: 4
---- !u!114 &11400010
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0df7dafea4f445dbe571a459ee6d0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lives: 3
-  key: 0
-  coins: 0
-  projectileFire: {fileID: 100000, guid: 3191a03df6b9e7840af0b9b855dbd7a9, type: 2}
-  projectileSocketRight: {fileID: 400014}
-  projectileSocketLeft: {fileID: 400012}
-  materialMarioStandard: {fileID: 2100000, guid: c3a56c4259cf7984182f838dfbfeea80,
-    type: 2}
-  materialMarioFire: {fileID: 2100000, guid: 7be48dd7353472544812e574c0a99c7c, type: 2}
-  changeMario: 0
-  hasFire: 0
---- !u!114 &11400012
+  borderX: 2
+  borderY: 2
+--- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -819,20 +809,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbd6ec7d0fb1453a992f0ad040311e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 4
-  runSpeed: 6
-  fallSpeed: 8
-  walkJump: 12
-  runJump: 15
-  crouchJump: 20
-  gravity: 20
-  moveDirection: 1
-  particleJump: {fileID: 400004, guid: 754a7a7c55ee2ce4493a0e4079785280, type: 2}
-  particleJumpFromCrouch: {fileID: 400000, guid: 9670926e073251b4d9e7cc13c294ea9e,
-    type: 2}
-  soundJump: {fileID: 8300000, guid: a7b5fbc4af10dbe419906673504e880f, type: 3}
-  soundCrouchJump: {fileID: 8300000, guid: 9981835892844fb4080c2f4ddfed9d6c, type: 3}
---- !u!114 &11400014
+  active: 0
+--- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -840,10 +818,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b600d52ffe9e4ae0b87414f94ee45f8, type: 3}
+  m_Script: {fileID: 11500000, guid: 486aa37c09affff4ca7ea09350c40693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11400026
+--- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -851,20 +829,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 100022}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 790e244237332b94ca9e79175ff44e53, type: 3}
+  m_Script: {fileID: 11500000, guid: 3933c8e2f4738af4fbdca795d3959761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTarget: {fileID: 100024}
   player: {fileID: 100000}
   smoothTime: .100000001
+  cameraHeight: 2.5
+  cameraZoomMin: 2.5999999
+  cameraZoomMax: 4
+  cameraZoomTime: .00300000003
   cameraFollowX: 1
   cameraFollowY: 1
   cameraFollowHeight: 0
-  cameraHeight: 2.5
   cameraZoom: 0
-  cameraZoomMax: 25
-  cameraZoomMin: 27
-  cameraZoomTime: .0299999993
   velocity: {x: 0, y: 0}
 --- !u!124 &12400000
 Behaviour:
@@ -911,7 +889,7 @@ CharacterController:
   m_Height: 5.92000008
   m_Radius: 1.72000003
   m_SlopeLimit: 45
-  m_StepOffset: .300000012
+  m_StepOffset: 0
   m_SkinWidth: .0799999982
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 2}

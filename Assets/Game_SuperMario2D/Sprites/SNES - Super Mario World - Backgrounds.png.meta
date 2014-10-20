@@ -1,0 +1,148 @@
+fileFormatVersion: 2
+guid: d0a919d286b8f8840b1102c6e04656d5
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: SNES - Super Mario World - Backgrounds
+    21300002: SNES - Super Mario World - Backgrounds_0
+    21300004: SNES - Super Mario World - Backgrounds_1
+    21300006: SNES - Super Mario World - Backgrounds_2
+    21300008: SNES - Super Mario World - Backgrounds_2
+    21300010: SNES - Super Mario World - Backgrounds_3
+    21300012: SNES - Super Mario World - Backgrounds_4
+    21300014: SNES - Super Mario World - Backgrounds_5
+    21300016: SNES - Super Mario World - Backgrounds_6
+    21300018: SNES - Super Mario World - Backgrounds_7
+    21300020: SNES - Super Mario World - Backgrounds_8
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -2
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 263, y: 0, z: 0, w: 175}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: SNES - Super Mario World - Backgrounds_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1740
+        width: 515
+        height: 425
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 12}
+    - name: SNES - Super Mario World - Backgrounds_2
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 1739
+        width: 518
+        height: 435
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Backgrounds_2
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 1304
+        width: 510
+        height: 433
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Backgrounds_3
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 1307
+        width: 510
+        height: 431
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Backgrounds_4
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 871
+        width: 507
+        height: 428
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Backgrounds_5
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 873
+        width: 507
+        height: 424
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Backgrounds_6
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 438
+        width: 509
+        height: 429
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Backgrounds_7
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 440
+        width: 507
+        height: 427
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Backgrounds_8
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 6
+        width: 508
+        height: 426
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 

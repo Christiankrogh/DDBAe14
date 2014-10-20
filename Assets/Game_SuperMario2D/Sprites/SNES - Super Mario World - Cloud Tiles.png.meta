@@ -1,0 +1,575 @@
+fileFormatVersion: 2
+guid: 6c2c46e78fee11b478991939a767b395
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: SNES - Super Mario World - Cloud Tiles_0
+    21300002: SNES - Super Mario World - Cloud Tiles_1
+    21300004: SNES - Super Mario World - Cloud Tiles_2
+    21300006: SNES - Super Mario World - Cloud Tiles_3
+    21300008: SNES - Super Mario World - Cloud Tiles_4
+    21300010: SNES - Super Mario World - Cloud Tiles_5
+    21300012: SNES - Super Mario World - Cloud Tiles_6
+    21300014: SNES - Super Mario World - Cloud Tiles_7
+    21300016: SNES - Super Mario World - Cloud Tiles_8
+    21300018: SNES - Super Mario World - Cloud Tiles_9
+    21300020: SNES - Super Mario World - Cloud Tiles_10
+    21300022: SNES - Super Mario World - Cloud Tiles_11
+    21300024: SNES - Super Mario World - Cloud Tiles_12
+    21300026: SNES - Super Mario World - Cloud Tiles_13
+    21300028: SNES - Super Mario World - Cloud Tiles_14
+    21300030: SNES - Super Mario World - Cloud Tiles_15
+    21300032: SNES - Super Mario World - Cloud Tiles_16
+    21300034: SNES - Super Mario World - Cloud Tiles_17
+    21300036: SNES - Super Mario World - Cloud Tiles_18
+    21300038: SNES - Super Mario World - Cloud Tiles_19
+    21300040: SNES - Super Mario World - Cloud Tiles_20
+    21300042: SNES - Super Mario World - Cloud Tiles_21
+    21300044: SNES - Super Mario World - Cloud Tiles_22
+    21300046: SNES - Super Mario World - Cloud Tiles_23
+    21300048: SNES - Super Mario World - Cloud Tiles_24
+    21300050: SNES - Super Mario World - Cloud Tiles_25
+    21300052: SNES - Super Mario World - Cloud Tiles_26
+    21300054: SNES - Super Mario World - Cloud Tiles_27
+    21300056: SNES - Super Mario World - Cloud Tiles_28
+    21300058: SNES - Super Mario World - Cloud Tiles_29
+    21300060: SNES - Super Mario World - Cloud Tiles_30
+    21300062: SNES - Super Mario World - Cloud Tiles_31
+    21300064: SNES - Super Mario World - Cloud Tiles_32
+    21300066: SNES - Super Mario World - Cloud Tiles_33
+    21300068: SNES - Super Mario World - Cloud Tiles_34
+    21300070: SNES - Super Mario World - Cloud Tiles_35
+    21300072: SNES - Super Mario World - Cloud Tiles_36
+    21300074: SNES - Super Mario World - Cloud Tiles_37
+    21300076: SNES - Super Mario World - Cloud Tiles_38
+    21300078: SNES - Super Mario World - Cloud Tiles_39
+    21300080: SNES - Super Mario World - Cloud Tiles_40
+    21300082: SNES - Super Mario World - Cloud Tiles_41
+    21300084: SNES - Super Mario World - Cloud Tiles_42
+    21300086: SNES - Super Mario World - Cloud Tiles_43
+    21300088: SNES - Super Mario World - Cloud Tiles_44
+    21300090: SNES - Super Mario World - Cloud Tiles_45
+    21300092: SNES - Super Mario World - Cloud Tiles_46
+    21300094: SNES - Super Mario World - Cloud Tiles_47
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -2
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: SNES - Super Mario World - Cloud Tiles_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 214
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_1
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 214
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_2
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 214
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_3
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 198
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_4
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 198
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_5
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 214
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_6
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 214
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_7
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 214
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_8
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 214
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_9
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 198
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_10
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 198
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_11
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 179
+        width: 58
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_12
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 197
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_13
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 197
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_14
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 197
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_15
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 197
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_16
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 197
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_17
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 197
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_18
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 197
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_19
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 180
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_20
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 180
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_21
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 180
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_22
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 149
+        width: 64
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_23
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 149
+        width: 32
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_24
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 84
+        width: 96
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_25
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 84
+        width: 96
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_26
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 84
+        width: 48
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_27
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 84
+        width: 48
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_28
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 76
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_29
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 76
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_30
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 67
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_31
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 67
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_32
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 67
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_33
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 67
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_34
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 51
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_35
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 51
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_36
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 59
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_37
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 59
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_38
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 50
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_39
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 50
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_40
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 50
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_41
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 50
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_42
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 45
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_43
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 45
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_44
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 2
+        width: 128
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_45
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 2
+        width: 128
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_46
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 28
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Cloud Tiles_47
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 28
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 

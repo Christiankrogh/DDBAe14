@@ -1,0 +1,806 @@
+fileFormatVersion: 2
+guid: ea09103508d1ad64fb9016f9790f70f2
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: SNES - Super Mario World - Background Objects_0
+    21300002: SNES - Super Mario World - Background Objects_1
+    21300004: SNES - Super Mario World - Background Objects_2
+    21300006: SNES - Super Mario World - Background Objects_3
+    21300008: SNES - Super Mario World - Background Objects_4
+    21300010: SNES - Super Mario World - Background Objects_5
+    21300012: SNES - Super Mario World - Background Objects_6
+    21300014: SNES - Super Mario World - Background Objects_7
+    21300016: SNES - Super Mario World - Background Objects_8
+    21300018: SNES - Super Mario World - Background Objects_9
+    21300020: SNES - Super Mario World - Background Objects_10
+    21300022: SNES - Super Mario World - Background Objects_11
+    21300024: SNES - Super Mario World - Background Objects_12
+    21300026: SNES - Super Mario World - Background Objects_13
+    21300028: SNES - Super Mario World - Background Objects_14
+    21300030: SNES - Super Mario World - Background Objects_15
+    21300032: SNES - Super Mario World - Background Objects_16
+    21300034: SNES - Super Mario World - Background Objects_17
+    21300036: SNES - Super Mario World - Background Objects_18
+    21300038: SNES - Super Mario World - Background Objects_19
+    21300040: SNES - Super Mario World - Background Objects_20
+    21300042: SNES - Super Mario World - Background Objects_21
+    21300044: SNES - Super Mario World - Background Objects_22
+    21300046: SNES - Super Mario World - Background Objects_23
+    21300048: SNES - Super Mario World - Background Objects_24
+    21300050: SNES - Super Mario World - Background Objects_25
+    21300052: SNES - Super Mario World - Background Objects_26
+    21300054: SNES - Super Mario World - Background Objects_27
+    21300056: SNES - Super Mario World - Background Objects_28
+    21300058: SNES - Super Mario World - Background Objects_29
+    21300060: SNES - Super Mario World - Background Objects_30
+    21300062: SNES - Super Mario World - Background Objects_31
+    21300064: SNES - Super Mario World - Background Objects_32
+    21300066: SNES - Super Mario World - Background Objects_33
+    21300068: SNES - Super Mario World - Background Objects_34
+    21300070: SNES - Super Mario World - Background Objects_35
+    21300072: SNES - Super Mario World - Background Objects_36
+    21300074: SNES - Super Mario World - Background Objects_37
+    21300076: SNES - Super Mario World - Background Objects_38
+    21300078: SNES - Super Mario World - Background Objects_39
+    21300080: SNES - Super Mario World - Background Objects_40
+    21300082: SNES - Super Mario World - Background Objects_41
+    21300084: SNES - Super Mario World - Background Objects_42
+    21300086: SNES - Super Mario World - Background Objects_43
+    21300088: SNES - Super Mario World - Background Objects_44
+    21300090: SNES - Super Mario World - Background Objects_45
+    21300092: SNES - Super Mario World - Background Objects_46
+    21300094: SNES - Super Mario World - Background Objects_47
+    21300096: SNES - Super Mario World - Background Objects_48
+    21300098: SNES - Super Mario World - Background Objects_49
+    21300100: SNES - Super Mario World - Background Objects_50
+    21300102: SNES - Super Mario World - Background Objects_51
+    21300104: SNES - Super Mario World - Background Objects_52
+    21300106: SNES - Super Mario World - Background Objects_53
+    21300108: SNES - Super Mario World - Background Objects_54
+    21300110: SNES - Super Mario World - Background Objects_55
+    21300112: SNES - Super Mario World - Background Objects_56
+    21300114: SNES - Super Mario World - Background Objects_57
+    21300116: SNES - Super Mario World - Background Objects_58
+    21300118: SNES - Super Mario World - Background Objects_59
+    21300120: SNES - Super Mario World - Background Objects_60
+    21300122: SNES - Super Mario World - Background Objects_61
+    21300124: SNES - Super Mario World - Background Objects_62
+    21300126: SNES - Super Mario World - Background Objects_63
+    21300128: SNES - Super Mario World - Background Objects_64
+    21300130: SNES - Super Mario World - Background Objects_65
+    21300132: SNES - Super Mario World - Background Objects_66
+    21300134: SNES - Super Mario World - Background Objects_67
+    21300136: SNES - Super Mario World - Background Objects_68
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -2
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: SNES - Super Mario World - Background Objects_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 523
+        width: 122
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_1
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 552
+        width: 83
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_2
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 538
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_3
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 463
+        width: 256
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_4
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 457
+        width: 13
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_5
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 457
+        width: 159
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_6
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 457
+        width: 13
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 377
+        width: 24
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_8
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 377
+        width: 64
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_9
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 377
+        width: 24
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_10
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 422
+        width: 48
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_11
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 284
+        width: 258
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_12
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 382
+        width: 48
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_13
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 282
+        width: 144
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_14
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 340
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_15
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 283
+        width: 96
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_16
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 139
+        width: 97
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_17
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 140
+        width: 142
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_18
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 252
+        width: 110
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_19
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 185
+        width: 100
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_20
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 193
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_21
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 192
+        width: 73
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_22
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 140
+        width: 140
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_23
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 141
+        width: 32
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_24
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 138
+        width: 113
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_25
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 92
+        width: 192
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_26
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 87
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_27
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 87
+        width: 68
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_28
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 87
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_29
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 86
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_30
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 87
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_31
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 86
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_32
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 62
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_33
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 55
+        width: 26
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_34
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 64
+        width: 8
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_35
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 40
+        width: 14
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_36
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 40
+        width: 131
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_37
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 75
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_38
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 71
+        width: 6
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_39
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 71
+        width: 68
+        height: 15
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_40
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 71
+        width: 6
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_41
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 59
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_42
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 50
+        width: 15
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_43
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 54
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_44
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 54
+        width: 68
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_45
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 54
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_46
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 40
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_47
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 49
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_48
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 49
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_49
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 38
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_50
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 38
+        width: 25
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_51
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 38
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_52
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 38
+        width: 6
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_53
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 38
+        width: 68
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_54
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 38
+        width: 6
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_55
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 30
+        width: 64
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_56
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 27
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_57
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 27
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_58
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 28
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_59
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 256
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_60
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 2
+        width: 64
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_61
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 2
+        width: 48
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_62
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 1
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_63
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 1
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_64
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 7
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_65
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 7
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_66
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 7
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_67
+      rect:
+        serializedVersion: 2
+        x: 539
+        y: 7
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - Background Objects_68
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 7
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 

@@ -8,6 +8,10 @@ TagManager:
   - FxTemporaire
   - killbox
   - savePoint
+  - cubeZspin
+  - cubeQuestionMark
+  - coin
+  - bigCoin
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

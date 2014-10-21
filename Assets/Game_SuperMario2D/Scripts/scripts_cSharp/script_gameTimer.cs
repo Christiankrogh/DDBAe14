@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
-public class GameTimer : MonoBehaviour
+public class script_gameTimer : MonoBehaviour
 {
 	
 	#region Fields
@@ -21,9 +22,11 @@ public class GameTimer : MonoBehaviour
 	public float		playStopTime			=		0.0f;								// used to stop time in game
 	public float		continueTimeUp			=		0.0f;								// used to continue time from stopped time, increasing time
 	public float		continueTimeDown		=		0.0f;								// used to continue time from stopped time, decreasing time
-	
+
+	public Text			countDownText; 
 	public float		countDownDelay			=		0.0f;								// used to delay time during a countdown
 	public float		countDownAmount			=		0.0f;								// amount to delay
+	private bool		setTime 				= 		true;
 	public float		delayTime				=		0.0f;
 	public float		delayedAmount			=		0.0f;
 	
@@ -41,18 +44,18 @@ public class GameTimer : MonoBehaviour
 	
 	#endregion
 	
-	
-	
-	void			Update						()																						// Update is called once per frame
+
+	void Update	()																						// Update is called once per frame
 	{
 		update_times			();
 		
 		time_commands			();
-		
+
+		countDownText.text = playTime.ToString("f0");
 	}
 	
 	
-	void			OnGUI						()
+	void OnGUI ()
 	{
 		if ( displayTimerValues )
 		{
@@ -95,7 +98,7 @@ public class GameTimer : MonoBehaviour
 	
 	#region			Update Time Functions
 	
-	void			update_times				()
+	void update_times ()
 	{
 		if ( playTimeEnabled ) 						// enables time recording
 		{
@@ -114,32 +117,32 @@ public class GameTimer : MonoBehaviour
 	}
 
 	
-	void			update_seconds						()
+	void update_seconds	()
 	{
 		seconds			=		( playTime % 60);									// modulo playtime by the number of seconds passed
 	}
 	
-	void			update_minutes						()											
+	void update_minutes	()											
 	{
 		minutes			=		( playTime / 60 ) % 60;								// divide playtime by the number of seconds in a minute
 	}
 	
-	void			update_fractions					()
+	void update_fractions ()
 	{
 		fractions		=		( playTime * 10 ) % 10;								// multiply playtime by 10 and mod of 10
 	}
 	
-	void			update_hours()
+	void update_hours()
 	{
 		hours			=		( playTime / 3600f ) % 24;							// divide playtime by the number of seconds in an hour
 	}
 	
-	void			update_days							()
+	void update_days()
 	{
 		days			=		( playTime / 86400 ) % 365;							// divide playtime by the number of seconds in a day
 	}
 	
-	void			update_playTime						()
+	void update_playTime()
 	{	
 		if ( playTimeEnabled && !countDownEnabled)
 		{
@@ -155,23 +158,21 @@ public class GameTimer : MonoBehaviour
 		{
 			playTime	=		Time.realtimeSinceStartup + addToTime;				// playtime is now the actual time since the start
 		}
-		
-		
 	}
 	
-	void			update_fromLoadTime					()
+	void update_fromLoadTime()
 	{
 		if ( fromLoadTimeEnabled )
 			fromLoadTime	=		Time.timeSinceLevelLoad;
 	}
 	
-	void			update_delayTime					()
+	void update_delayTime()
 	{
 		delayTime = Time.time + delayedAmount;	
 		
 	}
 	
-	void			update_ActualTime					()
+	void update_ActualTime()
 	{
 		if ( realTimeEnabled )
 			realTime = Time.realtimeSinceStartup;
@@ -183,7 +184,7 @@ public class GameTimer : MonoBehaviour
 	
 	#region Time Control Functions
 	
-	void			time_commands				()
+	void time_commands ()
 	{
 		set_new_start_time		();
 		reset_startTime			();
@@ -196,8 +197,9 @@ public class GameTimer : MonoBehaviour
 		print_time				();
 	}
 	
-	void			print_time					()
+	void print_time	()
 	{
+		/*
 		if (Input.GetKeyDown("a"))
 		{
 			print ( "Minutes " + minutes );
@@ -205,9 +207,10 @@ public class GameTimer : MonoBehaviour
 			print ( "Fractions " + fractions);
 			
 		}
+		*/
 	}
 	
-	void			set_new_start_time			()					
+	void set_new_start_time()					
 	{
 		if ( Input.GetKeyDown ( "1" ) )														// press '1' to activate set 'startTime' and begin recording
 		{
@@ -219,7 +222,7 @@ public class GameTimer : MonoBehaviour
 		}
 	}
 	
-	void			reset_startTime				()														// press '2' to activate the start of scene time (from Load), playTime and realTime are not being tracked
+	void reset_startTime()														// press '2' to activate the start of scene time (from Load), playTime and realTime are not being tracked
 	{
 		if ( Input.GetKeyDown ( "2" ) )
 		{
@@ -234,7 +237,7 @@ public class GameTimer : MonoBehaviour
 	}
 	
 	
-	void			stop_time					()														// press '3' to stop the timer
+	void stop_time()														// press '3' to stop the timer
 	{
 		if ( Input.GetKeyDown ( "3" ) && playTimeEnabled )
 		{
@@ -248,7 +251,7 @@ public class GameTimer : MonoBehaviour
 		}
 	}
 	
-	void			pause_time					()														// press '4' to pause the timer
+	void pause_time()														// press '4' to pause the timer
 	{
 		if ( Input.GetKeyDown ( "4" ) )
 		{
@@ -261,7 +264,7 @@ public class GameTimer : MonoBehaviour
 	}
 	
 	
-	void			continue_time				()														// press '5' to continue recording 'playTime'
+	void continue_time()														// press '5' to continue recording 'playTime'
 	{
 		if ( Input.GetKeyDown ( "5" ) )
 		{
@@ -273,7 +276,7 @@ public class GameTimer : MonoBehaviour
 		}
 	}
 	
-	void			reset_time					()														// press '6' to continue recording 'playTime'
+	void reset_time()														// press '6' to continue recording 'playTime'
 	{
 		if ( Input.GetKeyDown ( "6" ) )
 		{
@@ -290,14 +293,15 @@ public class GameTimer : MonoBehaviour
 		}
 	}
 	
-	void			countdown					()														// press '7' to start time countdown
+	void countdown()														// press '7' to start time countdown
 	{
-		if ( Input.GetKeyDown ( "7" ) )
+		if ( Input.GetKeyDown ( "7" ) || setTime )
 		{
 			countDownDelay		=		Time.time;										// store the current time in 'countDownDelay'
 			playTimeEnabled		=		true;											// starts 'playtime' for the countdown
 			countDownEnabled	=		true;											// 'countDownEnabled' triggers the time stop at the end of the countdown
 			addToTime			=		0;												// reset
+			setTime				= false;
 		}
 		
 		if (Input.GetKeyDown("t"))															// press 't' to countdown from current stopTime
@@ -316,7 +320,7 @@ public class GameTimer : MonoBehaviour
 	}
 	
 	
-	void			add_timeAmount				()														// press '8' to add a single amount to the GameTimer
+	void add_timeAmount()														// press '8' to add a single amount to the GameTimer
 	{
 		if ( Input.GetKeyDown ( "8" ) )
 		{
@@ -324,7 +328,7 @@ public class GameTimer : MonoBehaviour
 		}
 	}
 	
-	void			increment_addToTimeAMount	()														// press '9' to increment the amount added to the GameTimer
+	void increment_addToTimeAMount()														// press '9' to increment the amount added to the GameTimer
 	{
 		if ( Input.GetKeyDown ( "9" ) )
 		{
@@ -332,7 +336,7 @@ public class GameTimer : MonoBehaviour
 		}
 	}
 	
-	void			activate_realTime			()														// press '9' to increment the amount added to the GameTimer, tracks time when the game is paused
+	void activate_realTime()														// press '9' to increment the amount added to the GameTimer, tracks time when the game is paused
 	{
 		if ( Input.GetKeyDown ( "9" ) )
 		{

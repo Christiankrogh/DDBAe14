@@ -1,7 +1,35 @@
 fileFormatVersion: 2
 guid: 1bc28375fd53ca945bee8f1297ae75d3
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: SNES - Super Mario World - General Tiles_0
+    21300002: SNES - Super Mario World - General Tiles_1
+    21300004: SNES - Super Mario World - General Tiles_2
+    21300006: SNES - Super Mario World - General Tiles_3
+    21300008: SNES - Super Mario World - General Tiles_4
+    21300010: SNES - Super Mario World - General Tiles_5
+    21300012: SNES - Super Mario World - General Tiles_6
+    21300014: SNES - Super Mario World - General Tiles_7
+    21300016: SNES - Super Mario World - General Tiles_8
+    21300018: SNES - Super Mario World - General Tiles_9
+    21300020: SNES - Super Mario World - General Tiles_10
+    21300022: SNES - Super Mario World - General Tiles_11
+    21300024: SNES - Super Mario World - General Tiles_12
+    21300026: SNES - Super Mario World - General Tiles_13
+    21300028: SNES - Super Mario World - General Tiles_14
+    21300030: SNES - Super Mario World - General Tiles_15
+    21300032: SNES - Super Mario World - General Tiles_16
+    21300034: SNES - Super Mario World - General Tiles_17
+    21300036: SNES - Super Mario World - General Tiles_18
+    21300038: SNES - Super Mario World - General Tiles_19
+    21300040: SNES - Super Mario World - General Tiles_20
+    21300042: SNES - Super Mario World - General Tiles_21
+    21300044: SNES - Super Mario World - General Tiles_22
+    21300046: SNES - Super Mario World - General Tiles_23
+    21300048: SNES - Super Mario World - General Tiles_24
+    21300050: SNES - Super Mario World - General Tiles_25
+    21300052: SNES - Super Mario World - General Tiles_26
+    21300054: SNES - Super Mario World - General Tiles_27
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -42,6 +70,286 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: SNES - Super Mario World - General Tiles_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 333
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_1
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 333
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_2
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 333
+        width: 6
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_3
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 333
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_4
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 160
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_5
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 312
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_6
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 312
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_7
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 312
+        width: 6
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_8
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 312
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_9
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 266
+        width: 32
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 196
+        width: 64
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 80
+        height: 195
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_12
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 80
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_13
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 59
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_14
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 59
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_15
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 59
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_16
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 59
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_17
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 59
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_18
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 41
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_19
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 44
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_20
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 47
+        width: 16
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_21
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 44
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_22
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 14
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_23
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 14
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_24
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 14
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_25
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 14
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_26
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 14
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SNES - Super Mario World - General Tiles_27
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 14
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

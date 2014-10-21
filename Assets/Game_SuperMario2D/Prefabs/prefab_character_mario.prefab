@@ -373,7 +373,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 4.07390022, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400020}
@@ -768,7 +768,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpSound: {fileID: 8300000, guid: a7b5fbc4af10dbe419906673504e880f, type: 3}
   crouchJumpSound: {fileID: 8300000, guid: a31bb6b29b7e9ea4e9ea014d97fb5e91, type: 3}
+  coinSound: {fileID: 8300000, guid: a31e0a3a22e347641a14289d2e38c99a, type: 3}
   particleJump: {fileID: 400004, guid: 754a7a7c55ee2ce4493a0e4079785280, type: 2}
+  particleCoin: {fileID: 400002, guid: af0936f50d1c3734e9e1665516171ff1, type: 2}
   projectileFire: {fileID: 5400000, guid: 3191a03df6b9e7840af0b9b855dbd7a9, type: 2}
   projectile_socket_left: {fileID: 400012}
   projectile_socket_right: {fileID: 400014}
@@ -779,6 +781,7 @@ MonoBehaviour:
   material_player_MarioFire: {fileID: 2100000, guid: 7be48dd7353472544812e574c0a99c7c,
     type: 2}
   changeMario: 0
+  marioLarge: 0
   hasFire: 0
   active_player_state: 1
 --- !u!114 &11400002
@@ -787,7 +790,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100022}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f11510dd2ee7493595a037a45ad05a9, type: 3}
   m_Name: 
@@ -827,7 +830,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100022}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3933c8e2f4738af4fbdca795d3959761, type: 3}
   m_Name: 
@@ -835,12 +838,12 @@ MonoBehaviour:
   cameraTarget: {fileID: 100024}
   player: {fileID: 100000}
   smoothTime: .100000001
-  cameraHeight: 2.5
+  cameraHeight: 3.45000005
   cameraZoomMin: 2.5999999
   cameraZoomMax: 4
   cameraZoomTime: .00300000003
   cameraFollowX: 1
-  cameraFollowY: 1
+  cameraFollowY: 0
   cameraFollowHeight: 0
   cameraZoom: 0
   velocity: {x: 0, y: 0}

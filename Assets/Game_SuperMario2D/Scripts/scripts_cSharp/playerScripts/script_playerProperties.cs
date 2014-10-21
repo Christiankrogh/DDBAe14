@@ -24,7 +24,7 @@ public class script_playerProperties : MonoBehaviour
 	
 	public int        lives 					= 3;
 	public int        key						= 0;
-	public int        coins 					= 0;
+	public int        bigCoins 					= 0;
 	public GameObject projectileFire;
 	public Transform  projectileSocketRight;
 	public Transform  projectileSocketLeft;
@@ -64,14 +64,14 @@ public class script_playerProperties : MonoBehaviour
 		}
 	}
 	
-	void AddKeys ( int numKey )
+	void Addcoins ( int numKey )
 	{
 		key += numKey;
 	}
 	
 	void AddCoin ( int numCoin )
 	{
-		coins += numCoin;
+		bigCoins += numCoin;
 	}
 
 	void SetPlayerState ()
@@ -172,17 +172,18 @@ public class script_playerProperties : MonoBehaviour
 	#endregion
 	
 	
-	
+	private AudioSource								playerAudio;	
 	public AudioClip								jumpSound;
 	public AudioClip								crouchJumpSound;
-	
+	public AudioClip								coinSound;
+
 	public Transform								particleJump;	
-	
+	public Transform								particleCoin;
 	
 	
 	public static int								lives							=	3;
-	public static int								keys							=	0;
 	public static int								coins							=	0;
+	public static int								bigCoins						=	0;
 	
 	public 	Rigidbody								projectileFire;
 	
@@ -194,6 +195,7 @@ public class script_playerProperties : MonoBehaviour
 	public 	Material								material_player_MarioFire;
 	
 	public bool										changeMario						=	false;
+	public bool										marioLarge						= 	false;
 	public bool										hasFire							=	false;
 	
 	private static int								coinLife						=	20;
@@ -231,7 +233,8 @@ public class script_playerProperties : MonoBehaviour
 		playerController				=	GetComponent		<CharacterController>	();
 		playerTransform					=	GetComponent		<Transform>				();
 		playerMeshRender				=	GetComponent		<MeshRenderer>			();		
-		
+		playerAudio						=	GetComponent		<AudioSource>			();
+
 		change_player_state		();
 		Shoot					();
 		
@@ -274,16 +277,38 @@ public class script_playerProperties : MonoBehaviour
 			
 		}
 	}
-	
-	
-	void			AddKeys					( int numkey )
+
+
+	void OnTriggerEnter ( Collider other )
 	{
-		keys	=	keys + numkey;
+		if ( other.tag == "coin" )
+		{
+			Addcoins(1);
+			script_playerSounds.play_sound ( ref playerAudio, coinSound, 0f);
+			Transform clone;
+			clone = Instantiate ( particleCoin, other.transform.position, Quaternion.identity) as Transform;
+			Destroy(other.gameObject);
+		}
+
+		if ( other.tag == "bigCoin" )
+		{
+			AddBigCoins(1);
+			script_playerSounds.play_sound ( ref playerAudio, coinSound, 0f);
+			Transform clone;
+			clone = Instantiate ( particleCoin, other.transform.position, Quaternion.identity) as Transform;
+			Destroy(other.gameObject);
+		}
 	}
-	
-	void			AddCoin					( int numCoin )
+
+
+	void			Addcoins					( int numCoin )
 	{
 		coins	=	coins + numCoin;
+	}
+	
+	void			AddBigCoins					( int numBigCoins )
+	{
+		bigCoins	=	bigCoins + numBigCoins;
 	}
 	
 	void			change_player_state		()
@@ -293,8 +318,7 @@ public class script_playerProperties : MonoBehaviour
 			SetPlayerState						();
 		}
 	}
-	
-	
+
 	void			SetPlayerState			()
 	{
 		
@@ -310,6 +334,7 @@ public class script_playerProperties : MonoBehaviour
 			player_scale_small		();
 			canShoot					=	false;
 			changeMario					=	false;
+			marioLarge					= 	false;
 			playerMeshRender.material	=	material_player_MarioSmall;
 			break;			
 			
@@ -317,6 +342,7 @@ public class script_playerProperties : MonoBehaviour
 			player_scale_normal		();
 			canShoot					=	false;
 			changeMario					=	false;
+			marioLarge					= 	true;
 			playerMeshRender.material	=	material_player_MarioLarge;
 			break;
 			
@@ -324,6 +350,7 @@ public class script_playerProperties : MonoBehaviour
 			player_scale_normal		();
 			canShoot					=	true;
 			changeMario					=	false;
+			marioLarge					= 	false;
 			playerMeshRender.material	=	material_player_MarioFire;
 			break;
 			

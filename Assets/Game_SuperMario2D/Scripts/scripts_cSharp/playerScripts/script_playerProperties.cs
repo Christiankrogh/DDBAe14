@@ -6,140 +6,6 @@
 // - Description: Set and stores pickups and state of player
 //
 ///////////////////////////////////////////////////////////////////////
-/*
-using UnityEngine;
-using System.Collections;
-
-public enum PlayerState 
-{
-	MarioDead	= 0,													// The player is dead
-	MarioSmall	= 1,													// sets the size of mario to small
-	MarioLarge	= 2, 													// sets the size of mario to large
-	MarioFire	= 3														// enable the fireball power for mario 
-}
-
-public class script_playerProperties : MonoBehaviour 
-{
-    PlayerState playerState = PlayerState.MarioSmall;							// Set the display state of mario in the inspector 
-	
-	public int        lives 					= 3;
-	public int        key						= 0;
-	public int        bigCoins 					= 0;
-	public GameObject projectileFire;
-	public Transform  projectileSocketRight;
-	public Transform  projectileSocketLeft;
-	public Material   materialMarioStandard;
-	public Material   materialMarioFire;
-	
-	public bool changeMario					= false;
-	public bool hasFire						= false;
-	
-	private int  coinLife 				= 100;
-	private bool canShoot				= false;
-
-
-	void Update () 
-	{
-		script_playerControls playerControls = GetComponent<script_playerControls>();
-		
-		if ( changeMario )
-		{
-			SetPlayerState ();
-		}	
-		
-		if ( canShoot )
-		{
-			GameObject clone;
-
-			if ( Input.GetButtonDown( "Fire2" ) && projectileFire && playerControls.moveDirection == 0 )	// checks if: player pushes button, projectileFire gameobject has been assigned and what direction mario is facing
-			{
-				clone = Instantiate ( projectileFire, projectileSocketLeft.transform.position, Quaternion.identity ) as GameObject; 
-				clone.rigidbody.AddForce ( - 90, 0, 0 );
-			} 
-			if ( Input.GetButtonDown( "Fire2" ) && projectileFire && playerControls.moveDirection == 1 )	// checks if: player pushes button, projectileFire gameobject has been assigned and what direction mario is facing
-			{
-				clone = Instantiate ( projectileFire, projectileSocketRight.transform.position, Quaternion.identity ) as GameObject; 
-				clone.rigidbody.AddForce ( 90, 0, 0 );
-			}  
-		}
-	}
-	
-	void Addcoins ( int numKey )
-	{
-		key += numKey;
-	}
-	
-	void AddCoin ( int numCoin )
-	{
-		bigCoins += numCoin;
-	}
-
-	void SetPlayerState ()
-	{
-		script_playerControls playerControls = GetComponent<script_playerControls>();
-		CharacterController charController = GetComponent<CharacterController>();
-		
-		switch ( playerState )
-		{
-		case PlayerState.MarioSmall : 
-			
-			Debug.Log("State: Mario small");
-			playerControls.gravity 	= 0.0f;
-			transform.Translate ( 0, 0, - 1.3f );									// moves the player up a little bit
-			transform.localScale 	= new Vector3 ( 0.5f, 0.5f, 0.5f );
-			charController.height 	= 5.92f;
-			transform.renderer.material = materialMarioStandard;
-			playerControls.gravity 	= 20.0f;
-			canShoot 				= false;
-			changeMario 			= false;
-			
-			break;
-			
-		case PlayerState.MarioLarge : 
-			
-			Debug.Log("State: Mario Large");
-			
-			playerControls.gravity 	= 0.0f;
-			transform.Translate ( 0, 0, - 1.3f );
-			transform.localScale 	= new Vector3 ( 0.5f, 0.7f, 0.5f );
-			charController.height 	= 7.0f;
-			transform.renderer.material = materialMarioStandard;
-			playerControls.gravity 	= 20.0f;
-			canShoot 				= false;
-			changeMario 			= false;
-			
-			break;
-			
-		case PlayerState.MarioFire  : 
-			
-			Debug.Log("State: Mario Fire");
-			
-			playerControls.gravity 	= 0.0f;
-			transform.Translate ( 0, 0, - 1.3f );
-			transform.localScale 	= new Vector3 ( 0.5f, 0.7f, 0.5f );
-			charController.height 	= 7.0f;
-			transform.renderer.material = materialMarioFire;
-			playerControls.gravity 	= 20.0f;
-			canShoot 				= true;
-			changeMario 			= false;
-			
-			break;
-			
-		case PlayerState.MarioDead  : 
-			
-			Debug.Log("State: Mario Dead");
-			Destroy ( gameObject );
-			changeMario = false;
-			
-			break;	
-		}
-		
-	}
-
-}
-
-*/
-
 
 using UnityEngine;
 using System.Collections;
@@ -194,7 +60,8 @@ public class script_playerProperties : MonoBehaviour
 	
 	public static int								lives							=	3;
 	public static int								coins							=	0;
-	public static int								bigCoins						=	0;
+	public static int								bigCoins						= 	0;
+	public static int								totalCoinCollected				=	0;
 	
 	public 	Rigidbody								projectileFire;
 	
@@ -218,6 +85,7 @@ public class script_playerProperties : MonoBehaviour
 	
 	public PlayerState								active_player_state				=	PlayerState.MarioSmall;
 	
+	public  GameObject 								guiText;
 
 	public  GameObject 								reward_redMushRoom;
 	public  GameObject 								reward_greenMushRoom;
@@ -230,13 +98,6 @@ public class script_playerProperties : MonoBehaviour
 	private script_cube_Zspin						cubeZspin;
 
 
-	#endregion
-	
-	
-	#region			_Properties_
-	
-
-	
 	#endregion
 	
 	
@@ -253,7 +114,6 @@ public class script_playerProperties : MonoBehaviour
 
 		change_player_state		();
 		Shoot					();
-		
 	}
 	
 	
@@ -261,10 +121,8 @@ public class script_playerProperties : MonoBehaviour
 	
 	#endregion
 	
-	
-	
-	
-	void			Shoot					()
+
+	void Shoot ()
 	{	
 		float playerDirection	=	script_playerControls.moveDirection;
 		
@@ -306,9 +164,20 @@ public class script_playerProperties : MonoBehaviour
 
 	void OnTriggerEnter ( Collider other )
 	{
+		GameObject otherPos = other.gameObject;
+
 		if ( other.tag == "coin" )
 		{
 			Addcoins(1);
+
+			PopGuiText ( "+1", otherPos );
+
+			if ( coins == 100 )
+			{
+				lives += 1;
+				PopGuiText ( "+1", otherPos );
+			}
+
 			script_playerSounds.play_sound ( ref playerAudio, coinSound, 0f);
 			Transform clone;
 			clone = Instantiate ( particleCoin, other.transform.position, Quaternion.identity) as Transform;
@@ -317,7 +186,24 @@ public class script_playerProperties : MonoBehaviour
 
 		if ( other.tag == "bigCoin" )
 		{
+			Addcoins(1);
 			AddBigCoins(1);
+			//Debug.Log ("BigCoins: " + bigCoins );
+			if ( bigCoins == 1 )	// x1 multiplier
+			{	AddToTotalCoinCollected(1000 * 1); PopGuiText ( "+1000", otherPos ); 	}
+			if ( bigCoins == 2 )	// x2 multiplier
+			{	AddToTotalCoinCollected(1000 * 2); PopGuiText ( "+2000", otherPos );	}
+			if ( bigCoins == 3 )	// x3 multiplier
+			{	AddToTotalCoinCollected(1000 * 4); PopGuiText ( "+4000", otherPos );	}
+			if ( bigCoins == 4 )	// x4 multiplier
+			{	AddToTotalCoinCollected(1000 * 8); PopGuiText ( "+8000", otherPos );	}
+			if ( bigCoins == 5 )	// +1 lives and reset of bigCoins counter 
+			{	
+				lives += 1; 
+				bigCoins = 0;	
+				script_playerSounds.play_sound ( ref playerAudio, plusOneLifeSound, 0f);
+			}
+
 			script_playerSounds.play_sound ( ref playerAudio, coinSound, 0f);
 			Transform clone;
 			clone = Instantiate ( particleCoin, other.transform.position, Quaternion.identity) as Transform;
@@ -329,6 +215,7 @@ public class script_playerProperties : MonoBehaviour
 			if ( active_player_state == PlayerState.MarioLarge )
 			{
 				lives += 1;
+				PopGuiText ( "+1", otherPos );
 				script_playerSounds.play_sound ( ref playerAudio, plusOneLifeSound, 0f);
 				// Instantiate particle effect saying +1 
 			}
@@ -402,15 +289,28 @@ public class script_playerProperties : MonoBehaviour
 
 	void Addcoins ( int numCoin )
 	{
-		coins		=	coins + numCoin;
+		coins		+= numCoin;
 	}
 	
-	void AddBigCoins ( int numBigCoins )
+	void AddToTotalCoinCollected ( int CoinCollected )
 	{
-		bigCoins	=	bigCoins + numBigCoins;
+		totalCoinCollected	+= CoinCollected;
 	}
 
+	void AddBigCoins ( int bigCoin )
+	{
+		bigCoins += bigCoin;
+	}
 
+	void PopGuiText ( string scoreText, GameObject GO )
+	{
+		GameObject clone;
+		clone = (GameObject)Instantiate ( guiText, GO.transform.position, Quaternion.identity); 
+		
+		script_text cloneComponent = (script_text)clone.GetComponent(typeof(script_text));
+		
+		cloneComponent.SetScoreText(scoreText);
+	}
 
 	void UpdatePlayerState ( PlayerState playerState )
 	{

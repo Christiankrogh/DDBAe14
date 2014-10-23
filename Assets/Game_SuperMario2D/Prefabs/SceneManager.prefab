@@ -785,7 +785,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100034}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -981,7 +981,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 2
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
@@ -1085,8 +1085,7 @@ MonoBehaviour:
   coins: 0
   guiCoins: {fileID: 11400052}
   bigCoins: 0
-  guiBigCoins: {fileID: 0}
-  totalCoinsCollected: 0
+  totalCoinCollected: 0
   guiTotalCoinsCollected: {fileID: 11400050}
 --- !u!222 &22200000
 CanvasRenderer:

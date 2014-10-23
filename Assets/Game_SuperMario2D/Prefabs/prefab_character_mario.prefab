@@ -803,6 +803,7 @@ MonoBehaviour:
   marioLarge: 0
   hasFire: 0
   active_player_state: 1
+  guiText: {fileID: 100000, guid: cd7eff9b18ce7a24090d16b8c2f217fb, type: 2}
   reward_redMushRoom: {fileID: 100000, guid: 276e265c725ffc94080f69db2e1f9eaf, type: 2}
   reward_greenMushRoom: {fileID: 100000, guid: 276e265c725ffc94080f69db2e1f9eaf, type: 2}
   reward_coin: {fileID: 100000, guid: 42294085b61b62e429d4efdc109ba36d, type: 2}

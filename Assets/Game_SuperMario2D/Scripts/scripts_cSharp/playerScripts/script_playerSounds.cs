@@ -10,11 +10,12 @@ public static class script_playerSounds
 
 	public static void play_sound ( ref AudioSource soundSource, AudioClip soundName, float soundDelay)
 	{
-		if	( soundSource.isPlaying == false && Time.time > soundRate )
+		if	(  Time.time > soundRate )// soundSource.isPlaying == false &&
 		{
 			soundRate			=	Time.time + soundDelay;
 			soundSource.clip	=	soundName;
 			soundSource.Play();
+
 		}
 		
 	}

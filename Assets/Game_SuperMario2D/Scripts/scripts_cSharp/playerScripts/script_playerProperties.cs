@@ -147,6 +147,14 @@ using UnityEditor;
 
 [AddComponentMenu("Mario Clone/Actor/Player Properties Script")]
 
+public enum		PlayerState		// Placed outside class to make it accessable from anywhere
+{
+	MarioDead	=	0,														// the player is dead
+	MarioSmall	=	1,														// sets the size of the player to small
+	MarioLarge	=	2,														// ses the size of the player to large
+	MarioFire	=	3,														// enable the fireball power
+}
+
 public class script_playerProperties : MonoBehaviour
 {
 	
@@ -176,6 +184,9 @@ public class script_playerProperties : MonoBehaviour
 	public AudioClip								jumpSound;
 	public AudioClip								crouchJumpSound;
 	public AudioClip								coinSound;
+	public AudioClip								pickUpSound;
+	public AudioClip 								powerUpSound;
+	public AudioClip 								plusOneLifeSound;
 
 	public Transform								particleJump;	
 	public Transform								particleCoin;
@@ -207,19 +218,24 @@ public class script_playerProperties : MonoBehaviour
 	
 	public PlayerState								active_player_state				=	PlayerState.MarioSmall;
 	
-	
+
+	public  GameObject 								reward_redMushRoom;
+	public  GameObject 								reward_greenMushRoom;
+	public	GameObject								reward_coin;
+
+	private Animator 								anim_cube_questionMark;
+	private Animator 								anim_cube_Zspin;
+
+	private script_cube_questionMark 				cubeQuestionMark;
+	private script_cube_Zspin						cubeZspin;
+
+
 	#endregion
 	
 	
 	#region			_Properties_
 	
-	public enum		PlayerState
-	{
-		MarioDead	=	0,														// the player is dead
-		MarioSmall	=	1,														// sets the size of the player to small
-		MarioLarge	=	2,														// ses the size of the player to large
-		MarioFire	=	3,														// enable the fireball power
-	}
+
 	
 	#endregion
 	
@@ -249,8 +265,7 @@ public class script_playerProperties : MonoBehaviour
 	
 	
 	void			Shoot					()
-	{
-		
+	{	
 		float playerDirection	=	script_playerControls.moveDirection;
 		
 		Rigidbody		clone;
@@ -273,11 +288,21 @@ public class script_playerProperties : MonoBehaviour
 			
 			clone = Instantiate ( projectileFire, right_socket, player_rotation) as Rigidbody;
 			clone.AddForce		( 90, 0, 0);
-			
-			
 		}
 	}
 
+	void OnControllerColliderHit ( ControllerColliderHit col )
+	{
+		if ( col.gameObject.tag == "cubeQuestionMark" )
+		{
+			Check_cubeQuestionMark(col.gameObject);
+		}
+		
+		if ( col.gameObject.tag == "cubeZspin" )
+		{
+			Check_cubeZspin(col.gameObject);
+		}
+	}
 
 	void OnTriggerEnter ( Collider other )
 	{
@@ -298,28 +323,115 @@ public class script_playerProperties : MonoBehaviour
 			clone = Instantiate ( particleCoin, other.transform.position, Quaternion.identity) as Transform;
 			Destroy(other.gameObject);
 		}
-	}
 
+		if ( other.gameObject.tag == "redMushRoom" )
+		{
+			if ( active_player_state == PlayerState.MarioLarge )
+			{
+				lives += 1;
+				script_playerSounds.play_sound ( ref playerAudio, plusOneLifeSound, 0f);
+				// Instantiate particle effect saying +1 
+			}
 
-	void			Addcoins					( int numCoin )
-	{
-		coins	=	coins + numCoin;
-	}
-	
-	void			AddBigCoins					( int numBigCoins )
-	{
-		bigCoins	=	bigCoins + numBigCoins;
-	}
-	
-	void			change_player_state		()
-	{
-		if (changeMario == true)
-		{ 
-			SetPlayerState						();
+			//Debug.Log ( "Player picked up: " + other.gameObject.name );
+			script_playerSounds.play_sound ( ref playerAudio, powerUpSound, 0f);
+			Destroy( other.gameObject );
+			UpdatePlayerState ( PlayerState.MarioLarge );
 		}
 	}
 
-	void			SetPlayerState			()
+	void Check_cubeZspin ( GameObject gameObjectCollidedWith )
+	{
+		anim_cube_Zspin 	= gameObjectCollidedWith.gameObject.GetComponent<Animator>();
+		cubeZspin 			= gameObjectCollidedWith.GetComponent<script_cube_Zspin>();
+		Vector3 goPos 		= gameObjectCollidedWith.transform.position;
+
+		GameObject clone;
+
+		if ( cubeZspin.rewardCoin && reward_coin != null && !cubeZspin.zSpin )
+		{
+			Addcoins( 1 );
+			script_playerSounds.play_sound ( ref playerAudio, coinSound, 0f);
+			clone = Instantiate ( reward_coin, goPos + new Vector3(0f, 1.6f, 0f), Quaternion.identity) as GameObject; 
+			cubeZspin.rewardCoin = false;
+		}
+
+		if ( cubeZspin.staticForm )
+		{
+			anim_cube_Zspin.SetBool("shouldSpin", false);
+			anim_cube_Zspin.SetBool("shouldPop", true);
+		}
+
+		if ( cubeZspin.zSpin )
+		{
+			anim_cube_Zspin.SetBool("shouldPop", false);
+			anim_cube_Zspin.SetBool("shouldSpin", true);
+			gameObjectCollidedWith.transform.parent.GetComponent<BoxCollider>().enabled = false;
+			gameObjectCollidedWith.gameObject.GetComponent<BoxCollider>().enabled 		= false;
+		}
+		
+	}
+
+
+	void Check_cubeQuestionMark ( GameObject gameObjectCollidedWith )
+	{
+		anim_cube_questionMark = gameObjectCollidedWith.gameObject.GetComponent<Animator>();
+		anim_cube_questionMark.SetBool("shouldPop", true);
+
+		cubeQuestionMark 	= gameObjectCollidedWith.GetComponent<script_cube_questionMark>();
+		Vector3 goPos 		= gameObjectCollidedWith.transform.position;
+		GameObject clone;
+		
+		if ( cubeQuestionMark.rewardRedMushroom )	// Red Mushroom
+		{
+			script_playerSounds.play_sound ( ref playerAudio, pickUpSound, 0f);
+
+			clone = Instantiate ( reward_redMushRoom, goPos + new Vector3(0f, 1.6f, 0f), Quaternion.identity) as GameObject; 
+
+			cubeQuestionMark.rewardRedMushroom = false;
+		}
+		if ( cubeQuestionMark.rewardGreenMushroom )	// Green Mushroom
+		{
+			script_playerSounds.play_sound ( ref playerAudio, pickUpSound, 0f);
+
+			clone = Instantiate ( reward_greenMushRoom, goPos + new Vector3(0f, 1.6f, 10), Quaternion.identity) as GameObject; 
+
+			cubeQuestionMark.rewardGreenMushroom = false;
+		}
+	}
+
+	void Addcoins ( int numCoin )
+	{
+		coins		=	coins + numCoin;
+	}
+	
+	void AddBigCoins ( int numBigCoins )
+	{
+		bigCoins	=	bigCoins + numBigCoins;
+	}
+
+
+
+	void UpdatePlayerState ( PlayerState playerState )
+	{
+		active_player_state = playerState;
+
+		changeMario = true;
+
+		change_player_state();
+
+		SetPlayerState ();
+	}
+
+	public void change_player_state()
+	{
+		if (changeMario == true)
+		{ 
+			SetPlayerState();
+		}
+	}
+
+	public void	SetPlayerState ()
 	{
 		
 		switch ( active_player_state )
@@ -391,7 +503,8 @@ public class script_playerProperties : MonoBehaviour
 	{
 		return this.crouchJumpSound;
 	}
-	
+
+
 }
 
 

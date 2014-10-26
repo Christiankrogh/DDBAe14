@@ -374,7 +374,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.07390022, z: -10}
+  m_LocalPosition: {x: 0, y: 10.9639997, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400020}
@@ -390,7 +390,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100024}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.08999999e-13, y: -4.76839978e-06, z: -20}
+  m_LocalPosition: {x: 2.90999999e-13, y: -6.63299988e-06, z: -27.8209991}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -500,7 +500,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .968627453, g: .874509811, b: .686274529, a: .552941203}
+  m_BackGroundColor: {r: .0627451017, g: .466666669, b: .749019623, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -914,7 +914,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 5.92000008
   m_Radius: 1.72000003
-  m_SlopeLimit: 45
+  m_SlopeLimit: 60
   m_StepOffset: 0
   m_SkinWidth: .0799999982
   m_MinMoveDistance: 0

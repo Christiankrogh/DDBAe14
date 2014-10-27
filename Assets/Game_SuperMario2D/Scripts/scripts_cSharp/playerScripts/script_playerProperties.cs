@@ -151,6 +151,8 @@ public class script_playerProperties : MonoBehaviour
 
 	void OnControllerColliderHit ( ControllerColliderHit col )
 	{
+		GameObject otherPos = col.gameObject;
+
 		if ( col.gameObject.tag == "cubeQuestionMark" )
 		{
 			Check_cubeQuestionMark(col.gameObject);
@@ -160,12 +162,39 @@ public class script_playerProperties : MonoBehaviour
 		{
 			Check_cubeZspin(col.gameObject);
 		}
+
+		if ( col.gameObject.tag == "enemyCannonBall" )
+		{
+			Debug.Log ("Hit by: " + col.gameObject.name + " - Mario is dead!" );
+		}
+
+		if ( col.gameObject.tag == "enemyDragon" )
+		{
+			Debug.Log ("Hit by: " + col.gameObject.name + " - Mario is dead!" );
+		}
+
+		if ( col.gameObject.tag == "enemyDragonHead" )
+		{
+			Debug.Log ("Mario killed dragon!" );
+
+			Addcoins(200);
+			PopGuiText ( "+200", otherPos );
+
+			script_enemyDragon otherDragon = col.gameObject.transform.parent.transform.GetComponent<script_enemyDragon>();
+			otherDragon.dragonDead = true;
+		}
+
+		if ( col.gameObject.tag == "enemyEvilPlant" )
+		{
+			Debug.Log ("Hit by: " + col.gameObject.name + " - Mario is dead!" );
+		}
 	}
+
 
 	void OnTriggerEnter ( Collider other )
 	{
 		GameObject otherPos = other.gameObject;
-
+		
 		if ( other.tag == "coin" )
 		{
 			Addcoins(1);

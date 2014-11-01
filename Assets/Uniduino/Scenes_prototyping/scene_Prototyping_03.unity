@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee80ba8b4c5bd46839658bcfeb780748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PortName: COM3
+  PortName: COM4
   Baud: 57600
   RebootDelay: 3
   AutoConnect: 1
@@ -255,7 +255,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 03059d74359318b4eb4a4159eda12c4d, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 03059d74359318b4eb4a4159eda12c4d, type: 2}
@@ -277,7 +277,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &768755111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,7 +429,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 7f79e7ab35c4d4ab4b6ccd9f24ecc815, type: 2}
       propertyPath: PortName
-      value: COM3
+      value: COM4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7f79e7ab35c4d4ab4b6ccd9f24ecc815, type: 2}

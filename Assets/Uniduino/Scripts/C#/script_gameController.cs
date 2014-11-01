@@ -5,30 +5,45 @@ using Uniduino;
 public class script_gameController : MonoBehaviour 
 {
 	private Arduino arduino;
+			int 	commandRotation 		= 0;
+			bool 	changeCommand 			= true;
+
 
 	#region LED'pins' 		
 
-	const 	int 	GREEN 				= 9;
-	const 	int 	BLUE  				= 10;
-	const 	int 	RED   				= 11;
+	const 	int 	led_01_red				= 50;
+	const 	int 	led_01_green			= 51;
+	const 	int 	led_01_blue				= 52;
+
+	const 	int 	led_02_red				= 42;
+	const 	int 	led_02_green			= 43;
+	const 	int 	led_02_blue				= 44;
+
+	const 	int 	led_03_red				= 34;
+	const 	int 	led_03_green			= 35;
+	const 	int 	led_03_blue				= 36;
+
+	const 	int 	led_04_red				= 26;
+	const 	int 	led_04_green			= 27;
+	const 	int 	led_04_blue				= 28;
 
 	#endregion
 
 	#region Button'pins' 	[ControlPad]
 
-	const 	int 	button_up 			= 12;						// the number of the pushbutton pin
-	const 	int 	button_down			= 2;
-	const 	int 	button_left			= 3;
-	const 	int 	button_right		= 4;
+	const 	int 	button_up 			= 10;						// the number of the pushbutton pin
+	const 	int 	button_down			= 12;
+	const 	int 	button_left			= 5;
+	const 	int 	button_right		= 6;
 
 	#endregion
 
 	#region Button'pins' 	[Actions]
 
-	const 	int 	button_A 			= 5;
-	const 	int 	button_B 			= 6;
-	const 	int 	button_X 			= 7;
-	const 	int 	button_Y 			= 8;
+	const 	int 	button_A 			= 7;
+	const 	int 	button_B 			= 2;
+	const 	int 	button_X 			= 3;
+	const 	int 	button_Y 			= 4;
 
 	#endregion
 
@@ -49,9 +64,21 @@ public class script_gameController : MonoBehaviour
 
 	void ConfigurePins()											// In here we can define what each pin does
 	{
-		arduino.pinMode (GREEN			, 	PinMode.OUTPUT);			// Sends stuff to pin 13 on the arduino board. In this case it sends a 'output'
-		arduino.pinMode (BLUE			,  	PinMode.OUTPUT);
-		arduino.pinMode (RED			, 	PinMode.OUTPUT);
+		arduino.pinMode (led_01_green	, 	PinMode.OUTPUT);			// Sends stuff to pin 13 on the arduino board. In this case it sends a 'output'
+		arduino.pinMode (led_01_blue	,  	PinMode.OUTPUT);
+		arduino.pinMode (led_01_red		, 	PinMode.OUTPUT);
+
+		arduino.pinMode (led_02_green	, 	PinMode.OUTPUT);			
+		arduino.pinMode (led_02_blue	,  	PinMode.OUTPUT);
+		arduino.pinMode (led_02_red		, 	PinMode.OUTPUT);
+
+		arduino.pinMode (led_03_green	, 	PinMode.OUTPUT);			
+		arduino.pinMode (led_03_blue	,  	PinMode.OUTPUT);
+		arduino.pinMode (led_03_red		, 	PinMode.OUTPUT);
+
+		arduino.pinMode (led_04_green	, 	PinMode.OUTPUT);			
+		arduino.pinMode (led_04_blue	,  	PinMode.OUTPUT);
+		arduino.pinMode (led_04_red		, 	PinMode.OUTPUT);
 
 		arduino.pinMode (button_up		,  	PinMode.INPUT);				// Sends stuff to pin 13 on the arduino board. In this case it sends a 'output'
 		arduino.pinMode (button_down	,  	PinMode.INPUT);	
@@ -85,14 +112,78 @@ public class script_gameController : MonoBehaviour
 	{
 		arduino = Arduino.global;									// Searches for the one and only Arduino connected to Unity
 		arduino.Setup (ConfigurePins);								// Set up pins
+
+		SetColor ( 1, "Red" 	);	
+		SetColor ( 2, "Yellow"	);
+		SetColor ( 3, "Blue" 	);	
+		SetColor ( 4, "Green" 	);	
 	}
 
 
 	void Update () 													// Checks for button'pushes
 	{
 		CheckButtonState ();
+
 	}
 
+
+	void ChangeCommand ( )	// function which return int value
+	{
+		if ( changeCommand )
+		{
+			commandRotation += 1;
+			changeCommand 	 = false;
+		}
+
+		// CommandRotation Reset
+		if ( commandRotation > 4 )
+		{
+			 commandRotation = 1;
+		}
+
+		// Command specifications 
+		if ( commandRotation == 1 )
+		{
+			// CharacterAction = run 
+
+			SetColor ( 1, "Yellow" );	
+			SetColor ( 2, "Green" );
+			SetColor ( 3, "Blue" );	
+			SetColor ( 4, "Red" );	
+
+		}
+		if ( commandRotation == 2 )
+		{	
+			// CharacterAction = jump 
+
+			SetColor ( 2, "Yellow" );	
+			SetColor ( 3, "Green" );
+			SetColor ( 4, "Blue" );	
+			SetColor ( 1, "Red" );
+
+		}
+		if ( commandRotation == 3 )
+		{	
+			// CharacterAction = ?? 
+
+			SetColor ( 3, "Yellow" );	
+			SetColor ( 4, "Green" );
+			SetColor ( 1, "Blue" );	
+			SetColor ( 2, "Red" );	
+
+		}
+		if ( commandRotation == 4 )
+		{	
+			// CharacterAction = ?? 
+
+			SetColor ( 4, "Yellow" );	
+			SetColor ( 1, "Green" );
+			SetColor ( 2, "Blue" );	
+			SetColor ( 3, "Red" );
+
+		}
+	}
+	
 
 	void CheckButtonState ()
 	{
@@ -113,102 +204,115 @@ public class script_gameController : MonoBehaviour
 		if ( buttom_up_state == Arduino.HIGH ) 
 		{	
 			Debug.Log ( "buttom_up [pressed]" );
-			SetColor ("Green");		
+
+			// No Color attached 		
 		}
 		else 	
 		{	
-			SetColor ("Red");		
+			// No Color attached 		
 		}
 		#endregion
 
 		#region Button_down
-		if 		( button_down_state == Arduino.HIGH ) 
+		if ( button_down_state == Arduino.HIGH ) 
 		{	
 			Debug.Log ( "buttom_down [pressed]" );
-			SetColor ("Green");		
+
+			// No Color attached 		
 		}
 		else 	
 		{	
-			SetColor ("Red");		
+			// No Color attached 		
 		}
 		#endregion
 
 		#region Button_left
-		if 		( button_left_state == Arduino.HIGH ) 
+		if ( button_left_state == Arduino.HIGH ) 
 		{	
 			Debug.Log ( "buttom_left [pressed]" );
-			SetColor ("Green");		
+
+			// No Color attached 		
 		}
 		else 	
 		{	
-			SetColor ("Red");		
+			// No Color attached 		
 		}
 		#endregion
 
 		#region Button_right
-		if 		( button_right_state == Arduino.HIGH ) 
+		if ( button_right_state == Arduino.HIGH ) 
 		{	
 			Debug.Log ( "buttom_right [pressed]" );
-			SetColor ("Green");		
+
+			// No Color attached 	
 		}
 		else 	
 		{	
-			SetColor ("Red");		
+			// No Color attached 	
 		}
 		#endregion
+	
+		if ( button_A_state == Arduino.LOW && button_B_state == Arduino.LOW && button_X_state == Arduino.LOW	&& button_Y_state == Arduino.LOW )
+		{
+			changeCommand = true;
+		}
 
 		#region Button_A
-		if 		( button_A_state == Arduino.HIGH ) 
+		if ( button_A_state == Arduino.HIGH 	||	Input.GetKey( KeyCode.A )	 ) 
 		{	
 			Debug.Log ( "buttom_A [pressed]" );
-			SetColor ("Green");		
+
+			ChangeCommand ();
 		}
 		else 	
 		{	
-			SetColor ("Red");		
+		
 		}
 		#endregion
 
 		#region Button_B
-		if 		( button_B_state == Arduino.HIGH ) 
+		if ( button_B_state == Arduino.HIGH		||	Input.GetKey( KeyCode.Q ) ) 
 		{	
 			Debug.Log ( "buttom_B [pressed]" );
-			SetColor ("Green");		
+
+			ChangeCommand ();
 		}
 		else 	
 		{	
-			SetColor ("Red");		
+	
 		}
 		#endregion
 
 		#region Button_X
-		if 		( button_X_state == Arduino.HIGH ) 
+		if ( button_X_state == Arduino.HIGH		||	Input.GetKey( KeyCode.W ) ) 
 		{	
 			Debug.Log ( "buttom_X [pressed]" );
-			SetColor ("Green");		
+
+			ChangeCommand ();		
 		}
 		else 	
 		{	
-			SetColor ("Red");		
+	
 		}
 		#endregion
 
 		#region Button_Y
-		if 		( button_Y_state == Arduino.HIGH ) 
+		if ( button_Y_state == Arduino.HIGH		||	Input.GetKey( KeyCode.S ) ) 
 		{	
 			Debug.Log ( "buttom_Y [pressed]" );
-			SetColor ("Green");		
+
+			ChangeCommand ();		
 		}
 		else 	
 		{	
-			SetColor ("Red");		
+	
 		}
 		#endregion
 
 	}
 
 
-	public void SetColor ( string colorName )
+	public void SetColor ( int ledIndex, string colorName )
 	{
 		int redVal 		= 0;
 		int blueVal 	= 0;
@@ -235,8 +339,8 @@ public class script_gameController : MonoBehaviour
 		if ( colorName == "Yellow" )
 		{
 			redVal    = 255;
-			blueVal   = 0;
-			greenVal  = 255;
+			blueVal   = 255;
+			greenVal  = 0;
 		}
 		if ( colorName == "Off" )
 		{
@@ -244,11 +348,55 @@ public class script_gameController : MonoBehaviour
 			blueVal   = 0;
 			greenVal  = 0;
 		}
-	
-		arduino.digitalWrite( RED  , 255 - redVal   );
-		arduino.digitalWrite( BLUE , 255 - blueVal  );
-		arduino.digitalWrite( GREEN, 255 - greenVal );
+
+		if ( ledIndex == 1 )										// Maps the physical placement of the LEDs to a index number
+		{
+			arduino.digitalWrite( led_01_red  , 255 - redVal   );	
+			arduino.digitalWrite( led_01_blue , 255 - blueVal  );	
+			arduino.digitalWrite( led_01_green, 255 - greenVal );	
+		}
+
+		if ( ledIndex == 2 )
+		{
+			arduino.digitalWrite( led_02_red  , 255 - redVal   );
+			arduino.digitalWrite( led_02_blue , 255 - blueVal  );
+			arduino.digitalWrite( led_02_green, 255 - greenVal );
+		}
+
+		if ( ledIndex == 3 )
+		{
+			arduino.digitalWrite( led_03_red  , 255 - redVal   );
+			arduino.digitalWrite( led_03_blue , 255 - blueVal  );
+			arduino.digitalWrite( led_03_green, 255 - greenVal );
+		}
+
+		if ( ledIndex == 4 )
+		{
+			arduino.digitalWrite( led_04_red  , 255 - redVal   );
+			arduino.digitalWrite( led_04_blue , 255 - blueVal  );
+			arduino.digitalWrite( led_04_green, 255 - greenVal );
+		}
+
 	}
-	
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

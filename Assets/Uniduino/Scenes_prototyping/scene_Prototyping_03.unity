@@ -121,6 +121,7 @@ MonoBehaviour:
   button_B_state: 0
   button_X_state: 0
   button_Y_state: 0
+  canJump: 0
 --- !u!1 &226581026
 GameObject:
   m_ObjectHideFlags: 0

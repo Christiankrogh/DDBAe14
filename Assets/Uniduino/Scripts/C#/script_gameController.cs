@@ -40,10 +40,10 @@ public class script_gameController : MonoBehaviour
 
 	#region Button'pins' 	[Actions]
 
-	const 	int 	button_A 			= 7;
-	const 	int 	button_B 			= 2;
+	const 	int 	button_B 			= 7;
+	const 	int 	button_Y 			= 2;
 	const 	int 	button_X 			= 3;
-	const 	int 	button_Y 			= 4;
+	const 	int 	button_A 			= 4;
 
 	#endregion
 
@@ -106,17 +106,13 @@ public class script_gameController : MonoBehaviour
 		// The seconds number in the parameters (1) is the enabled option. 1 = on, 0 = off
 		#endregion
 	}
-	
+
+
 
 	void Start () 
 	{
 		arduino = Arduino.global;									// Searches for the one and only Arduino connected to Unity
 		arduino.Setup (ConfigurePins);								// Set up pins
-
-		SetColor ( 1, "Red" 	);	
-		SetColor ( 2, "Yellow"	);
-		SetColor ( 3, "Blue" 	);	
-		SetColor ( 4, "Green" 	);	
 	}
 
 
@@ -124,10 +120,17 @@ public class script_gameController : MonoBehaviour
 	{
 		CheckButtonState ();
 
+		if ( commandRotation == 0 )
+		{
+			SetColor ( 1, "Yellow" 	);	
+			SetColor ( 2, "Green" 	);
+			SetColor ( 3, "Blue" 	);	
+			SetColor ( 4, "Red" 	);	
+		}
 	}
 
 
-	void ChangeCommand ( )	// function which return int value
+	void ChangeCommand ()	// function which return int value
 	{
 		if ( changeCommand )
 		{
@@ -136,54 +139,89 @@ public class script_gameController : MonoBehaviour
 		}
 
 		// CommandRotation Reset
-		if ( commandRotation > 4 )
+		if ( commandRotation == 4 )
 		{
-			 commandRotation = 1;
+			 commandRotation = 0;
 		}
+
+		//////////////////////////////////////////////////////
+
+		// button_1 = yellow
+		// button_2 = green
+		// button_3 = blue
+		// button_4 = red
+
+		button_1_run  = false;
+		button_2_run  = false;
+		button_3_run  = false;
+		button_4_run  = false;
+
+		button_1_jump = false;
+		button_2_jump = false;
+		button_3_jump = false;
+		button_4_jump = false;
 
 		// Command specifications 
-		if ( commandRotation == 1 )
+		if ( commandRotation == 0 )
 		{
-			// CharacterAction = run 
+			button_1_run  = true;
+			button_2_jump = true;
 
-			SetColor ( 1, "Yellow" );	
-			SetColor ( 2, "Green" );
-			SetColor ( 3, "Blue" );	
-			SetColor ( 4, "Red" );	
-
+			SetColor ( 1, "Yellow" 	);	
+			SetColor ( 2, "Green" 	);
+			SetColor ( 3, "Blue" 	);	
+			SetColor ( 4, "Red" 	);	
 		}
+
+		if ( commandRotation == 1 )
+		{	
+			button_2_run  = true;
+			button_3_jump = true;
+
+			SetColor ( 1, "Red" 	);	
+			SetColor ( 2, "Yellow" 	);
+			SetColor ( 3, "Green" 	);	
+			SetColor ( 4, "Blue" 	);
+		}
+
 		if ( commandRotation == 2 )
 		{	
-			// CharacterAction = jump 
+			button_3_run  = true;
+			button_4_jump = true;
 
-			SetColor ( 2, "Yellow" );	
-			SetColor ( 3, "Green" );
-			SetColor ( 4, "Blue" );	
-			SetColor ( 1, "Red" );
-
+			SetColor ( 1, "Blue" 	);	
+			SetColor ( 2, "Red" 	);
+			SetColor ( 3, "Yellow" 	);	
+			SetColor ( 4, "Green" 	);	
 		}
+
 		if ( commandRotation == 3 )
 		{	
-			// CharacterAction = ?? 
+			button_4_run  = true;
+			button_1_jump = true;
 
-			SetColor ( 3, "Yellow" );	
-			SetColor ( 4, "Green" );
-			SetColor ( 1, "Blue" );	
-			SetColor ( 2, "Red" );	
-
-		}
-		if ( commandRotation == 4 )
-		{	
-			// CharacterAction = ?? 
-
-			SetColor ( 4, "Yellow" );	
-			SetColor ( 1, "Green" );
-			SetColor ( 2, "Blue" );	
-			SetColor ( 3, "Red" );
-
+			SetColor ( 1, "Green" 	);	
+			SetColor ( 2, "Blue" 	);
+			SetColor ( 3, "Red" 	);	
+			SetColor ( 4, "Yellow"	);
 		}
 	}
-	
+
+	bool button_1_run 			= false;
+	bool button_2_run 			= false;
+	bool button_3_run 			= false;
+	bool button_4_run 			= false;
+
+	bool button_2_jump 			= false;
+	bool button_3_jump 			= false;
+	bool button_4_jump			= false;
+	bool button_1_jump 			= false;
+
+	public bool canJump 		= false;
+	public bool canRun 			= false;
+
+	public int move_Horizontal 	= 0;
+	public int move_Vertical 	= 0;
 
 	void CheckButtonState ()
 	{
@@ -200,112 +238,132 @@ public class script_gameController : MonoBehaviour
 
 		#endregion
 
-		#region Buttom_up
+		#region Button up & down
+		if ( buttom_up_state == Arduino.LOW && button_down_state == Arduino.LOW )
+		{
+			move_Vertical = 0;
+		}
+
 		if ( buttom_up_state == Arduino.HIGH ) 
 		{	
 			Debug.Log ( "buttom_up [pressed]" );
 
-			// No Color attached 		
+			move_Vertical = 1;
 		}
-		else 	
-		{	
-			// No Color attached 		
-		}
-		#endregion
 
-		#region Button_down
 		if ( button_down_state == Arduino.HIGH ) 
 		{	
 			Debug.Log ( "buttom_down [pressed]" );
 
-			// No Color attached 		
-		}
-		else 	
-		{	
-			// No Color attached 		
+			move_Vertical = -1;		
 		}
 		#endregion
 
-		#region Button_left
+		#region Button left & right
+		if ( button_left_state == Arduino.LOW && button_right_state == Arduino.LOW )
+		{
+			move_Horizontal = 0;
+		}
+
+
 		if ( button_left_state == Arduino.HIGH ) 
 		{	
 			Debug.Log ( "buttom_left [pressed]" );
 
-			// No Color attached 		
+			move_Horizontal = 1;	
 		}
-		else 	
-		{	
-			// No Color attached 		
-		}
-		#endregion
-
-		#region Button_right
+	
 		if ( button_right_state == Arduino.HIGH ) 
 		{	
 			Debug.Log ( "buttom_right [pressed]" );
-
-			// No Color attached 	
-		}
-		else 	
-		{	
-			// No Color attached 	
+	
+			move_Horizontal = -1;
 		}
 		#endregion
 	
 		if ( button_A_state == Arduino.LOW && button_B_state == Arduino.LOW && button_X_state == Arduino.LOW	&& button_Y_state == Arduino.LOW )
 		{
-			changeCommand = true;
-		}
+			changeCommand 	= true;
 
-		#region Button_A
-		if ( button_A_state == Arduino.HIGH 	||	Input.GetKey( KeyCode.A )	 ) 
-		{	
-			Debug.Log ( "buttom_A [pressed]" );
-
-			ChangeCommand ();
 		}
-		else 	
-		{	
-		
+		if ( !button_1_jump || !button_2_jump || !button_3_jump || !button_4_jump )
+		{
+			canJump 		= false;
 		}
-		#endregion
+		if ( !button_1_run || !button_2_run || !button_3_run || !button_4_run )
+		{
+			canRun 			= false;
+		}
 
 		#region Button_B
 		if ( button_B_state == Arduino.HIGH		||	Input.GetKey( KeyCode.Q ) ) 
 		{	
-			Debug.Log ( "buttom_B [pressed]" );
-
+			//Debug.Log ( "buttom_B (1) [pressed]" );
 			ChangeCommand ();
-		}
-		else 	
-		{	
-	
-		}
-		#endregion
+			
+			if ( button_1_run )
+			{
+				canRun = true;
+			}
 
-		#region Button_X
-		if ( button_X_state == Arduino.HIGH		||	Input.GetKey( KeyCode.W ) ) 
-		{	
-			Debug.Log ( "buttom_X [pressed]" );
-
-			ChangeCommand ();		
-		}
-		else 	
-		{	
-	
+			if ( button_1_jump )
+			{
+				canJump = true;
+			}
 		}
 		#endregion
 
 		#region Button_Y
 		if ( button_Y_state == Arduino.HIGH		||	Input.GetKey( KeyCode.S ) ) 
 		{	
-			Debug.Log ( "buttom_Y [pressed]" );
+			//Debug.Log ( "buttom_Y (2) [pressed]" );
+			ChangeCommand ();	
+			
+			if ( button_2_run )
+			{
+				canRun = true;
+			}
 
-			ChangeCommand ();		
+			if ( button_2_jump )
+			{
+				canJump = true;
+			}
 		}
-		else 	
+		#endregion
+
+		#region Button_X
+		if ( button_X_state == Arduino.HIGH		||	Input.GetKey( KeyCode.W ) ) 
 		{	
-	
+			//Debug.Log ( "buttom_X [pressed]" );
+			ChangeCommand ();	
+			
+			if ( button_3_run )
+			{
+				canRun = true;
+			}
+
+			if ( button_3_jump )
+			{
+				canJump = true;
+			}
+		}
+		#endregion
+
+		#region Button_A
+		if ( button_A_state == Arduino.HIGH 	||	Input.GetKey( KeyCode.A )	 ) 
+		{	
+			//Debug.Log ( "buttom_A [pressed]" );
+			ChangeCommand ();
+
+			if ( button_4_run )
+			{
+				canRun = true;
+			}
+
+			if ( button_4_jump )
+			{
+				canJump = true;
+			}
 		}
 		#endregion
 

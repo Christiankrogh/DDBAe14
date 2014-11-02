@@ -3,16 +3,24 @@ using System.Collections;
 
 public  class script_playerMovement : MonoBehaviour
 {
-	static float				runSpeed					= script_playerProperties.runSpeed;
-	static float				walkSpeed					= script_playerProperties.walkSpeed;
+	static float					runSpeed					= script_playerProperties.runSpeed;
+	static float					walkSpeed					= script_playerProperties.walkSpeed;
 	
-	static float				walkJump					= script_playerProperties.walkJump;                     					// jump height from walk    
-	static float				runJump						= script_playerProperties.runJump;                     					// jump height from run
-	static float				crouchJump					= script_playerProperties.crouchJump; 
-	static float				gravity						= script_playerProperties.gravity;
-	static float				fallSpeed					= script_playerProperties.fallSpeed;
-	static float				collision_repel_above		= script_playerProperties.collision_repel_above;
-	
+	static float					walkJump					= script_playerProperties.walkJump;                     					// jump height from walk    
+	static float					runJump						= script_playerProperties.runJump;                     					// jump height from run
+	static float					crouchJump					= script_playerProperties.crouchJump; 
+	static float					gravity						= script_playerProperties.gravity;
+	static float					fallSpeed					= script_playerProperties.fallSpeed;
+	static float					collision_repel_above		= script_playerProperties.collision_repel_above;
+
+	static script_gameController	gameController;
+
+
+	void Update()
+	{
+		gameController = GetComponent<script_gameController>();
+	}
+
 	#region						Player Movement Functions
 
 	public static void run_movement ( ref Vector3 velocity)
@@ -23,13 +31,13 @@ public  class script_playerMovement : MonoBehaviour
 	public static void set_player_direction ( ref Vector3 velocity, ref int moveDirection)
 	{
 		//the player character is facing the right
-		if (velocity.x > 0)
+		if ( velocity.x > 0 )
 		{
 			moveDirection = 1;
 		}
 		
 		//the player character is facing the left
-		if (velocity.x < 0)
+		if (velocity.x < 0 )
 		{
 			moveDirection = -1;
 		}
@@ -39,7 +47,8 @@ public  class script_playerMovement : MonoBehaviour
 	{
 		if ( playerController.isGrounded == true )
 		{
-			velocity            =   new Vector3(Input.GetAxis("Horizontal"), 0,  0 );
+			//velocity            =   new Vector3(Input.GetAxis("Horizontal"), 0,  0 );
+			velocity			=   new Vector3 ( gameController.move_Horizontal, 0, 0 );
 			velocity            =   playerController.transform.TransformDirection(velocity);
 			velocity.x          =   velocity.x * walkSpeed; 
 		}
@@ -47,7 +56,7 @@ public  class script_playerMovement : MonoBehaviour
 	
 	public static void set_player_air_velocity ( ref Vector3 velocity, ref CharacterController playerController )
 	{	
-		if ( Input.GetButton ("Fire1"))
+		if ( Input.GetButton ("Fire1") )//|| gameController.canRun )
 		{	
 			velocity.x          =   -Input.GetAxis("Horizontal") * 8.0f;//runSpeed;
 		}				
@@ -75,10 +84,10 @@ public  class script_playerMovement : MonoBehaviour
 	public static void jump_movement (ref Vector3 velocity)
 	{				
 		script_playerControls.in_a_jump			=		true;
-		if		( Input.GetButton( "Fire1" ))																		// player does a run jump
+		if ( Input.GetButton( "Fire1" ) || gameController.canJump )																		// player does a run jump
 		{	
 			velocity.y  =		runJump;
-			velocity.x  =		crouchJump * Input.GetAxis ("Horizontal");										// the run jump moves faster in the x direction than the other jumps
+			velocity.x  =		crouchJump * gameController.move_Horizontal;//Input.GetAxis ("Horizontal");										// the run jump moves faster in the x direction than the other jumps
 		}
 		else
 		{	
@@ -99,7 +108,7 @@ public  class script_playerMovement : MonoBehaviour
 
 	public static void walk_movement ( ref Vector3 velocity )
 	{
-		if (Input.GetAxis ("Horizontal") != 0)																		// sets player animation to walk left
+		if ( gameController.move_Horizontal != 0 )//Input.GetAxis ("Horizontal") != 0 )																		// sets player animation to walk left
 		{
 			velocity.x		=	velocity.x * walkSpeed;															// player moves left based on walk speed
 		}

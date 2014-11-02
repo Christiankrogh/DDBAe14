@@ -253,6 +253,7 @@ public class script_playerControls : MonoBehaviour
 	#endregion
 	
 	static 			script_playerProperties playerProps;
+	static			script_gameController	gameController;
 	
 	#endregion
 	
@@ -264,11 +265,12 @@ public class script_playerControls : MonoBehaviour
 		CharacterController playerController		=		GetComponent<CharacterController>	 ();
 		AudioSource			playerAudio				=		GetComponent<AudioSource>			 ();
 		playerProps									=		GetComponent<script_playerProperties>();
-			
+		gameController								=		GetComponent<script_gameController>	 ();		
+
 		player_actions											( ref playerController, ref playerAudio );
 		
-		script_playerMovement.player_acceleration_from_gravity			( ref velocity, ref playerController);
-		script_playerMovement.set_player_direction						( ref velocity, ref moveDirection);
+		script_playerMovement.player_acceleration_from_gravity	( ref velocity, ref playerController);
+		script_playerMovement.set_player_direction				( ref velocity, ref moveDirection);
 		
 		playerController.Move									( velocity * Time.deltaTime );
 	}
@@ -313,18 +315,20 @@ public class script_playerControls : MonoBehaviour
 	
 	static void	jump_action	( ref CharacterController playerController, ref AudioSource playerAudio )
 	{
-		if ( Input.GetButton( "Jump" ))															// controls which type of jump the player character will execute
+		if ( Input.GetButton( "Jump" ) || gameController.canJump )															// controls which type of jump the player character will execute
 		{				
 			script_playerMovement.jump_movement		( ref velocity);
 			script_playerAnimation.jump_animation	( ref playerController, ref velocity, moveDirection);
 			script_playerSounds.use_jump_audio		( ref playerAudio, playerProps.jumpSound, playerProps.crouchJumpSound, ref velocity);
 			jump_particle							( playerController );
+
+			//gameController.canJump = false;
 		}
 	}
 	
 	static void	run_action ( ref CharacterController playerController, ref AudioSource playerAudio )
 	{
-		if ( velocity.x != 0  && Input.GetButton ("Fire1") )										// sets player animation to run left()
+		if ( velocity.x != 0 && Input.GetButton ("Fire1") || velocity.x != 0 && gameController.canRun )										// sets player animation to run left()
 		{
 			script_playerMovement.run_movement			( ref velocity );
 			script_playerAnimation.run_animation		( ref playerController, ref velocity );
@@ -335,7 +339,7 @@ public class script_playerControls : MonoBehaviour
 	{
 		if	( velocity.x == 0 && Input.GetAxis ("Vertical") < 0)
 		{
-			script_playerMovement.crouch_movement		( ref velocity);
+			script_playerMovement.crouch_movement	( ref velocity);
 			script_playerAnimation.crouch_animation	( ref playerController, ref velocity, moveDirection);
 		}
 	}
@@ -350,7 +354,7 @@ public class script_playerControls : MonoBehaviour
 	
 	static void	walk_action								( ref CharacterController playerController, ref AudioSource playerAudio )
 	{
-		if (velocity.x != 0 && velocity.y == 0 && Input.GetButton ("Fire1") == false)																		// sets player animation to walk left
+		if (velocity.x != 0 && velocity.y == 0 && Input.GetButton ("Fire1") == false && !gameController.canRun )																		// sets player animation to walk left
 		{
 			script_playerMovement.walk_movement			( ref velocity);
 			script_playerAnimation.walk_animation		( ref playerController, ref velocity);

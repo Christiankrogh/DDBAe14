@@ -228,6 +228,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &100026
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400026}
+  - 114: {fileID: 11400012}
+  m_Layer: 0
+  m_Name: Uniduino
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -258,6 +274,7 @@ Transform:
   m_Children:
   - {fileID: 400000}
   - {fileID: 400022}
+  - {fileID: 400026}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &400004
@@ -396,6 +413,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400000}
   m_RootOrder: 5
+--- !u!4 &400026
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100026}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400002}
+  m_RootOrder: 2
 --- !u!20 &2000000
 Camera:
   m_ObjectHideFlags: 1
@@ -882,15 +911,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a268c01896616a14f9f6a1cfa933e7ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttom_up_state: 0
-  button_down_state: 0
-  button_left_state: 0
-  button_right_state: 0
-  button_A_state: 0
-  button_B_state: 0
-  button_X_state: 0
-  button_Y_state: 0
-  canJump: 0
+  led_01_red: 50
+  led_01_green: 51
+  led_01_blue: 52
+  led_02_red: 42
+  led_02_green: 43
+  led_02_blue: 44
+  led_03_red: 34
+  led_03_green: 35
+  led_03_blue: 36
+  led_04_red: 26
+  led_04_green: 27
+  led_04_blue: 28
+  button_up: 10
+  button_down: 12
+  button_left: 5
+  button_right: 6
+  button_B: 7
+  button_Y: 2
+  button_X: 3
+  button_A: 4
+  indexArray: 
+--- !u!114 &11400012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee80ba8b4c5bd46839658bcfeb780748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PortName: COM4
+  Baud: 57600
+  RebootDelay: 3
+  AutoConnect: 1
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1

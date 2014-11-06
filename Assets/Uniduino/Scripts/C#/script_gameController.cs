@@ -1,67 +1,82 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Uniduino;
 
+#region Description
+	// Note: To change the layout of the variables in this class, edit the editorScript called: script_customInspector_gameControllerScript
+#endregion
+
+//[ExecuteInEditMode] 
 public class script_gameController : MonoBehaviour 
 {
-	private Arduino arduino;
-			int 	commandRotation 		= 0;
-			bool 	changeCommand 			= true;
+	private 		Arduino 	arduino;
+					int 		commandRotation 		= 0;
+					bool 		changeCommand 			= true;
 
+	#region Action variables
+					bool 		button_1_run 			= false;
+					bool 		button_2_run 			= false;
+					bool 		button_3_run 			= false;
+					bool 		button_4_run 			= false;
+					
+					bool 		button_2_jump 			= false;
+					bool 		button_3_jump 			= false;
+					bool 		button_4_jump			= false;
+					bool 		button_1_jump 			= false;
+	
+	public static 	bool 		canJump 				= false;
+	public static 	bool 		canRun 					= false;
+	
+	public static 	int 		move_Horizontal 		= 0;
+	public static 	int 		move_Vertical 			= 0;
+	#endregion
 
 	#region LED'pins' 		
+	public 			int 		led_01_red				= 50;
+	public 			int 		led_01_green			= 51;
+	public 			int 		led_01_blue				= 52;
 
-	const 	int 	led_01_red				= 50;
-	const 	int 	led_01_green			= 51;
-	const 	int 	led_01_blue				= 52;
+	public 			int 		led_02_red				= 42;
+	public 			int 		led_02_green			= 43;
+	public 			int 		led_02_blue				= 44;
 
-	const 	int 	led_02_red				= 42;
-	const 	int 	led_02_green			= 43;
-	const 	int 	led_02_blue				= 44;
+	public 			int 		led_03_red				= 34;
+	public 			int 		led_03_green			= 35;
+	public 			int 		led_03_blue				= 36;
 
-	const 	int 	led_03_red				= 34;
-	const 	int 	led_03_green			= 35;
-	const 	int 	led_03_blue				= 36;
-
-	const 	int 	led_04_red				= 26;
-	const 	int 	led_04_green			= 27;
-	const 	int 	led_04_blue				= 28;
-
+	public 			int 		led_04_red				= 26;
+	public 			int 		led_04_green			= 27;
+	public 			int 		led_04_blue				= 28;
 	#endregion
 
 	#region Button'pins' 	[ControlPad]
-
-	const 	int 	button_up 			= 10;						// the number of the pushbutton pin
-	const 	int 	button_down			= 12;
-	const 	int 	button_left			= 5;
-	const 	int 	button_right		= 6;
-
+	public 			int 		button_up 				= 10;						// the number of the pushbutton pin
+	public 			int 		button_down				= 12;
+	public 			int 		button_left				= 5;
+	public 			int 		button_right			= 6;		 
 	#endregion
 
 	#region Button'pins' 	[Actions]
-
-	const 	int 	button_B 			= 7;
-	const 	int 	button_Y 			= 2;
-	const 	int 	button_X 			= 3;
-	const 	int 	button_A 			= 4;
-
+	public 			int 		button_B 				= 7;
+	public 			int 		button_Y 				= 2;
+	public 			int 		button_X 				= 3;
+	public 			int 		button_A 				= 4;
 	#endregion
 
 	#region Button'states' 	
+	private			int 		buttom_up_state 		= 0;						// Variable for reading the pushbutton status
+	private			int 		button_down_state 		= 0;
+	private			int 		button_left_state 		= 0;
+	private			int 		button_right_state 		= 0;
 
-	public 	int 	buttom_up_state 	= 0;						// Variable for reading the pushbutton status
-	public 	int 	button_down_state 	= 0;
-	public 	int 	button_left_state 	= 0;
-	public 	int 	button_right_state 	= 0;
-
-	public 	int 	button_A_state 		= 0;
-	public 	int 	button_B_state 		= 0;
-	public 	int 	button_X_state 		= 0;
-	public 	int 	button_Y_state 		= 0;
-
+	private			int 		button_A_state 			= 0;
+	private			int 		button_B_state 			= 0;
+	private			int 		button_X_state 			= 0;
+	private			int 		button_Y_state 			= 0;
 	#endregion
 	
-
+	#region ConfigurePins
 	void ConfigurePins()											// In here we can define what each pin does
 	{
 		arduino.pinMode (led_01_green	, 	PinMode.OUTPUT);			// Sends stuff to pin 13 on the arduino board. In this case it sends a 'output'
@@ -93,8 +108,7 @@ public class script_gameController : MonoBehaviour
 		arduino.reportDigital ( ( byte ) ( button_up 	/ 8 ), 1 );
 		arduino.reportDigital ( ( byte ) ( button_down 	/ 8 ), 1 );
 		arduino.reportDigital ( ( byte ) ( button_left 	/ 8 ), 1 );
-		arduino.reportDigital ( ( byte ) ( button_right / 8 ), 1 );
-
+		arduino.reportDigital ( ( byte ) ( button_right	/ 8 ), 1 );
 		arduino.reportDigital ( ( byte ) ( button_A 	/ 8 ), 1 );
 		arduino.reportDigital ( ( byte ) ( button_B 	/ 8 ), 1 );
 		arduino.reportDigital ( ( byte ) ( button_X 	/ 8 ), 1 );
@@ -106,11 +120,12 @@ public class script_gameController : MonoBehaviour
 		// The seconds number in the parameters (1) is the enabled option. 1 = on, 0 = off
 		#endregion
 	}
-
-
+	#endregion
 
 	void Start () 
 	{
+		AddIndexNumberToArray ();
+
 		arduino = Arduino.global;									// Searches for the one and only Arduino connected to Unity
 		arduino.Setup (ConfigurePins);								// Set up pins
 	}
@@ -119,7 +134,7 @@ public class script_gameController : MonoBehaviour
 	void Update () 													// Checks for button'pushes
 	{
 		CheckButtonState ();
-
+		/*
 		if ( commandRotation == 0 )
 		{
 			SetColor ( 1, "Yellow" 	);	
@@ -127,9 +142,10 @@ public class script_gameController : MonoBehaviour
 			SetColor ( 3, "Blue" 	);	
 			SetColor ( 4, "Red" 	);	
 		}
+		*/
 	}
 
-
+	#region ChangeCommand
 	void ChangeCommand ()	// function which return int value
 	{
 		if ( changeCommand )
@@ -146,10 +162,12 @@ public class script_gameController : MonoBehaviour
 
 		//////////////////////////////////////////////////////
 
-		// button_1 = yellow
-		// button_2 = green
-		// button_3 = blue
-		// button_4 = red
+		//###################//
+		// button_1 = yellow //
+		// button_2 = green	 // 
+		// button_3 = blue	 //
+		// button_4 = red	 //
+		//###################//
 
 		button_1_run  = false;
 		button_2_run  = false;
@@ -206,23 +224,9 @@ public class script_gameController : MonoBehaviour
 			SetColor ( 4, "Yellow"	);
 		}
 	}
+	#endregion
 
-	bool button_1_run 			= false;
-	bool button_2_run 			= false;
-	bool button_3_run 			= false;
-	bool button_4_run 			= false;
-
-	bool button_2_jump 			= false;
-	bool button_3_jump 			= false;
-	bool button_4_jump			= false;
-	bool button_1_jump 			= false;
-
-	public static bool canJump 	= false;
-	public static bool canRun 	= false;
-
-	public static int move_Horizontal 	= 0;
-	public static int move_Vertical 	= 0;
-
+	#region CheckButtonState
 	void CheckButtonState ()
 	{
 		#region buttons [digitalRead]
@@ -264,8 +268,7 @@ public class script_gameController : MonoBehaviour
 		{
 			move_Horizontal = 0;
 		}
-
-
+	
 		if ( button_left_state == Arduino.HIGH ) 
 		{	
 			Debug.Log ( "buttom_left [pressed]" );
@@ -286,6 +289,7 @@ public class script_gameController : MonoBehaviour
 		{
 			changeCommand 	= true;
 
+			reMap			= true;
 		}
 		if ( !button_1_jump || !button_2_jump || !button_3_jump || !button_4_jump )
 		{
@@ -301,14 +305,16 @@ public class script_gameController : MonoBehaviour
 		if ( button_B_state == Arduino.HIGH		||	Input.GetKey( KeyCode.Q ) ) 
 		{	
 			//Debug.Log ( "buttom_B (1) [pressed]" );
-			ChangeCommand ();
-			
-			if ( button_1_run )
+			//ChangeCommand ();
+
+			RandomMapping ();
+
+			if ( button_1_run || randomRun )
 			{
 				canRun = true;
 			}
 
-			if ( button_1_jump )
+			if ( button_1_jump || randomJump )
 			{
 				canJump = true;
 			}
@@ -319,14 +325,16 @@ public class script_gameController : MonoBehaviour
 		if ( button_Y_state == Arduino.HIGH		||	Input.GetKey( KeyCode.S ) ) 
 		{	
 			//Debug.Log ( "buttom_Y (2) [pressed]" );
-			ChangeCommand ();	
-			
-			if ( button_2_run )
+			//ChangeCommand ();	
+
+			RandomMapping ();
+
+			if ( button_2_run || randomRun )
 			{
 				canRun = true;
 			}
 
-			if ( button_2_jump )
+			if ( button_2_jump || randomJump )
 			{
 				canJump = true;
 			}
@@ -337,14 +345,16 @@ public class script_gameController : MonoBehaviour
 		if ( button_X_state == Arduino.HIGH		||	Input.GetKey( KeyCode.W ) ) 
 		{	
 			//Debug.Log ( "buttom_X [pressed]" );
-			ChangeCommand ();	
-			
-			if ( button_3_run )
+			//ChangeCommand ();	
+
+			RandomMapping ();
+
+			if ( button_3_run || randomRun )
 			{
 				canRun = true;
 			}
 
-			if ( button_3_jump )
+			if ( button_3_jump || randomJump )
 			{
 				canJump = true;
 			}
@@ -355,14 +365,16 @@ public class script_gameController : MonoBehaviour
 		if ( button_A_state == Arduino.HIGH 	||	Input.GetKey( KeyCode.A )	 ) 
 		{	
 			//Debug.Log ( "buttom_A [pressed]" );
-			ChangeCommand ();
+			//ChangeCommand ();
 
-			if ( button_4_run )
+			RandomMapping ();
+
+			if ( button_4_run || randomRun )
 			{
 				canRun = true;
 			}
 
-			if ( button_4_jump )
+			if ( button_4_jump || randomJump )
 			{
 				canJump = true;
 			}
@@ -370,8 +382,9 @@ public class script_gameController : MonoBehaviour
 		#endregion
 
 	}
+	#endregion
 
-
+	#region SetColor
 	public void SetColor ( int ledIndex, string colorName )
 	{
 		int redVal 		= 0;
@@ -436,9 +449,82 @@ public class script_gameController : MonoBehaviour
 			arduino.digitalWrite( led_04_blue , 255 - blueVal  );
 			arduino.digitalWrite( led_04_green, 255 - greenVal );
 		}
-
 	}
+	#endregion
 
+	
+
+	public 	List<int> 	indexArray 	= new List<int>();
+	private bool 		reMap 		= true; 
+
+	void AddIndexNumberToArray ()
+	{
+		indexArray.Add(0);
+		indexArray.Add(1);
+		indexArray.Add(2);
+		indexArray.Add(3);
+
+		Debug.Log ( "IndexArray: " + indexArray[0] + ", " + indexArray[1] + ", " + indexArray[2] + ", " + indexArray[3] );
+	}
+	
+	bool randomRun		= false;
+	bool randomJump		= false;
+
+
+	void RandomMapping ()
+	{
+		randomRun 	= false;
+		randomJump 	= false;
+
+		if ( reMap )
+		{
+			for ( int x = 0; x < indexArray.Count; x++ )
+			{
+				int 	tempNum		= indexArray[x];
+				int 	random 		= Random.Range( x, indexArray.Count );
+				indexArray[x] 		= indexArray[random];
+				indexArray[random] 	= tempNum;
+
+				break;
+			}
+
+			Debug.Log ( "New indexArray: " + indexArray[0] + ", " + indexArray[1] + ", " + indexArray[2] + ", " + indexArray[3] );
+
+			string  tempColor_0 	= "";
+			if ( indexArray[0] == 0 )	{	tempColor_0 = "Yellow"; 	randomRun  = true;	}
+			if ( indexArray[0] == 1 )	{	tempColor_0 = "Green"; 		randomJump = true;	}
+			if ( indexArray[0] == 2 )	{	tempColor_0 = "Blue"; 		}
+			if ( indexArray[0] == 3 )	{	tempColor_0 = "Red"; 		}
+			
+			SetColor ( 1, tempColor_0 );
+
+			string  tempColor_1 	= "";
+			if ( indexArray[1] == 0 )	{	tempColor_1 = "Yellow"; 	randomRun  = true;	}
+			if ( indexArray[1] == 1 )	{	tempColor_1 = "Green"; 		randomJump = true;	}
+			if ( indexArray[1] == 2 )	{	tempColor_1 = "Blue"; 		}
+			if ( indexArray[1] == 3 )	{	tempColor_1 = "Red"; 		}
+
+			SetColor ( 2, tempColor_1 );
+
+			string  tempColor_2 	= "";
+			if ( indexArray[2] == 0 )	{	tempColor_2 = "Yellow"; 	randomRun  = true;	}
+			if ( indexArray[2] == 1 )	{	tempColor_2 = "Green"; 		randomJump = true;	}
+			if ( indexArray[2] == 2 )	{	tempColor_2 = "Blue"; 		}
+			if ( indexArray[2] == 3 )	{	tempColor_2 = "Red"; 		}
+			
+			SetColor ( 3, tempColor_2 );
+
+			string  tempColor_3 	= "";
+			if ( indexArray[3] == 0 )	{	tempColor_3 = "Yellow"; 	randomRun  = true;	}
+			if ( indexArray[3] == 1 )	{	tempColor_3 = "Green"; 		randomJump = true;	}
+			if ( indexArray[3] == 2 )	{	tempColor_3 = "Blue"; 		}
+			if ( indexArray[3] == 3 )	{	tempColor_3 = "Red"; 		}
+			
+			SetColor ( 4, tempColor_3 );
+
+			reMap = false;
+		}
+	}
 
 }
 

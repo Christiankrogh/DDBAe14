@@ -217,11 +217,11 @@ public class script_gameController : MonoBehaviour
 	bool button_4_jump			= false;
 	bool button_1_jump 			= false;
 
-	public bool canJump 		= false;
-	public bool canRun 			= false;
+	public static bool canJump 	= false;
+	public static bool canRun 	= false;
 
-	public int move_Horizontal 	= 0;
-	public int move_Vertical 	= 0;
+	public static int move_Horizontal 	= 0;
+	public static int move_Vertical 	= 0;
 
 	void CheckButtonState ()
 	{
@@ -281,6 +281,7 @@ public class script_gameController : MonoBehaviour
 		}
 		#endregion
 	
+		#region Action disable check 
 		if ( button_A_state == Arduino.LOW && button_B_state == Arduino.LOW && button_X_state == Arduino.LOW	&& button_Y_state == Arduino.LOW )
 		{
 			changeCommand 	= true;
@@ -294,6 +295,7 @@ public class script_gameController : MonoBehaviour
 		{
 			canRun 			= false;
 		}
+		#endregion
 
 		#region Button_B
 		if ( button_B_state == Arduino.HIGH		||	Input.GetKey( KeyCode.Q ) ) 

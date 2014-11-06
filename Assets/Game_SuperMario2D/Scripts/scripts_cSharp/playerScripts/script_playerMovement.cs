@@ -13,13 +13,7 @@ public  class script_playerMovement : MonoBehaviour
 	static float					fallSpeed					= script_playerProperties.fallSpeed;
 	static float					collision_repel_above		= script_playerProperties.collision_repel_above;
 
-	static script_gameController	gameController;
 
-
-	void Update()
-	{
-		gameController = GetComponent<script_gameController>();
-	}
 
 	#region						Player Movement Functions
 
@@ -48,7 +42,7 @@ public  class script_playerMovement : MonoBehaviour
 		if ( playerController.isGrounded == true )
 		{
 			//velocity            =   new Vector3(Input.GetAxis("Horizontal"), 0,  0 );
-			velocity			=   new Vector3 ( gameController.move_Horizontal, 0, 0 );
+			velocity			=   new Vector3 ( script_gameController.move_Horizontal, 0, 0 );
 			velocity            =   playerController.transform.TransformDirection(velocity);
 			velocity.x          =   velocity.x * walkSpeed; 
 		}
@@ -56,13 +50,14 @@ public  class script_playerMovement : MonoBehaviour
 	
 	public static void set_player_air_velocity ( ref Vector3 velocity, ref CharacterController playerController )
 	{	
-		if ( Input.GetButton ("Fire1") )//|| gameController.canRun )
-		{	
-			velocity.x          =   -Input.GetAxis("Horizontal") * 8.0f;//runSpeed;
-		}				
+		if ( Input.GetButton ("Fire1") || script_gameController.canJump )
+		{
+			velocity.x          =   -script_gameController.move_Horizontal * 8.0f; //-Input.GetAxis("Horizontal") * 8.0f;//runSpeed;
+		}
+				
 		else
 		{
-			velocity.x          =   -Input.GetAxis("Horizontal") * 6.0f;//walkSpeed;									// the player can change the direction of movement while they're 
+			velocity.x          =   -script_gameController.move_Horizontal * 6.0f; //-Input.GetAxis("Horizontal") * 6.0f;//walkSpeed;									// the player can change the direction of movement while they're 
 		}
 		
 		if (playerController.collisionFlags == CollisionFlags.Above)												// if the player's head collides with an object, repel the player downwards
@@ -75,32 +70,37 @@ public  class script_playerMovement : MonoBehaviour
 	
 	public	static void	player_acceleration_from_gravity ( ref Vector3 velocity, ref CharacterController playerController)
 	{
-		if (playerController.isGrounded == false)
+		if ( playerController.isGrounded == false )
 		{
 			velocity.y          =	velocity.y - (gravity * Time.deltaTime);
 		}
 	}
-	
+
+
+	//##############
+	// Jump_movement
 	public static void jump_movement (ref Vector3 velocity)
 	{				
 		script_playerControls.in_a_jump			=		true;
-		if ( Input.GetButton( "Fire1" ) || gameController.canJump )																		// player does a run jump
+		if ( Input.GetButton( "Fire1" ) || script_gameController.canJump )																		// player does a run jump
 		{	
 			velocity.y  =		runJump;
-			velocity.x  =		crouchJump * gameController.move_Horizontal;//Input.GetAxis ("Horizontal");										// the run jump moves faster in the x direction than the other jumps
+			velocity.x  =		crouchJump * script_gameController.move_Horizontal; //Input.GetAxis ("Horizontal");										// the run jump moves faster in the x direction than the other jumps
 		}
 		else
 		{	
 			velocity.y	=		walkJump;																		// player does a walk jump
 		}
-		if (velocity.x == 0 && Input.GetAxis("Vertical") < 0)														// player does a crouch jump
+		if ( velocity.x == 0 && Input.GetAxis("Vertical") < 0 || velocity.x == 0 && script_gameController.move_Vertical < 0 )														// player does a crouch jump
 		{	
 			
 			velocity.y	=		crouchJump;		
 			velocity.x  =		velocity.x * crouchJump;
 		}
 	}
-	
+	//############
+
+
 	public static void crouch_movement ( ref Vector3 velocity )
 	{
 		velocity.x = 0;																								// prevents the player from moving while crouching
@@ -108,7 +108,7 @@ public  class script_playerMovement : MonoBehaviour
 
 	public static void walk_movement ( ref Vector3 velocity )
 	{
-		if ( gameController.move_Horizontal != 0 )//Input.GetAxis ("Horizontal") != 0 )																		// sets player animation to walk left
+		if ( script_gameController.move_Horizontal != 0 )//Input.GetAxis ("Horizontal") != 0 )																		// sets player animation to walk left
 		{
 			velocity.x		=	velocity.x * walkSpeed;															// player moves left based on walk speed
 		}
@@ -116,7 +116,7 @@ public  class script_playerMovement : MonoBehaviour
 	
 	public static void modulate_jump_height	( ref Vector3 velocity )
 	{
-		if (Input.GetButtonUp("Jump"))
+		if ( Input.GetButtonUp("Jump") )
 		{
 			velocity.y = velocity.y - fallSpeed;																// subtract current height from 1 if the jump button is up
 		}

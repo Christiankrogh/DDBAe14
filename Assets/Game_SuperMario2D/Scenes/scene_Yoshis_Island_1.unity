@@ -27754,10 +27754,6 @@ MonoBehaviour:
   button_B_state: 0
   button_X_state: 0
   button_Y_state: 0
-  canJump: 0
-  canRun: 0
-  move_Horizontal: 0
-  move_Vertical: 0
 --- !u!1 &1641158025
 GameObject:
   m_ObjectHideFlags: 0

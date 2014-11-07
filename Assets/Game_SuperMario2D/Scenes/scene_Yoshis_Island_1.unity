@@ -27674,7 +27674,7 @@ MonoBehaviour:
   button_Y: 2
   button_X: 3
   button_A: 4
-  indexArray: 
+  indexArray: []
 --- !u!1 &1641158025
 GameObject:
   m_ObjectHideFlags: 0

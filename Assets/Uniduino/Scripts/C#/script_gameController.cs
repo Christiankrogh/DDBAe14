@@ -133,6 +133,16 @@ public class script_gameController : MonoBehaviour
 
 	void Update () 													// Checks for button'pushes
 	{
+		Debug.Log( "LED 1 = " + indexArray[0] );
+		Debug.Log( "LED 2 = " + indexArray[1] );
+		Debug.Log( "LED 3 = " + indexArray[2] );
+		Debug.Log( "LED 4 = " + indexArray[3] );
+		
+		SetColor ( 1, indexArray[0] );	
+		SetColor ( 2, indexArray[1] );
+		SetColor ( 3, indexArray[2] );	
+		SetColor ( 4, indexArray[3] );
+
 		CheckButtonState ();
 		/*
 		if ( commandRotation == 0 )
@@ -142,6 +152,13 @@ public class script_gameController : MonoBehaviour
 			SetColor ( 3, "Blue" 	);	
 			SetColor ( 4, "Red" 	);	
 		}
+		*/
+		/*
+		Debug.Log ( "New indexArray: " 
+			   				+ indexArray[0] + 
+			           ", " + indexArray[1] + 
+			           ", " + indexArray[2] + 
+			           ", " + indexArray[3] );
 		*/
 	}
 
@@ -309,12 +326,12 @@ public class script_gameController : MonoBehaviour
 
 			RandomMapping ();
 
-			if ( button_1_run || randomRun )
+			if ( button_1_run )
 			{
 				canRun = true;
 			}
 
-			if ( button_1_jump || randomJump )
+			if ( button_1_jump || indexArray[0] == "Green" )
 			{
 				canJump = true;
 			}
@@ -329,12 +346,12 @@ public class script_gameController : MonoBehaviour
 
 			RandomMapping ();
 
-			if ( button_2_run || randomRun )
+			if ( button_2_run )
 			{
 				canRun = true;
 			}
 
-			if ( button_2_jump || randomJump )
+			if ( button_2_jump || indexArray[1] == "Green" )
 			{
 				canJump = true;
 			}
@@ -349,12 +366,12 @@ public class script_gameController : MonoBehaviour
 
 			RandomMapping ();
 
-			if ( button_3_run || randomRun )
+			if ( button_3_run )
 			{
 				canRun = true;
 			}
 
-			if ( button_3_jump || randomJump )
+			if ( button_3_jump || indexArray[2] == "Green" )
 			{
 				canJump = true;
 			}
@@ -369,12 +386,12 @@ public class script_gameController : MonoBehaviour
 
 			RandomMapping ();
 
-			if ( button_4_run || randomRun )
+			if ( button_4_run )
 			{
 				canRun = true;
 			}
 
-			if ( button_4_jump || randomJump )
+			if ( button_4_jump || indexArray[3] == "Green" )
 			{
 				canJump = true;
 			}
@@ -383,6 +400,7 @@ public class script_gameController : MonoBehaviour
 
 	}
 	#endregion
+	
 
 	#region SetColor
 	public void SetColor ( int ledIndex, string colorName )
@@ -454,80 +472,38 @@ public class script_gameController : MonoBehaviour
 
 	
 
-	public 	List<int> 	indexArray 	= new List<int>();
-	private bool 		reMap 		= true; 
+	public 	List<string> 	indexArray 	= new List<string>();
+	private bool 			reMap 		= true; 
 
 	void AddIndexNumberToArray ()
 	{
-		indexArray.Add(0);
-		indexArray.Add(1);
-		indexArray.Add(2);
-		indexArray.Add(3);
+		indexArray.Add("Yellow");
+		indexArray.Add("Green");
+		indexArray.Add("Blue");
+		indexArray.Add("Red");
 
 		Debug.Log ( "IndexArray: " + indexArray[0] + ", " + indexArray[1] + ", " + indexArray[2] + ", " + indexArray[3] );
 	}
-	
-	bool randomRun		= false;
-	bool randomJump		= false;
-
 
 	void RandomMapping ()
 	{
-		randomRun 	= false;
-		randomJump 	= false;
-
 		if ( reMap )
 		{
 			for ( int x = 0; x < indexArray.Count; x++ )
 			{
-				int 	tempNum		= indexArray[x];
+				string 	tempString	= indexArray[x];
 				int 	random 		= Random.Range( x, indexArray.Count );
 				indexArray[x] 		= indexArray[random];
-				indexArray[random] 	= tempNum;
-
+				indexArray[random] 	= tempString;
 				break;
 			}
-
-			Debug.Log ( "New indexArray: " + indexArray[0] + ", " + indexArray[1] + ", " + indexArray[2] + ", " + indexArray[3] );
-
-			string  tempColor_0 	= "";
-			if ( indexArray[0] == 0 )	{	tempColor_0 = "Yellow"; 	randomRun  = true;	}
-			if ( indexArray[0] == 1 )	{	tempColor_0 = "Green"; 		randomJump = true;	}
-			if ( indexArray[0] == 2 )	{	tempColor_0 = "Blue"; 		}
-			if ( indexArray[0] == 3 )	{	tempColor_0 = "Red"; 		}
-			
-			SetColor ( 1, tempColor_0 );
-
-			string  tempColor_1 	= "";
-			if ( indexArray[1] == 0 )	{	tempColor_1 = "Yellow"; 	randomRun  = true;	}
-			if ( indexArray[1] == 1 )	{	tempColor_1 = "Green"; 		randomJump = true;	}
-			if ( indexArray[1] == 2 )	{	tempColor_1 = "Blue"; 		}
-			if ( indexArray[1] == 3 )	{	tempColor_1 = "Red"; 		}
-
-			SetColor ( 2, tempColor_1 );
-
-			string  tempColor_2 	= "";
-			if ( indexArray[2] == 0 )	{	tempColor_2 = "Yellow"; 	randomRun  = true;	}
-			if ( indexArray[2] == 1 )	{	tempColor_2 = "Green"; 		randomJump = true;	}
-			if ( indexArray[2] == 2 )	{	tempColor_2 = "Blue"; 		}
-			if ( indexArray[2] == 3 )	{	tempColor_2 = "Red"; 		}
-			
-			SetColor ( 3, tempColor_2 );
-
-			string  tempColor_3 	= "";
-			if ( indexArray[3] == 0 )	{	tempColor_3 = "Yellow"; 	randomRun  = true;	}
-			if ( indexArray[3] == 1 )	{	tempColor_3 = "Green"; 		randomJump = true;	}
-			if ( indexArray[3] == 2 )	{	tempColor_3 = "Blue"; 		}
-			if ( indexArray[3] == 3 )	{	tempColor_3 = "Red"; 		}
-			
-			SetColor ( 4, tempColor_3 );
 
 			reMap = false;
 		}
 	}
 
-}
 
+}
 
 
 

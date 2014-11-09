@@ -18,6 +18,10 @@ TagManager:
   - enemyDragonHead
   - enemyEvilPlant
   - changeDirection
+  - fireUpgrade
+  - fireball
+  - levelComplete
+  - GUI
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

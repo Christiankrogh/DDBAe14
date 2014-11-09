@@ -40,7 +40,7 @@ public class script_gameTimer : MonoBehaviour
 	public bool			countDownEnabled		=		false;								// toggle tracking
 	public bool			displayTimerValues		=		false;								// toggle display of tracked time values
 	public bool			displayTimerControls	=		false;								// toggle display of GameTimer key controls
-	
+	public bool			stopTime				= 		false;
 	
 	#endregion
 	
@@ -51,7 +51,10 @@ public class script_gameTimer : MonoBehaviour
 		
 		time_commands			();
 
-		countDownText.text = playTime.ToString("f0");
+		if ( !stopTime )
+		{
+			countDownText.text = playTime.ToString("f0");
+		}
 	}
 	
 	
@@ -237,9 +240,9 @@ public class script_gameTimer : MonoBehaviour
 	}
 	
 	
-	void stop_time()														// press '3' to stop the timer
+	public void stop_time()														// press '3' to stop the timer
 	{
-		if ( Input.GetKeyDown ( "3" ) && playTimeEnabled )
+		if ( stopTime && playTimeEnabled )
 		{
 			playStopTime			=		playTime;									// record the time 'playTime' was stopped
 			addToTime				=		0;											// reset

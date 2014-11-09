@@ -1,4 +1,4 @@
-﻿///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 ////// Part of Bachelor project in Digital Design 2014 (BADDe14) //////
 //
 // Player Properties - Super Mario 64 Clone (2D)
@@ -10,6 +10,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEditor;
+using UnityEngine.UI;
 
 [AddComponentMenu("Mario Clone/Actor/Player Properties Script")]
 
@@ -20,7 +21,7 @@ public enum		PlayerState		// Placed outside class to make it accessable from any
 	MarioLarge	=	2,														// ses the size of the player to large
 	MarioFire	=	3,														// enable the fireball power
 }
-
+    
 public class script_playerProperties : MonoBehaviour
 {
 	
@@ -52,7 +53,12 @@ public class script_playerProperties : MonoBehaviour
 	public AudioClip								coinSound;
 	public AudioClip								pickUpSound;
 	public AudioClip 								powerUpSound;
+	public AudioClip 								powerDown;
 	public AudioClip 								plusOneLifeSound;
+	public AudioClip 								jumpOnEnemySound;
+	public AudioClip								marioDied;
+	public AudioClip 								fireball;
+	public AudioClip 								levelBackMusic;
 
 	public Transform								particleJump;	
 	public Transform								particleCoin;
@@ -61,7 +67,7 @@ public class script_playerProperties : MonoBehaviour
 	public static int								lives							=	3;
 	public static int								coins							=	0;
 	public static int								bigCoins						= 	0;
-	public static int								totalCoinCollected				=	0;
+	public static float								totalCoinCollected				=	0;
 	
 	public 	Rigidbody								projectileFire;
 	
@@ -71,7 +77,7 @@ public class script_playerProperties : MonoBehaviour
 	public 	Material								material_player_MarioSmall;
 	public  Material 								material_player_MarioLarge;
 	public 	Material								material_player_MarioFire;
-	
+
 	public bool										changeMario						=	false;
 	public bool										marioLarge						= 	false;
 	public bool										hasFire							=	false;
@@ -82,7 +88,7 @@ public class script_playerProperties : MonoBehaviour
 	public static CharacterController				playerController;		
 	public static Transform							playerTransform;
 	public static MeshRenderer						playerMeshRender;
-	
+
 	public PlayerState								active_player_state				=	PlayerState.MarioSmall;
 	
 	public  GameObject 								guiText;
@@ -90,20 +96,27 @@ public class script_playerProperties : MonoBehaviour
 	public  GameObject 								reward_redMushRoom;
 	public  GameObject 								reward_greenMushRoom;
 	public	GameObject								reward_coin;
+	public  GameObject								reward_fireUpgrade;
 
 	private Animator 								anim_cube_questionMark;
 	private Animator 								anim_cube_Zspin;
 
 	private script_cube_questionMark 				cubeQuestionMark;
 	private script_cube_Zspin						cubeZspin;
-
+	private bool 									cannotBeKilled 					= false;
+	private Vector3 								spawnPos;
 
 	#endregion
 	
 	
 	#region			UnityEngine Functions
-	
-	
+
+	void Start()
+	{
+		spawnPos 	= transform.position;
+	}
+
+
 	// Update is called once per frame
 	void Update()
 	{
@@ -124,30 +137,35 @@ public class script_playerProperties : MonoBehaviour
 
 	void Shoot ()
 	{	
-		float playerDirection	=	script_playerControls.moveDirection;
-		
-		Rigidbody		clone;
-		if ( canShoot && Input.GetButtonDown ("Fire1") &&  playerDirection < 0)
+		float 		playerDirection	=	script_playerControls.moveDirection;
+
+		Rigidbody	clone;
+
+		if ( canShoot && Input.GetButtonDown ("Fire1") &&  playerDirection < 0 || canShoot && script_gameController.canShoot && playerDirection < 0 )
 		{
 			
 			Vector3			left_socket			=	projectile_socket_left.transform.position;
 			Quaternion		player_rotation		=	playerController.transform.rotation;
-			
-			clone = Instantiate ( projectileFire, left_socket, player_rotation) as Rigidbody;
-			clone.AddForce		( -90, 0, 0);
+
+			script_playerSounds.play_sound ( ref playerAudio, fireball, 0f);
+
+			clone 								= Instantiate ( projectileFire, left_socket, Quaternion.identity) as Rigidbody;
+			clone.AddForce( -90, 0, 0);
 			
 		}
 		
-		if ( canShoot && Input.GetButtonDown ("Fire1") && playerDirection > 0)
+		if ( canShoot && Input.GetButtonDown ("Fire1") && playerDirection > 0 || canShoot && script_gameController.canShoot && playerDirection > 0 )
 		{
 			
 			Vector3			right_socket		=	projectile_socket_right.transform.position;
 			Quaternion		player_rotation		=	playerController.transform.rotation;
-			
-			clone = Instantiate ( projectileFire, right_socket, player_rotation) as Rigidbody;
-			clone.AddForce		( 90, 0, 0);
+
+			script_playerSounds.play_sound ( ref playerAudio, fireball, 0f);
+
+			clone 								= Instantiate ( projectileFire, right_socket, Quaternion.identity) as Rigidbody;
+			clone.AddForce( 90, 0, 0);
 		}
-	}
+	} 
 
 	void OnControllerColliderHit ( ControllerColliderHit col )
 	{
@@ -166,27 +184,40 @@ public class script_playerProperties : MonoBehaviour
 		if ( col.gameObject.tag == "enemyCannonBall" )
 		{
 			Debug.Log ("Hit by: " + col.gameObject.name + " - Mario is dead!" );
+
+			UpdateMarioLifeSituation ();
 		}
 
 		if ( col.gameObject.tag == "enemyDragon" )
 		{
 			Debug.Log ("Hit by: " + col.gameObject.name + " - Mario is dead!" );
+
+			UpdateMarioLifeSituation ();
 		}
 
 		if ( col.gameObject.tag == "enemyDragonHead" )
 		{
 			Debug.Log ("Mario killed dragon!" );
 
-			Addcoins(200);
+			AddToTotalCoinCollected(200);
 			PopGuiText ( "+200", otherPos );
+			script_playerSounds.play_sound ( ref playerAudio, jumpOnEnemySound, 0f);
+
+			transform.Translate ( 0f, 100.0f * Time.deltaTime, 0f, Space.World );
 
 			script_enemyDragon otherDragon = col.gameObject.transform.parent.transform.GetComponent<script_enemyDragon>();
 			otherDragon.dragonDead = true;
+
+			otherDragon.GetComponent<Rigidbody>().isKinematic = false;
+			otherDragon.GetComponent<Rigidbody>().useGravity  = true;
+			otherDragon.transform.Translate ( 0f, 0f, -15.0f, Space.World );
 		}
 
 		if ( col.gameObject.tag == "enemyEvilPlant" )
 		{
 			Debug.Log ("Hit by: " + col.gameObject.name + " - Mario is dead!" );
+
+			UpdateMarioLifeSituation ();
 		}
 	}
 
@@ -194,6 +225,27 @@ public class script_playerProperties : MonoBehaviour
 	void OnTriggerEnter ( Collider other )
 	{
 		GameObject otherPos = other.gameObject;
+
+		if ( other.tag == "levelComplete" )
+		{
+			AddToTotalCoinCollected(5000);
+			PopGuiText ( "+5000", otherPos );
+			Destroy(other.gameObject);
+
+			script_sceneManager.level_completed = true;
+		}
+
+		if ( other.tag == "savePoint" )
+		{
+			spawnPos = transform.position;
+			PopGuiText ( "Checkpoint!", otherPos );
+			Destroy(other.gameObject);
+		}
+
+		if ( other.tag == "killbox" )
+		{
+			UpdatePlayerState ( PlayerState.MarioDead );
+		}
 		
 		if ( other.tag == "coin" )
 		{
@@ -215,7 +267,7 @@ public class script_playerProperties : MonoBehaviour
 
 		if ( other.tag == "bigCoin" )
 		{
-			Addcoins(1);
+			AddToTotalCoinCollected(1);
 			AddBigCoins(1);
 			//Debug.Log ("BigCoins: " + bigCoins );
 			if ( bigCoins == 1 )	// x1 multiplier
@@ -241,7 +293,7 @@ public class script_playerProperties : MonoBehaviour
 
 		if ( other.gameObject.tag == "redMushRoom" )
 		{
-			if ( active_player_state == PlayerState.MarioLarge )
+			if ( active_player_state == PlayerState.MarioLarge || active_player_state == PlayerState.MarioFire )
 			{
 				lives += 1;
 				PopGuiText ( "+1", otherPos );
@@ -252,7 +304,25 @@ public class script_playerProperties : MonoBehaviour
 			//Debug.Log ( "Player picked up: " + other.gameObject.name );
 			script_playerSounds.play_sound ( ref playerAudio, powerUpSound, 0f);
 			Destroy( other.gameObject );
-			UpdatePlayerState ( PlayerState.MarioLarge );
+
+			if ( active_player_state != PlayerState.MarioFire )
+			{
+				UpdatePlayerState ( PlayerState.MarioLarge );
+			}
+		}
+
+		if ( other.gameObject.tag == "fireUpgrade" )
+		{
+			if ( active_player_state == PlayerState.MarioLarge || active_player_state == PlayerState.MarioFire )
+			{
+				lives += 1;
+				PopGuiText( "+1", otherPos );
+				script_playerSounds.play_sound ( ref playerAudio, plusOneLifeSound, 0f);
+			}
+
+			script_playerSounds.play_sound ( ref playerAudio, powerUpSound, 0f);
+			Destroy( other.gameObject );
+			UpdatePlayerState ( PlayerState.MarioFire );
 		}
 	}
 
@@ -314,14 +384,23 @@ public class script_playerProperties : MonoBehaviour
 
 			cubeQuestionMark.rewardGreenMushroom = false;
 		}
+
+		if ( cubeQuestionMark.rewardFire )			// Fire Upgrade
+		{
+			script_playerSounds.play_sound ( ref playerAudio, pickUpSound, 0f);
+
+			clone = Instantiate ( reward_fireUpgrade, goPos + new Vector3(0f, 1.6f, 0f), Quaternion.identity) as GameObject;
+
+			cubeQuestionMark.rewardFire = false;
+		}
 	}
 
-	void Addcoins ( int numCoin )
+	public static void Addcoins ( int numCoin )
 	{
 		coins		+= numCoin;
 	}
 	
-	void AddToTotalCoinCollected ( int CoinCollected )
+	public static void AddToTotalCoinCollected ( float CoinCollected )
 	{
 		totalCoinCollected	+= CoinCollected;
 	}
@@ -360,13 +439,79 @@ public class script_playerProperties : MonoBehaviour
 		}
 	}
 
+	IEnumerator MarioRespawn ( float seconds )
+	{
+		Transform parent = this.transform.parent;
+		parent.transform.GetChild(1).GetComponent<script_cameraSmoothFollow2D>().enabled = true;
+		transform.GetComponent<Rigidbody>().isKinematic = true;
+
+		yield return new WaitForSeconds (seconds);
+
+		lives -= 1;
+		this.transform.position = spawnPos;
+	}
+
+
+	void UpdateMarioLifeSituation ()
+	{
+		if ( active_player_state == PlayerState.MarioSmall && cannotBeKilled == false )
+		{
+			Debug.Log ("Mariostate = MarioSmall, so Mario dies!");
+
+			script_playerSounds.play_sound ( ref playerAudio, marioDied, 0f);
+
+			Transform parent = this.transform.parent;
+			parent.transform.GetChild(1).GetComponent<script_cameraSmoothFollow2D>().enabled = false;
+
+			script_playerAnimation.dead_animation( playerController );
+			transform.GetComponent<Rigidbody>().isKinematic 	 	= false;
+
+			transform.Translate ( -0.2f, 100.0f * Time.deltaTime, -5.0f, Space.World );
+
+			StartCoroutine( WaitFor(2.0f) );
+
+			UpdatePlayerState ( PlayerState.MarioDead );
+		}
+		if ( active_player_state == PlayerState.MarioLarge && cannotBeKilled == false )
+		{
+			Debug.Log ("Mariostate = MarioLarge, so Mario turns small instead!");
+			UpdatePlayerState ( PlayerState.MarioSmall );
+
+			script_playerSounds.play_sound ( ref playerAudio, powerDown, 0f);
+
+			StartCoroutine( WaitFor(2.0f) );
+		}
+		if ( active_player_state == PlayerState.MarioFire && cannotBeKilled == false )
+		{
+			Debug.Log ("Mariostate = MarioFire, so Mario turns large instead!");
+			UpdatePlayerState ( PlayerState.MarioLarge );
+
+			script_playerSounds.play_sound ( ref playerAudio, powerDown, 0f);
+
+			StartCoroutine( WaitFor(2.0f) );
+		}
+	}
+
+
+	IEnumerator WaitFor ( float seconds )
+	{
+		cannotBeKilled = true;
+
+		yield return new WaitForSeconds(seconds);
+
+		cannotBeKilled = false;
+	}
+
+
 	public void	SetPlayerState ()
 	{
 		
 		switch ( active_player_state )
 		{
 		case	PlayerState.MarioDead:
-			Destroy ( gameObject );
+			//Destroy ( gameObject );
+			//gameObject.transform.renderer.enabled = false;
+			StartCoroutine(MarioRespawn ( 2.0f ));
 			changeMario					= false;
 			break;
 			

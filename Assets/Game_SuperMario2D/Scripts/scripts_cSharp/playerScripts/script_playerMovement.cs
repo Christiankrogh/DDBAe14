@@ -41,8 +41,16 @@ public  class script_playerMovement : MonoBehaviour
 	{
 		if ( playerController.isGrounded == true )
 		{
-			//velocity            =   new Vector3(Input.GetAxis("Horizontal"), 0,  0 );
-			velocity			=   new Vector3 ( script_gameController.move_Horizontal, 0, 0 );
+			if ( Input.anyKey )
+			{
+				//Debug.Log ("Movement left/right: controlled by keyboard");
+				velocity        =   new Vector3(Input.GetAxis("Horizontal"), 0,  0 );
+			}
+			else
+			{
+				//Debug.Log ("Movement left/right: custom controller");
+				velocity		=   new Vector3 ( script_gameController.move_Horizontal, 0, 0 );
+			}
 			velocity            =   playerController.transform.TransformDirection(velocity);
 			velocity.x          =   velocity.x * walkSpeed; 
 		}
@@ -50,14 +58,23 @@ public  class script_playerMovement : MonoBehaviour
 	
 	public static void set_player_air_velocity ( ref Vector3 velocity, ref CharacterController playerController )
 	{	
-		if ( Input.GetButton ("Fire1") || script_gameController.canJump )
+		if ( Input.GetButton ("Fire1") )
 		{
-			velocity.x          =   -script_gameController.move_Horizontal * 8.0f; //-Input.GetAxis("Horizontal") * 8.0f;//runSpeed;
+			velocity.x          =   -Input.GetAxis("Horizontal") * 8.0f;//runSpeed;
 		}
 				
 		else
 		{
-			velocity.x          =   -script_gameController.move_Horizontal * 6.0f; //-Input.GetAxis("Horizontal") * 6.0f;//walkSpeed;									// the player can change the direction of movement while they're 
+			//velocity.x          =   -Input.GetAxis("Horizontal") * 6.0f;//walkSpeed;									// the player can change the direction of movement while they're 
+		}
+
+		if ( script_gameController.canJump )
+		{
+			velocity.x          =   -script_gameController.move_Horizontal * 8.0f;
+		}
+		else
+		{
+			//velocity.x          =   -script_gameController.move_Horizontal * 6.0f; 
 		}
 		
 		if (playerController.collisionFlags == CollisionFlags.Above)												// if the player's head collides with an object, repel the player downwards
@@ -82,18 +99,28 @@ public  class script_playerMovement : MonoBehaviour
 	public static void jump_movement (ref Vector3 velocity)
 	{				
 		script_playerControls.in_a_jump			=		true;
-		if ( Input.GetButton( "Fire1" ) || script_gameController.canJump )																		// player does a run jump
+		// Keyboard controls
+		if ( Input.GetButton( "Fire1" ) )																		// player does a run jump
 		{	
 			velocity.y  =		runJump;
-			velocity.x  =		crouchJump * script_gameController.move_Horizontal; //Input.GetAxis ("Horizontal");										// the run jump moves faster in the x direction than the other jumps
+			velocity.x  =		crouchJump * Input.GetAxis ("Horizontal");										// the run jump moves faster in the x direction than the other jumps
 		}
 		else
 		{	
 			velocity.y	=		walkJump;																		// player does a walk jump
 		}
+		// Custom controller 
+		if ( script_gameController.canJump )
+		{
+			velocity.x  =		crouchJump * script_gameController.move_Horizontal;
+		}
+		else
+		{
+			velocity.y	=		walkJump;	
+		}
+
 		if ( velocity.x == 0 && Input.GetAxis("Vertical") < 0 || velocity.x == 0 && script_gameController.move_Vertical < 0 )														// player does a crouch jump
-		{	
-			
+		{		
 			velocity.y	=		crouchJump;		
 			velocity.x  =		velocity.x * crouchJump;
 		}

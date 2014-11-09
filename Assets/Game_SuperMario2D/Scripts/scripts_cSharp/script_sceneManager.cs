@@ -6,6 +6,7 @@ public class script_sceneManager : MonoBehaviour
 {
 	public Transform player; 
 	public script_playerProperties playerProperties;
+	public script_gameTimer	time;
 
 	public int		lives;	
 	public Text		guiLives;
@@ -15,13 +16,18 @@ public class script_sceneManager : MonoBehaviour
 
 	public int		bigCoins;							
 
-	public int		totalCoinCollected;
+	public float	totalCoinCollected;
 	public Text		guiTotalCoinsCollected;
-					  
+
+	public static bool		level_completed = false;
+
+	private float 	remainingTime; 
+	private bool	calculateScore = false;
 
 	void Start ()
 	{
 		playerProperties = player.GetComponent<script_playerProperties>();
+		time			 = GetComponent<script_gameTimer>();
 	}
 	
 	void Update () 
@@ -29,13 +35,20 @@ public class script_sceneManager : MonoBehaviour
 		UpdateGUI ();
 
 		CheckPlayerState ();
+
+		if ( level_completed )
+		{
+			StartCoroutine(levelComplete());
+		}
+
+
 	}
 
 	void CheckPlayerState ()
 	{
 		// Checks if mario is large or not. If large, change icon to indicate he is
 		Transform guiContainerChild 		= transform.GetChild(0);
-			Transform guiIndicatorState 		= guiContainerChild.transform.GetChild(0);
+			Transform guiIndicatorState 		= guiContainerChild.transform.GetChild(1);
 				Transform guiIndicatorStateChild 	= guiIndicatorState.transform.GetChild(2);
 					Image indicatorImage 				= guiIndicatorStateChild.gameObject.GetComponent<Image>();
 
@@ -53,7 +66,7 @@ public class script_sceneManager : MonoBehaviour
 	{
 		bigCoins									= script_playerProperties.bigCoins;
 		Transform guiContainerChild 				= transform.GetChild(0);
-		Transform guiIndicator_bigCoinsContainer 	= guiContainerChild.transform.GetChild(2);
+		Transform guiIndicator_bigCoinsContainer 	= guiContainerChild.transform.GetChild(3);
 
 		Image guiIcon_bigCoin_1 				= guiIndicator_bigCoinsContainer.transform.GetChild(0).GetComponent<Image>();
 		Image guiIcon_bigCoin_2 				= guiIndicator_bigCoinsContainer.transform.GetChild(1).GetComponent<Image>();
@@ -114,7 +127,82 @@ public class script_sceneManager : MonoBehaviour
 		UpdateBigCoinGui ();
 	}
 
+	IEnumerator levelComplete ()
+	{
+		Transform guiContainerChild  	= transform.GetChild(0);
+		Transform guiLevel			 	= guiContainerChild.GetChild(0);
 
+		// Manage remaining time
+		time.stopTime = true;
+		remainingTime = time.playTime;
+
+		Debug.Log (remainingTime);
+
+		yield return new WaitForSeconds (1.0f);
+
+		// Activate blackscreen
+		Transform guiLevel_childOne 	= guiLevel.GetChild(0);
+			
+				  guiLevel_childOne.GetComponent<Image>().enabled 	 = true;
+				  guiLevel_childOne.GetComponent<Animator>().enabled = true;
+
+		yield return new WaitForSeconds (1.5f);
+
+		// Activate Header
+		Transform guiLevel_childTwo 	= guiLevel.GetChild(1);
+
+				  guiLevel_childTwo.GetComponent<Text>().enabled  	 = true;
+
+		yield return new WaitForSeconds (1.5f);
+
+		// Activate score
+		calculateScore = true;
+
+		CalculateScore ();
+
+		yield return new WaitForSeconds (1.5f);
+
+
+		// Activate Credits 
+		// Tak fordi i spillede med, meh. :) 
+
+		level_completed = false;
+	}
+
+
+	void CalculateScore ()
+	{
+		if ( calculateScore )
+		{
+			//Debug.Log (remainingTime);
+			Transform guiContainerChild  		= transform.GetChild(0);
+			Transform guiTime			 		= guiContainerChild.GetChild(5);
+			Transform guiTime_childOne 			= guiTime.GetChild(0);
+			Text 	  guiTimeDisplay 			= guiTime_childOne.GetComponent<Text>();
+
+					  guiTimeDisplay.text 		= remainingTime.ToString("f0");
+
+			Transform guiLevel			 		= guiContainerChild.GetChild(0);
+			Transform guiLevel_childThree 		= guiLevel.GetChild(2);
+			Text 	  guiTimeBonusScore 		= guiLevel_childThree.GetComponent<Text>();
+
+			float 	  timeBonusScore			= remainingTime * 50;
+
+			guiTimeBonusScore.enabled 			= true;
+			guiTimeBonusScore.text				= "Time Bonus\n\n" + remainingTime.ToString("f0") + " x 50 = " + timeBonusScore.ToString("f0"); 
+
+			script_playerProperties.totalCoinCollected	+= Time.deltaTime * timeBonusScore;
+
+			Transform coinCollected		 		= guiContainerChild.GetChild(6);
+			Transform coinCollected_total		= coinCollected.GetChild(3);
+			Text	  guiTotalCoinCollected		= coinCollected_total.GetComponent<Text>();
+
+			guiTotalCoinCollected.text 			= script_playerProperties.totalCoinCollected.ToString("f0");
+
+			calculateScore = false;
+		}
+	
+	}
 
 }
 

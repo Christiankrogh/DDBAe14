@@ -49,7 +49,7 @@ public class script_playerControls : MonoBehaviour
 
 	#endregion
 	
-	public 			bool 				active 						= false;
+	private 			bool 				active 						= false;
 
 
 	void Update	()
@@ -69,13 +69,13 @@ public class script_playerControls : MonoBehaviour
 	
 	#region				Player Action Functions
 	
-	void player_actions	( ref CharacterController playerController, ref AudioSource playerAudio )
+	void player_actions			( ref CharacterController playerController, ref AudioSource playerAudio )
 	{
 		air_actions		( ref playerController, ref playerAudio );
 		ground_actions	( ref playerController, ref playerAudio );
 	}	
 	
-	void ground_actions	( ref CharacterController playerController, ref AudioSource playerAudio )
+	void ground_actions			( ref CharacterController playerController, ref AudioSource playerAudio )
 	{
 		if	(playerController.isGrounded == true)												// movements available to the player on the ground
 		{
@@ -90,7 +90,7 @@ public class script_playerControls : MonoBehaviour
 		}
 	}
 	
-	static void	air_actions	( ref CharacterController playerController, ref AudioSource playerAudio )				// movements available to the player in the air
+	static void	air_actions		( ref CharacterController playerController, ref AudioSource playerAudio )				// movements available to the player in the air
 	{
 		if ( playerController.isGrounded == false )
 		{
@@ -108,7 +108,7 @@ public class script_playerControls : MonoBehaviour
 
 	//############
 	// Jump Action 
-	static void	jump_action	( ref CharacterController playerController, ref AudioSource playerAudio )
+	static void	jump_action		( ref CharacterController playerController, ref AudioSource playerAudio )
 	{
 		if ( Input.GetButton( "Jump" ) || script_gameController.canJump )															// controls which type of jump the player character will execute
 		{				
@@ -130,7 +130,7 @@ public class script_playerControls : MonoBehaviour
 
 	//###########
 	// Run Action
-	static void	run_action ( ref CharacterController playerController, ref AudioSource playerAudio )
+	static void	run_action 		( ref CharacterController playerController, ref AudioSource playerAudio )
 	{
 		if ( velocity.x != 0 && Input.GetButton ("Fire1") || velocity.x != 0 && script_gameController.canRun )										// sets player animation to run left()
 		{
@@ -144,7 +144,7 @@ public class script_playerControls : MonoBehaviour
 	//##########
 
 
-	static void	crouch_action ( ref CharacterController playerController, ref AudioSource playerAudio )
+	static void	crouch_action 	( ref CharacterController playerController, ref AudioSource playerAudio )
 	{
 		if	( velocity.x == 0 && Input.GetAxis ("Vertical") < 0)
 		{
@@ -153,7 +153,7 @@ public class script_playerControls : MonoBehaviour
 		}
 	}
 	
-	static void idle_action	( ref CharacterController playerController, ref AudioSource playerAudio )
+	static void idle_action		( ref CharacterController playerController, ref AudioSource playerAudio )
 	{
 		if	( velocity.x == 0 && velocity.y == 0 && Input.GetAxis ("Vertical") >= 0 && Input.GetAxis ("Horizontal") == 0 )
 		{
@@ -161,7 +161,7 @@ public class script_playerControls : MonoBehaviour
 		}
 	}		
 	
-	static void	walk_action								( ref CharacterController playerController, ref AudioSource playerAudio )
+	static void	walk_action		( ref CharacterController playerController, ref AudioSource playerAudio )
 	{
 		if (velocity.x != 0 && velocity.y == 0 && Input.GetButton ("Fire1") == false && !script_gameController.canRun )																		// sets player animation to walk left
 		{

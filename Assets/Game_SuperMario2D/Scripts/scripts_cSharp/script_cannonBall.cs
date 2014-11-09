@@ -3,7 +3,7 @@ using System.Collections;
 
 public class script_cannonBall : MonoBehaviour 
 {
-	bool fireNow = false;
+			bool 		fireNow 		= false;
 
 	void Update () 
 	{
@@ -18,6 +18,7 @@ public class script_cannonBall : MonoBehaviour
 		if ( other.gameObject.tag == "Player" )
 		{
 			//Debug.Log ( "Player activated cannonball!" );
+			audio.Play();
 
 			fireNow = true;
 

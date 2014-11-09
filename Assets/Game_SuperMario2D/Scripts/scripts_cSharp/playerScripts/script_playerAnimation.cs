@@ -4,7 +4,12 @@ using System.Collections;
 public static class script_playerAnimation
 {
 	#region							Player Animation Functions
-	
+
+	public static void 			dead_animation 					( CharacterController playerController )
+	{
+		script_aniSprite.aniSprite( playerController, 16, 16, 0, 6, 1, 1);
+	}
+
 	public static void			idle_animation					(ref CharacterController playerController, float moveDirection)
 	{
 		if (moveDirection == 1)												// sets player animation to idle right

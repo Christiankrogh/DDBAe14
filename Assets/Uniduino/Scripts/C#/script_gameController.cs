@@ -27,7 +27,8 @@ public class script_gameController : MonoBehaviour
 	
 	public static 	bool 		canJump 				= false;
 	public static 	bool 		canRun 					= false;
-	
+	public static	bool 		canShoot 				= false;
+
 	public static 	int 		move_Horizontal 		= 0;
 	public static 	int 		move_Vertical 			= 0;
 	#endregion
@@ -126,18 +127,22 @@ public class script_gameController : MonoBehaviour
 	{
 		AddIndexNumberToArray ();
 
-		arduino = Arduino.global;									// Searches for the one and only Arduino connected to Unity
-		arduino.Setup (ConfigurePins);								// Set up pins
+		if ( arduino != null )
+		{
+			arduino = Arduino.global;									// Searches for the one and only Arduino connected to Unity
+			arduino.Setup (ConfigurePins);								// Set up pins
+		}
 	}
 
 
 	void Update () 													// Checks for button'pushes
 	{
+		/*
 		Debug.Log( "LED 1 = " + indexArray[0] );
 		Debug.Log( "LED 2 = " + indexArray[1] );
 		Debug.Log( "LED 3 = " + indexArray[2] );
 		Debug.Log( "LED 4 = " + indexArray[3] );
-		
+		*/
 		SetColor ( 1, indexArray[0] );	
 		SetColor ( 2, indexArray[1] );
 		SetColor ( 3, indexArray[2] );	
@@ -247,16 +252,18 @@ public class script_gameController : MonoBehaviour
 	void CheckButtonState ()
 	{
 		#region buttons [digitalRead]
-		buttom_up_state 	= arduino.digitalRead ( button_up 		);
-		button_down_state 	= arduino.digitalRead ( button_down 	);
-		button_left_state 	= arduino.digitalRead ( button_left 	);
-		button_right_state 	= arduino.digitalRead ( button_right 	);
+		if ( arduino != null )
+		{
+			buttom_up_state 	= arduino.digitalRead ( button_up 		);
+			button_down_state 	= arduino.digitalRead ( button_down 	);
+			button_left_state 	= arduino.digitalRead ( button_left 	);
+			button_right_state 	= arduino.digitalRead ( button_right 	);
 
-		button_A_state 		= arduino.digitalRead ( button_A 		);
-		button_B_state 		= arduino.digitalRead ( button_B 		);
-		button_X_state 		= arduino.digitalRead ( button_X 		);
-		button_Y_state 		= arduino.digitalRead ( button_Y 		);
-
+			button_A_state 		= arduino.digitalRead ( button_A 		);
+			button_B_state 		= arduino.digitalRead ( button_B 		);
+			button_X_state 		= arduino.digitalRead ( button_X 		);
+			button_Y_state 		= arduino.digitalRead ( button_Y 		);
+		}
 		#endregion
 
 		#region Button up & down
@@ -440,32 +447,35 @@ public class script_gameController : MonoBehaviour
 			greenVal  = 0;
 		}
 
-		if ( ledIndex == 1 )										// Maps the physical placement of the LEDs to a index number
+		if ( arduino != null )
 		{
-			arduino.digitalWrite( led_01_red  , 255 - redVal   );	
-			arduino.digitalWrite( led_01_blue , 255 - blueVal  );	
-			arduino.digitalWrite( led_01_green, 255 - greenVal );	
-		}
+			if ( ledIndex == 1 )										// Maps the physical placement of the LEDs to a index number
+			{
+				arduino.digitalWrite( led_01_red  , 255 - redVal   );	
+				arduino.digitalWrite( led_01_blue , 255 - blueVal  );	
+				arduino.digitalWrite( led_01_green, 255 - greenVal );	
+			}
 
-		if ( ledIndex == 2 )
-		{
-			arduino.digitalWrite( led_02_red  , 255 - redVal   );
-			arduino.digitalWrite( led_02_blue , 255 - blueVal  );
-			arduino.digitalWrite( led_02_green, 255 - greenVal );
-		}
+			if ( ledIndex == 2 )
+			{
+				arduino.digitalWrite( led_02_red  , 255 - redVal   );
+				arduino.digitalWrite( led_02_blue , 255 - blueVal  );
+				arduino.digitalWrite( led_02_green, 255 - greenVal );
+			}
 
-		if ( ledIndex == 3 )
-		{
-			arduino.digitalWrite( led_03_red  , 255 - redVal   );
-			arduino.digitalWrite( led_03_blue , 255 - blueVal  );
-			arduino.digitalWrite( led_03_green, 255 - greenVal );
-		}
+			if ( ledIndex == 3 )
+			{
+				arduino.digitalWrite( led_03_red  , 255 - redVal   );
+				arduino.digitalWrite( led_03_blue , 255 - blueVal  );
+				arduino.digitalWrite( led_03_green, 255 - greenVal );
+			}
 
-		if ( ledIndex == 4 )
-		{
-			arduino.digitalWrite( led_04_red  , 255 - redVal   );
-			arduino.digitalWrite( led_04_blue , 255 - blueVal  );
-			arduino.digitalWrite( led_04_green, 255 - greenVal );
+			if ( ledIndex == 4 )
+			{
+				arduino.digitalWrite( led_04_red  , 255 - redVal   );
+				arduino.digitalWrite( led_04_blue , 255 - blueVal  );
+				arduino.digitalWrite( led_04_green, 255 - greenVal );
+			}
 		}
 	}
 	#endregion
@@ -482,7 +492,7 @@ public class script_gameController : MonoBehaviour
 		indexArray.Add("Blue");
 		indexArray.Add("Red");
 
-		Debug.Log ( "IndexArray: " + indexArray[0] + ", " + indexArray[1] + ", " + indexArray[2] + ", " + indexArray[3] );
+		//Debug.Log ( "IndexArray: " + indexArray[0] + ", " + indexArray[1] + ", " + indexArray[2] + ", " + indexArray[3] );
 	}
 
 	void RandomMapping ()

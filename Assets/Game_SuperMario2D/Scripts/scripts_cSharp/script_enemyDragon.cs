@@ -7,11 +7,13 @@ public class script_enemyDragon : MonoBehaviour
 			bool startWalk	= false;
 			bool walkLeft 	= true;
 
+	public  GameObject guiText;
+
 	void Update () 
 	{
 		if ( dragonDead )
 		{
-			Destroy ( gameObject );
+			StartCoroutine( WaitASecond (3.0f) );
 		}
 
 		if ( startWalk )
@@ -45,6 +47,22 @@ public class script_enemyDragon : MonoBehaviour
 		}
 	}
 
+	void OnCollisionEnter ( Collision other )
+	{
+		if ( other.gameObject.tag == "fireball" )
+		{
+			Destroy(other.gameObject);
+
+			script_playerProperties.AddToTotalCoinCollected(200);
+			PopGuiText ("+200", this.gameObject);
+
+			//Debug.Log ("Hit Dragon!");
+			GetComponent<Rigidbody>().isKinematic = false;
+			GetComponent<Rigidbody>().useGravity  = true;
+			transform.Translate ( 0f, 0f, -15.0f, Space.World );
+		}
+	}
+	
 	IEnumerator WaitASecond ( float waitFor )
 	{
 		yield return new WaitForSeconds (waitFor);
@@ -52,10 +70,16 @@ public class script_enemyDragon : MonoBehaviour
 		Destroy(gameObject);
 	}
 
-	void OnCollisionEnter ( Collision other )
+	void PopGuiText ( string scoreText, GameObject GO )
 	{
-	
+		GameObject clone;
+		clone = (GameObject)Instantiate ( guiText, GO.transform.position, Quaternion.identity); 
+		
+		script_text cloneComponent = (script_text)clone.GetComponent(typeof(script_text));
+		
+		cloneComponent.SetScoreText(scoreText);
 	}
+	
 }
 
 

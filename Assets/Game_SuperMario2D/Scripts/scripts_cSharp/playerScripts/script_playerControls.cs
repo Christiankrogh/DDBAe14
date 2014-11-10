@@ -50,8 +50,8 @@ public class script_playerControls : MonoBehaviour
 	#endregion
 	
 	private 			bool 				active 						= false;
-
-
+    
+   
 	void Update	()
 	{	
 		CharacterController playerController		=		GetComponent<CharacterController>	 ();

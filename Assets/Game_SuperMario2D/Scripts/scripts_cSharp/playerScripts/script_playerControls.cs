@@ -146,19 +146,34 @@ public class script_playerControls : MonoBehaviour
 
 	static void	crouch_action 	( ref CharacterController playerController, ref AudioSource playerAudio )
 	{
-		if	( velocity.x == 0 && Input.GetAxis ("Vertical") < 0)
+        
+        if (velocity.x == 0 && Input.GetAxis("Vertical") < 0 )
 		{
+            Debug.Log("crouch_action_keyboard");
 			script_playerMovement.crouch_movement	( ref velocity);
 			script_playerAnimation.crouch_animation	( ref playerController, ref velocity, moveDirection);
 		}
+        
+        if (velocity.x == 0 && script_gameController.move_Vertical < 0 )
+        {
+            Debug.Log("crouch_action");
+            script_playerMovement.crouch_movement(ref velocity);
+            script_playerAnimation.crouch_animation(ref playerController, ref velocity, moveDirection);
+        }
 	}
 	
 	static void idle_action		( ref CharacterController playerController, ref AudioSource playerAudio )
 	{
+        /*
 		if	( velocity.x == 0 && velocity.y == 0 && Input.GetAxis ("Vertical") >= 0 && Input.GetAxis ("Horizontal") == 0 )
 		{
 			script_playerAnimation.idle_animation		( ref playerController, moveDirection );
 		}
+        */
+        if (velocity.x == 0 && velocity.y == 0 && script_gameController.move_Vertical >= 0 && script_gameController.move_Horizontal == 0)
+        {
+            script_playerAnimation.idle_animation(ref playerController, moveDirection);
+        }
 	}		
 	
 	static void	walk_action		( ref CharacterController playerController, ref AudioSource playerAudio )

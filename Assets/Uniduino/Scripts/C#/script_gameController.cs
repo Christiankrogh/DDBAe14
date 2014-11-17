@@ -15,6 +15,18 @@ public class script_gameController : MonoBehaviour
 					bool 		changeCommand 			= true;
 
 	#region Action variables
+    // Global action variables
+    public static   int         move_Horizontal = 0;
+    public static   int         move_Vertical = 0;
+
+    public static   bool        canJump = false;
+    public static   bool        canRun = false;
+    public static   bool        canShoot = false;
+
+    // Program 1 specific: 
+                  // -
+
+    // Program 2 specific: 
 					bool 		button_1_run 			= false;
 					bool 		button_2_run 			= false;
 					bool 		button_3_run 			= false;
@@ -25,12 +37,13 @@ public class script_gameController : MonoBehaviour
 					bool 		button_4_jump			= false;
 					bool 		button_1_jump 			= false;
 	
-	public static 	bool 		canJump 				= false;
-	public static 	bool 		canRun 					= false;
-	public static	bool 		canShoot 				= false;
+    // Program 3 specific: 
+    public          List<string>indexArray              = new List<string>();
+    private         bool        reMap                   = true; 
 
-	public static 	int 		move_Horizontal 		= 0;
-	public static 	int 		move_Vertical 			= 0;
+    // Program 4 specific: 
+                  // - 
+
 	#endregion
 
 	#region LED'pins' 		
@@ -55,7 +68,7 @@ public class script_gameController : MonoBehaviour
 	public 			int 		button_up 				= 10;						// the number of the pushbutton pin
 	public 			int 		button_down				= 12;
 	public 			int 		button_left				= 5;
-	public 			int 		button_right			= 6;		 
+	public 			int 		button_right			= 6; // 6		 
 	#endregion
 
 	#region Button'pins' 	[Actions]
@@ -109,7 +122,7 @@ public class script_gameController : MonoBehaviour
 		arduino.reportDigital ( ( byte ) ( button_up 	/ 8 ), 1 );
 		arduino.reportDigital ( ( byte ) ( button_down 	/ 8 ), 1 );
 		arduino.reportDigital ( ( byte ) ( button_left 	/ 8 ), 1 );
-		arduino.reportDigital ( ( byte ) ( button_right	/ 8 ), 1 );
+        arduino.reportDigital ( ( byte ) ( button_right / 8 ), 1 );
 		arduino.reportDigital ( ( byte ) ( button_A 	/ 8 ), 1 );
 		arduino.reportDigital ( ( byte ) ( button_B 	/ 8 ), 1 );
 		arduino.reportDigital ( ( byte ) ( button_X 	/ 8 ), 1 );
@@ -311,6 +324,8 @@ public class script_gameController : MonoBehaviour
 			changeCommand 	= true;
 
 			reMap			= true;
+
+            canJump         = false;
 		}
 		if ( !button_1_jump || !button_2_jump || !button_3_jump || !button_4_jump )
 		{
@@ -328,17 +343,19 @@ public class script_gameController : MonoBehaviour
 			Debug.Log ( "buttom_B (1) [pressed]" );
 			//ChangeCommand ();
             //Debug.Log("IndexArray: " + indexArray[0] + ", " + indexArray[1] + ", " + indexArray[2] + ", " + indexArray[3]);
-			RandomMapping ();
 
 			if ( button_1_run )
 			{
 				canRun = true;
 			}
 
-            if (button_1_jump || indexArray[0] == "Blue")
+            if (button_1_jump || indexArray[0] == "Blue" )
 			{
 				canJump = true;
 			}
+
+            StartCoroutine(WaitFor(0.1f));
+
 		}
 		#endregion
 
@@ -347,8 +364,6 @@ public class script_gameController : MonoBehaviour
 		{	
 			//Debug.Log ( "buttom_Y (2) [pressed]" );
 			//ChangeCommand ();	
-
-			RandomMapping ();
 
 			if ( button_2_run )
 			{
@@ -359,6 +374,9 @@ public class script_gameController : MonoBehaviour
 			{
 				canJump = true;
 			}
+
+            StartCoroutine(WaitFor(0.1f));
+
 		}
 		#endregion
 
@@ -367,8 +385,6 @@ public class script_gameController : MonoBehaviour
 		{	
 			//Debug.Log ( "buttom_X [pressed]" );
 			//ChangeCommand ();	
-
-			RandomMapping ();
 
 			if ( button_3_run )
 			{
@@ -379,6 +395,9 @@ public class script_gameController : MonoBehaviour
 			{
 				canJump = true;
 			}
+
+            StartCoroutine(WaitFor(0.1f));
+
 		}
 		#endregion
 
@@ -387,8 +406,6 @@ public class script_gameController : MonoBehaviour
 		{	
 			//Debug.Log ( "buttom_A [pressed]" );
 			//ChangeCommand ();
-
-			RandomMapping ();
 
 			if ( button_4_run )
 			{
@@ -399,12 +416,27 @@ public class script_gameController : MonoBehaviour
 			{
                 canJump = true;
 			}
+
+            StartCoroutine(WaitFor(0.1f));
+
+         
 		}
 		#endregion
 
 	}
 	#endregion
-	
+
+
+    IEnumerator WaitFor(float seconds)
+    {
+        Debug.Log("Start");
+        yield return new WaitForSeconds(seconds);
+        Debug.Log("Slut");
+        RandomMapping();
+    }
+    
+
+
 
 	#region SetColor
 	public void SetColor ( int ledIndex, string colorName )
@@ -479,8 +511,7 @@ public class script_gameController : MonoBehaviour
 
 	
 
-	public 	List<string> 	indexArray 	= new List<string>();
-	private bool 			reMap 		= true; 
+
 
 	void AddIndexNumberToArray ()
 	{

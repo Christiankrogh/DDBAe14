@@ -130,6 +130,7 @@ public  class script_playerMovement : MonoBehaviour
 
 	public static void crouch_movement ( ref Vector3 velocity )
 	{
+        //Debug.Log("crouch_movement");
 		velocity.x = 0;																								// prevents the player from moving while crouching
 	}
 

@@ -127,11 +127,11 @@ public class script_gameController : MonoBehaviour
 	{
 		AddIndexNumberToArray ();
 
-		if ( arduino != null )
-		{
+		//if ( arduino != null )
+		//{
 			arduino = Arduino.global;									// Searches for the one and only Arduino connected to Unity
 			arduino.Setup (ConfigurePins);								// Set up pins
-		}
+		//}
 	}
 
 
@@ -143,12 +143,9 @@ public class script_gameController : MonoBehaviour
 		Debug.Log( "LED 3 = " + indexArray[2] );
 		Debug.Log( "LED 4 = " + indexArray[3] );
 		*/
-		SetColor ( 1, indexArray[0] );	
-		SetColor ( 2, indexArray[1] );
-		SetColor ( 3, indexArray[2] );	
-		SetColor ( 4, indexArray[3] );
 
-		CheckButtonState ();
+        CheckButtonState();
+
 		/*
 		if ( commandRotation == 0 )
 		{
@@ -309,7 +306,7 @@ public class script_gameController : MonoBehaviour
 		#endregion
 	
 		#region Action disable check 
-		if ( button_A_state == Arduino.LOW && button_B_state == Arduino.LOW && button_X_state == Arduino.LOW	&& button_Y_state == Arduino.LOW )
+		if ( button_A_state == Arduino.LOW && button_B_state == Arduino.LOW && button_X_state == Arduino.LOW && button_Y_state == Arduino.LOW )
 		{
 			changeCommand 	= true;
 
@@ -326,11 +323,11 @@ public class script_gameController : MonoBehaviour
 		#endregion
 
 		#region Button_B
-		if ( button_B_state == Arduino.HIGH		||	Input.GetKey( KeyCode.Q ) ) 
+		if ( button_B_state == Arduino.HIGH	 ) 
 		{	
-			//Debug.Log ( "buttom_B (1) [pressed]" );
+			Debug.Log ( "buttom_B (1) [pressed]" );
 			//ChangeCommand ();
-
+            //Debug.Log("IndexArray: " + indexArray[0] + ", " + indexArray[1] + ", " + indexArray[2] + ", " + indexArray[3]);
 			RandomMapping ();
 
 			if ( button_1_run )
@@ -338,7 +335,7 @@ public class script_gameController : MonoBehaviour
 				canRun = true;
 			}
 
-			if ( button_1_jump || indexArray[0] == "Green" )
+            if (button_1_jump || indexArray[0] == "Blue")
 			{
 				canJump = true;
 			}
@@ -346,7 +343,7 @@ public class script_gameController : MonoBehaviour
 		#endregion
 
 		#region Button_Y
-		if ( button_Y_state == Arduino.HIGH		||	Input.GetKey( KeyCode.S ) ) 
+		if ( button_Y_state == Arduino.HIGH	 ) 
 		{	
 			//Debug.Log ( "buttom_Y (2) [pressed]" );
 			//ChangeCommand ();	
@@ -358,7 +355,7 @@ public class script_gameController : MonoBehaviour
 				canRun = true;
 			}
 
-			if ( button_2_jump || indexArray[1] == "Green" )
+            if (button_2_jump || indexArray[1] == "Blue")
 			{
 				canJump = true;
 			}
@@ -366,7 +363,7 @@ public class script_gameController : MonoBehaviour
 		#endregion
 
 		#region Button_X
-		if ( button_X_state == Arduino.HIGH		||	Input.GetKey( KeyCode.W ) ) 
+		if ( button_X_state == Arduino.HIGH	 ) 
 		{	
 			//Debug.Log ( "buttom_X [pressed]" );
 			//ChangeCommand ();	
@@ -378,7 +375,7 @@ public class script_gameController : MonoBehaviour
 				canRun = true;
 			}
 
-			if ( button_3_jump || indexArray[2] == "Green" )
+            if (button_3_jump == true || indexArray[2] == "Blue") 
 			{
 				canJump = true;
 			}
@@ -386,7 +383,7 @@ public class script_gameController : MonoBehaviour
 		#endregion
 
 		#region Button_A
-		if ( button_A_state == Arduino.HIGH 	||	Input.GetKey( KeyCode.A )	 ) 
+		if ( button_A_state == Arduino.HIGH  ) 
 		{	
 			//Debug.Log ( "buttom_A [pressed]" );
 			//ChangeCommand ();
@@ -398,9 +395,9 @@ public class script_gameController : MonoBehaviour
 				canRun = true;
 			}
 
-			if ( button_4_jump || indexArray[3] == "Green" )
+			if ( button_4_jump || indexArray[3] == "Blue" )
 			{
-				canJump = true;
+                canJump = true;
 			}
 		}
 		#endregion
@@ -487,12 +484,12 @@ public class script_gameController : MonoBehaviour
 
 	void AddIndexNumberToArray ()
 	{
-		indexArray.Add("Yellow");
-		indexArray.Add("Green");
-		indexArray.Add("Blue");
-		indexArray.Add("Red");
+		indexArray.Add( "Yellow" );
+		indexArray.Add( "Blue"   );
+        indexArray.Add( "Green"  );
+		indexArray.Add( "Red"    );
 
-		//Debug.Log ( "IndexArray: " + indexArray[0] + ", " + indexArray[1] + ", " + indexArray[2] + ", " + indexArray[3] );
+		Debug.Log ( "IndexArray: " + indexArray[0] + ", " + indexArray[1] + ", " + indexArray[2] + ", " + indexArray[3] );
 	}
 
 	void RandomMapping ()
@@ -508,9 +505,15 @@ public class script_gameController : MonoBehaviour
 				break;
 			}
 
+            SetColor( 1, indexArray[0] );
+            SetColor( 2, indexArray[1] );
+            SetColor( 3, indexArray[2] );
+            SetColor( 4, indexArray[3] );
+
 			reMap = false;
 		}
 	}
+
 
 
 }

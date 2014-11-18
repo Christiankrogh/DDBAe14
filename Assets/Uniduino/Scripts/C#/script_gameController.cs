@@ -357,8 +357,91 @@ public class script_gameController : MonoBehaviour
     #region Program 1   [Standard-mapping]
 
     void Program_1()
-    { 
-    
+    {
+        SetColor(1, "Yellow");
+        SetColor(2, "Green");
+        SetColor(3, "Blue");
+        SetColor(4, "Red");
+        
+        #region Button up & down
+        if (buttom_up_state == Arduino.LOW && button_down_state == Arduino.LOW)
+        {
+            move_Vertical = 0;
+        }
+
+        if (buttom_up_state == Arduino.HIGH)
+        {
+            //Debug.Log ( "buttom_up [pressed]" );
+            move_Vertical = 1;
+        }
+
+        if (button_down_state == Arduino.HIGH)
+        {
+            //Debug.Log ( "buttom_down [pressed]" );
+
+            move_Vertical = -1;
+        }
+        #endregion
+
+        #region Button left & right
+        if (button_left_state == Arduino.LOW && button_right_state == Arduino.LOW)
+        {
+            move_Horizontal = 0;
+        }
+
+        if (button_left_state == Arduino.HIGH)
+        {
+            //Debug.Log ( "buttom_left [pressed]" );
+            move_Horizontal = 1;
+        }
+
+        if (button_right_state == Arduino.HIGH)
+        {
+            //Debug.Log ( "buttom_right [pressed]" );
+            move_Horizontal = -1;
+        }
+        #endregion
+
+        #region Action disable check
+        if (button_A_state == Arduino.LOW || button_B_state == Arduino.LOW || button_X_state == Arduino.LOW || button_Y_state == Arduino.LOW)
+        {
+            canJump     = false;
+            canRun      = false;
+            canShoot    = false;
+        }
+        #endregion
+
+        #region Button_B
+        if (button_B_state == Arduino.HIGH)
+        {
+            //Debug.Log("buttom_B (1) [pressed]");
+            canRun = true;    
+        }
+        #endregion
+
+        #region Button_Y
+        if (button_Y_state == Arduino.HIGH)
+        {
+            //Debug.Log ( "buttom_Y (2) [pressed]" );
+            // --
+        }
+        #endregion
+
+        #region Button_X
+        if (button_X_state == Arduino.HIGH)
+        {
+            //Debug.Log ( "buttom_X [pressed]" );
+            canJump = true;
+        }
+        #endregion
+
+        #region Button_A
+        if (button_A_state == Arduino.HIGH)
+        {
+            //Debug.Log ( "buttom_A [pressed]" );
+            canShoot = true;
+        }
+        #endregion
     }
 
     #endregion

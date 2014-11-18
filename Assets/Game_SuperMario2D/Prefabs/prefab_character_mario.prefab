@@ -244,7 +244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -270,7 +270,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.5249996, y: 2.34369993, z: -2.72830007e-08}
+  m_LocalPosition: {x: -9.75430012, y: 2.34369993, z: -2.72830007e-08}
   m_LocalScale: {x: .75, y: .75, z: .75}
   m_Children:
   - {fileID: 400000}
@@ -975,6 +975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a268c01896616a14f9f6a1cfa933e7ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  indexArray: []
   led_01_red: 50
   led_01_green: 51
   led_01_blue: 52
@@ -995,7 +996,6 @@ MonoBehaviour:
   button_Y: 2
   button_X: 3
   button_A: 4
-  indexArray: []
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1

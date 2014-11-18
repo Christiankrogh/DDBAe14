@@ -41,6 +41,7 @@ public  class script_playerMovement : MonoBehaviour
 	{
 		if ( playerController.isGrounded == true )
 		{
+            /*
 			if ( Input.anyKey )
 			{
 				//Debug.Log ("Movement left/right: controlled by keyboard");
@@ -51,6 +52,9 @@ public  class script_playerMovement : MonoBehaviour
 				//Debug.Log ("Movement left/right: custom controller");
 				velocity		=   new Vector3 ( script_gameController.move_Horizontal, 0, 0 );
 			}
+            */
+            velocity            = new Vector3(script_gameController.move_Horizontal, 0, 0);
+
 			velocity            =   playerController.transform.TransformDirection(velocity);
 			velocity.x          =   velocity.x * walkSpeed; 
 		}
@@ -58,6 +62,7 @@ public  class script_playerMovement : MonoBehaviour
 	
 	public static void set_player_air_velocity ( ref Vector3 velocity, ref CharacterController playerController )
 	{	
+        /*
 		if ( Input.GetButton ("Fire1") )
 		{
 			velocity.x          =   -Input.GetAxis("Horizontal") * 8.0f;//runSpeed;
@@ -67,14 +72,14 @@ public  class script_playerMovement : MonoBehaviour
 		{
 			//velocity.x          =   -Input.GetAxis("Horizontal") * 6.0f;//walkSpeed;									// the player can change the direction of movement while they're 
 		}
-
-		if ( script_gameController.canJump )
+        */
+        if (script_gameController.canRun )
 		{
-			velocity.x          =   -script_gameController.move_Horizontal * 8.0f;
+            velocity.x = -script_gameController.move_Horizontal * runSpeed * 2.0f; // 2.0f = miltiplier
 		}
 		else
 		{
-			//velocity.x          =   -script_gameController.move_Horizontal * 6.0f; 
+			velocity.x = -script_gameController.move_Horizontal * walkSpeed; 
 		}
 		
 		if (playerController.collisionFlags == CollisionFlags.Above)												// if the player's head collides with an object, repel the player downwards
@@ -99,22 +104,26 @@ public  class script_playerMovement : MonoBehaviour
 	public static void jump_movement (ref Vector3 velocity)
 	{				
 		script_playerControls.in_a_jump			=		true;
-		// Keyboard controls
-		if ( Input.GetButton( "Fire1" ) )																		// player does a run jump
+		/*
+        // Keyboard controls
+        if (Input.GetButton("Fire1") )																		// player does a run jump
 		{	
 			velocity.y  =		runJump;
-			velocity.x  =		crouchJump * Input.GetAxis ("Horizontal");										// the run jump moves faster in the x direction than the other jumps
+            velocity.x  =       runJump * Input.GetAxis("Horizontal");										// the run jump moves faster in the x direction than the other jumps
 		}
-		else
+        if (!Input.GetButton("Fire1") )
 		{	
 			velocity.y	=		walkJump;																		// player does a walk jump
 		}
+        */
+
 		// Custom controller 
-		if ( script_gameController.canJump )
-		{
-			velocity.x  =		crouchJump * script_gameController.move_Horizontal;
-		}
-		else
+        if (script_gameController.canRun && script_gameController.canJump )
+        {
+            velocity.y = runJump;
+            velocity.x = runJump * -script_gameController.move_Horizontal;
+        }
+        if (!script_gameController.canRun && script_gameController.canJump )
 		{
 			velocity.y	=		walkJump;	
 		}

@@ -29,7 +29,7 @@ public class script_playerProperties : MonoBehaviour
 	
 	#region Player Movement Speeds
 	
-	static public float					walkSpeed           			= 4.0f;                     					// speed of the standard walk
+	static public float					walkSpeed           			= 3.2f;                     					// speed of the standard walk
 	static public float					runSpeed						= 6.0f;                     					// speed of the run
 	
 	static public float					walkJump            			= 14.0f;                     					// jump height from walk    
@@ -84,7 +84,8 @@ public class script_playerProperties : MonoBehaviour
 	
 	private static int								coinLife						=	20;
 	private static bool								canShoot						=	false;
-	
+                   bool                             shootNow                        =   true;
+
 	public static CharacterController				playerController;		
 	public static Transform							playerTransform;
 	public static MeshRenderer						playerMeshRender;
@@ -133,39 +134,56 @@ public class script_playerProperties : MonoBehaviour
 	
 	
 	#endregion
-	
 
+   
 	void Shoot ()
 	{	
 		float 		playerDirection	=	script_playerControls.moveDirection;
-
+       
 		Rigidbody	clone;
 
 		if ( canShoot && Input.GetButtonDown ("Fire1") &&  playerDirection < 0 || canShoot && script_gameController.canShoot && playerDirection < 0 )
 		{
-			
-			Vector3			left_socket			=	projectile_socket_left.transform.position;
-			Quaternion		player_rotation		=	playerController.transform.rotation;
+            if (shootNow)
+            {
+                shootNow = false;
 
-			script_playerSounds.play_sound ( ref playerAudio, fireball, 0f);
+                Vector3     left_socket = projectile_socket_left.transform.position;
+                Quaternion  player_rotation = playerController.transform.rotation;
 
-			clone 								= Instantiate ( projectileFire, left_socket, Quaternion.identity) as Rigidbody;
-			clone.AddForce( -90, 0, 0);
-			
+                script_playerSounds.play_sound(ref playerAudio, fireball, 0f);
+
+                clone = Instantiate(projectileFire, left_socket, Quaternion.identity) as Rigidbody;
+                clone.AddForce(-90, 0, 0);
+
+                StartCoroutine(BulletDelay( 0.2f));
+            }	
 		}
-		
-		if ( canShoot && Input.GetButtonDown ("Fire1") && playerDirection > 0 || canShoot && script_gameController.canShoot && playerDirection > 0 )
+
+        if (canShoot && Input.GetButtonDown("Fire1") && playerDirection > 0 || canShoot && script_gameController.canShoot && playerDirection > 0)
 		{
-			
-			Vector3			right_socket		=	projectile_socket_right.transform.position;
-			Quaternion		player_rotation		=	playerController.transform.rotation;
+            if (shootNow)
+            {
+                shootNow = false;
+                Vector3 right_socket = projectile_socket_right.transform.position;
+                Quaternion player_rotation = playerController.transform.rotation;
 
-			script_playerSounds.play_sound ( ref playerAudio, fireball, 0f);
+                script_playerSounds.play_sound(ref playerAudio, fireball, 0f);
 
-			clone 								= Instantiate ( projectileFire, right_socket, Quaternion.identity) as Rigidbody;
-			clone.AddForce( 90, 0, 0);
+                clone = Instantiate(projectileFire, right_socket, Quaternion.identity) as Rigidbody;
+                clone.AddForce(90, 0, 0);
+
+                StartCoroutine(BulletDelay(0.2f));
+            }
 		}
-	} 
+	}
+
+    IEnumerator BulletDelay(float seconds )
+    {
+        yield return new WaitForSeconds(seconds);
+
+        shootNow = true;
+    }
 
 	void OnControllerColliderHit ( ControllerColliderHit col )
 	{

@@ -38,12 +38,12 @@ public static class script_playerAnimation
 	
 	public static void			run_animation					(ref CharacterController playerController, ref Vector3 velocity)
 	{
-		if (velocity.x < 0  && Input.GetButton ("Fire1"))										// sets player animation to run left()
+        if (velocity.x < 0 && Input.GetButton("Fire1") || velocity.x < 0 && script_gameController.canRun )										// sets player animation to run left()
 		{					
 			script_aniSprite.aniSprite( playerController, 16, 16, 0, 3, 3, 15);
 		}
-		
-		if (velocity.x > 0 && Input.GetButton ("Fire1"))										// sets player animation to run right
+
+        if (velocity.x > 0 && Input.GetButton("Fire1") || velocity.x > 0 && script_gameController.canRun )										// sets player animation to run right
 		{
 			script_aniSprite.aniSprite( playerController,  16, 16, 0, 2, 3, 15);
 		}
@@ -68,25 +68,25 @@ public static class script_playerAnimation
 	{
 		if (moveDirection == -1)														// use a jump animation facing the left
 		{
-			if (velocity.x == 0 && Input.GetAxis("Vertical") < 0)					// use the left crouch jump animation
+            if (velocity.x == 0 && Input.GetAxis("Vertical") < 0 || velocity.x == 0 && script_gameController.move_Vertical < 0)					// use the left crouch jump animation
 			{
 				script_aniSprite.aniSprite(playerController, 16, 16, 12, 11, 1, 1);
 			}
 			else
 			{
-				script_aniSprite.aniSprite( playerController, 16, 16, 11, 3, 4, 12);			// use the left normal jump animtion
+				script_aniSprite.aniSprite( playerController, 16, 16, 11, 3, 1, 1);			// use the left normal jump animtion
 			}
 		}
 		
 		if (moveDirection == 1)															// use a jump animation facing the right
 		{
-			if (velocity.x == 0 && Input.GetAxis("Vertical") < 0)					// use the right crouch jump animation
+            if (velocity.x == 0 && Input.GetAxis("Vertical") < 0 || velocity.x == 0 && script_gameController.move_Vertical < 0)					// use the right crouch jump animation
 			{
 				script_aniSprite.aniSprite(playerController, 16, 16, 12, 10, 1, 1);
 			}
 			else
 			{
-				script_aniSprite.aniSprite( playerController, 16, 16, 11, 2, 4, 12);			// use the right normal jump animtion
+				script_aniSprite.aniSprite( playerController, 16, 16, 11, 2, 1, 1);			// use the right normal jump animtion
 			}
 		}		
 	}

@@ -34,7 +34,7 @@ public class script_playerControls : MonoBehaviour
 	static private 	Vector3				velocity            		=	Vector3.zero;      							// direction and speed of player
 	public static 	float				startPosition       		=	0.0f;             							// coordinate of start postioon
 	public static 	bool				in_a_jump					=	false;
-	static			CharacterController	playerController			=	script_playerProperties.playerController;
+	static			BoxCollider2D	    playerController			=	script_playerProperties.playerController;
 	static			AudioSource			playerAudio;
 	
 	#region Particles
@@ -54,7 +54,7 @@ public class script_playerControls : MonoBehaviour
    
 	void Update	()
 	{	
-		CharacterController playerController		=		GetComponent<CharacterController>	 ();
+		BoxCollider2D       playerController		=		GetComponent<BoxCollider2D>	 ();
 		AudioSource			playerAudio				=		GetComponent<AudioSource>			 ();
 		playerProps									=		GetComponent<script_playerProperties>();
 
@@ -62,22 +62,22 @@ public class script_playerControls : MonoBehaviour
 		
 		script_playerMovement.player_acceleration_from_gravity	( ref velocity, ref playerController);
 		script_playerMovement.set_player_direction				( ref velocity, ref moveDirection);
-		
-		playerController.Move									( velocity * Time.deltaTime );
-	}
 
+        playerController.gameObject.rigidbody2D.velocity = (velocity * Time.deltaTime) * 50;  // (Collision2D update): velocity had to be multiplied by (an extra) lot to achieve the desired effect. 
+	}
+    
 	
 	#region				Player Action Functions
 	
-	void player_actions			( ref CharacterController playerController, ref AudioSource playerAudio )
+	void player_actions			( ref BoxCollider2D playerController, ref AudioSource playerAudio )
 	{
 		air_actions		( ref playerController, ref playerAudio );
 		ground_actions	( ref playerController, ref playerAudio );
 	}	
 	
-	void ground_actions			( ref CharacterController playerController, ref AudioSource playerAudio )
+	void ground_actions			( ref BoxCollider2D playerController, ref AudioSource playerAudio )
 	{
-		if	(playerController.isGrounded == true)												// movements available to the player on the ground
+		if	(script_playerMovement.grounded == true)												// movements available to the player on the ground
 		{
 			in_a_jump					=		false;
 			startPosition				=		transform.position.y;
@@ -90,9 +90,9 @@ public class script_playerControls : MonoBehaviour
 		}
 	}
 	
-	static void	air_actions		( ref CharacterController playerController, ref AudioSource playerAudio )				// movements available to the player in the air
+	static void	air_actions		( ref BoxCollider2D playerController, ref AudioSource playerAudio )				// movements available to the player in the air
 	{
-		if ( playerController.isGrounded == false )
+        if (script_playerMovement.grounded == false)
 		{
 			script_playerMovement.modulate_jump_height		( ref velocity);
 
@@ -108,7 +108,7 @@ public class script_playerControls : MonoBehaviour
 
 	//############
 	// Jump Action 
-	static void	jump_action		( ref CharacterController playerController, ref AudioSource playerAudio )
+	static void	jump_action		( ref BoxCollider2D playerController, ref AudioSource playerAudio )
 	{
 		if ( Input.GetButton( "Jump" ) || script_gameController.canJump )															// controls which type of jump the player character will execute
 		{				
@@ -130,7 +130,7 @@ public class script_playerControls : MonoBehaviour
 
 	//###########
 	// Run Action
-	static void	run_action 		( ref CharacterController playerController, ref AudioSource playerAudio )
+	static void	run_action 		( ref BoxCollider2D playerController, ref AudioSource playerAudio )
 	{
 		if ( velocity.x != 0 && Input.GetButton ("Fire1") || velocity.x != 0 && script_gameController.canRun )										// sets player animation to run left()
 		{
@@ -144,25 +144,36 @@ public class script_playerControls : MonoBehaviour
 	//##########
 
 
-	static void	crouch_action 	( ref CharacterController playerController, ref AudioSource playerAudio )
+	static void	crouch_action 	( ref BoxCollider2D playerController, ref AudioSource playerAudio )
 	{
-        
+        Vector2 colliderHeight;
+        /*
         if (velocity.x == 0 && Input.GetAxis("Vertical") < 0 )
 		{
             Debug.Log("crouch_action_keyboard");
 			script_playerMovement.crouch_movement	( ref velocity);
 			script_playerAnimation.crouch_animation	( ref playerController, ref velocity, moveDirection);
 		}
-        
+        */
         if (velocity.x == 0 && script_gameController.move_Vertical < 0 )
         {
+            colliderHeight = playerController.center;
+            colliderHeight = new Vector2(0.01f, -0.28f);
+            playerController.center = colliderHeight;
+            
             Debug.Log("crouch_action");
             script_playerMovement.crouch_movement(ref velocity);
             script_playerAnimation.crouch_animation(ref playerController, ref velocity, moveDirection);
         }
+        else
+        {
+            colliderHeight = playerController.center;
+            colliderHeight = new Vector2(0.01f, -0.1f);
+            playerController.center = colliderHeight;
+        }
 	}
 	
-	static void idle_action		( ref CharacterController playerController, ref AudioSource playerAudio )
+	static void idle_action		( ref BoxCollider2D playerController, ref AudioSource playerAudio )
 	{
         /*
 		if	( velocity.x == 0 && velocity.y == 0 && Input.GetAxis ("Vertical") >= 0 && Input.GetAxis ("Horizontal") == 0 )
@@ -176,7 +187,7 @@ public class script_playerControls : MonoBehaviour
         }
 	}		
 	
-	static void	walk_action		( ref CharacterController playerController, ref AudioSource playerAudio )
+	static void	walk_action		( ref BoxCollider2D playerController, ref AudioSource playerAudio )
 	{
 		if (velocity.x != 0 && velocity.y == 0 && Input.GetButton ("Fire1") == false && !script_gameController.canRun )																		// sets player animation to walk left
 		{
@@ -189,7 +200,7 @@ public class script_playerControls : MonoBehaviour
 
 	#region Particle Functions
 	
-	static void	jump_particle ( CharacterController playerController )
+	static void	jump_particle ( BoxCollider2D playerController )
 	{
 		Vector3 playerPosition 	= playerController.transform.position;
 		particlePlacement 		= new Vector3 ( playerPosition.x, (playerPosition.y - 0.5f) , playerPosition.z );

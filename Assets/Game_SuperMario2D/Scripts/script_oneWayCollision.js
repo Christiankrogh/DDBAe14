@@ -5,11 +5,11 @@
 	//this variable is true when the players is just below the platform so that its Box collider can be disabled that will allow the player to pass through the platform
 	var oneway : boolean;
 
-	var parentCollider : BoxCollider;
+	var parentCollider : BoxCollider2D;
 
 function Start () 
 {
-	parentCollider = this.transform.parent.transform.GetComponent(BoxCollider);
+	parentCollider = this.transform.parent.transform.GetComponent(BoxCollider2D);
 }
 
 function Update () 
@@ -21,13 +21,19 @@ function Update ()
 	  parentCollider.enabled=true;   
 }
 	//Checking the collison of the gameobject we created in step 2 for checking if the player is just below the platform and nedded to ignore the collison to the platform
-function OnTriggerStay(other: Collider) 
+function OnTriggerStay2D(other: Collider2D) 
 {
-     oneway = true;
+    if (other.tag == "Player" )
+    {
+        oneway = true;
+    } 
 }
 
-function OnTriggerExit(other: Collider) 
+function OnTriggerExit2D(other: Collider2D) 
 {
 	//Just to make sure that the platform's Box Collider does not get permantly disabled and it should be enabeled once the player get its through
-	oneway = false;
+    if (other.tag == "Player" )
+    {
+        oneway = false;
+    } 
 }

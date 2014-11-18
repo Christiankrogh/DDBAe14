@@ -9,10 +9,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 212: {fileID: 21200000}
-  - 65: {fileID: 6500000}
-  - 135: {fileID: 13500000}
   - 114: {fileID: 11400000}
-  - 54: {fileID: 5400000}
+  - 61: {fileID: 6100000}
+  - 58: {fileID: 5800000}
+  - 50: {fileID: 5000000}
   m_Layer: 8
   m_Name: prefab_redMushRoom
   m_TagString: redMushRoom
@@ -32,33 +32,43 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!54 &5400000
-Rigidbody:
+--- !u!50 &5000000
+Rigidbody2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_LinearDrag: 0
   m_AngularDrag: .0500000007
-  m_UseGravity: 1
+  m_GravityScale: 1
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 122
+  m_SleepingMode: 1
   m_CollisionDetection: 0
---- !u!65 &6500000
-BoxCollider:
+--- !u!58 &5800000
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Material: {fileID: 13400000, guid: b438f1dd7a38ed149af7945f658cbe04, type: 2}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: .180000007, y: .180000007, z: .200000003}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Radius: .129999995
+  m_Center: {x: 0, y: 0}
+--- !u!61 &6100000
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: 47e7e72807b9eee4e896012f6de39730, type: 2}
+  m_IsTrigger: 0
+  m_Size: {x: .180000007, y: .180000007}
+  m_Center: {x: 0, y: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -70,18 +80,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dbbe9e38be87564986f645d99814193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &13500000
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .119999997
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

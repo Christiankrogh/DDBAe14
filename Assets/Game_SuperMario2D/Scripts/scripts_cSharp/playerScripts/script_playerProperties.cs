@@ -69,7 +69,7 @@ public class script_playerProperties : MonoBehaviour
 	public static int								bigCoins						= 	0;
 	public static float								totalCoinCollected				=	0;
 	
-	public 	Rigidbody								projectileFire;
+	public 	Rigidbody2D								projectileFire;
 	
 	public 	Transform								projectile_socket_left;
 	public 	Transform								projectile_socket_right;
@@ -86,9 +86,10 @@ public class script_playerProperties : MonoBehaviour
 	private static bool								canShoot						=	false;
                    bool                             shootNow                        =   true;
 
-	public static CharacterController				playerController;		
+	public static BoxCollider2D				        playerController;		
 	public static Transform							playerTransform;
 	public static MeshRenderer						playerMeshRender;
+                  Vector2                           playerControllerHeight; 
 
 	public PlayerState								active_player_state				=	PlayerState.MarioSmall;
 	
@@ -121,7 +122,7 @@ public class script_playerProperties : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		playerController				=	GetComponent		<CharacterController>	();
+		playerController				=	GetComponent		<BoxCollider2D>	();
 		playerTransform					=	GetComponent		<Transform>				();
 		playerMeshRender				=	GetComponent		<MeshRenderer>			();		
 		playerAudio						=	GetComponent		<AudioSource>			();
@@ -140,7 +141,7 @@ public class script_playerProperties : MonoBehaviour
 	{	
 		float 		playerDirection	=	script_playerControls.moveDirection;
        
-		Rigidbody	clone;
+		Rigidbody2D	clone;
 
 		if ( canShoot && Input.GetButtonDown ("Fire1") &&  playerDirection < 0 || canShoot && script_gameController.canShoot && playerDirection < 0 )
 		{
@@ -153,8 +154,8 @@ public class script_playerProperties : MonoBehaviour
 
                 script_playerSounds.play_sound(ref playerAudio, fireball, 0f);
 
-                clone = Instantiate(projectileFire, left_socket, Quaternion.identity) as Rigidbody;
-                clone.AddForce(-90, 0, 0);
+                clone = Instantiate(projectileFire, left_socket, Quaternion.identity) as Rigidbody2D;
+                clone.AddForce(transform.right * 90);
 
                 StartCoroutine(BulletDelay( 0.2f));
             }	
@@ -170,8 +171,8 @@ public class script_playerProperties : MonoBehaviour
 
                 script_playerSounds.play_sound(ref playerAudio, fireball, 0f);
 
-                clone = Instantiate(projectileFire, right_socket, Quaternion.identity) as Rigidbody;
-                clone.AddForce(90, 0, 0);
+                clone = Instantiate(projectileFire, right_socket, Quaternion.identity) as Rigidbody2D;
+                clone.AddForce( -transform.right * 90 );
 
                 StartCoroutine(BulletDelay(0.2f));
             }
@@ -185,7 +186,8 @@ public class script_playerProperties : MonoBehaviour
         shootNow = true;
     }
 
-	void OnControllerColliderHit ( ControllerColliderHit col )
+	//void OnCollisionEnter2D ( ControllerColliderHit col )
+    void OnCollisionEnter2D( Collision2D col )
 	{
 		GameObject otherPos = col.gameObject;
 
@@ -226,8 +228,8 @@ public class script_playerProperties : MonoBehaviour
 			script_enemyDragon otherDragon = col.gameObject.transform.parent.transform.GetComponent<script_enemyDragon>();
 			otherDragon.dragonDead = true;
 
-			otherDragon.GetComponent<Rigidbody>().isKinematic = false;
-			otherDragon.GetComponent<Rigidbody>().useGravity  = true;
+			otherDragon.GetComponent<Rigidbody2D>().isKinematic = false;
+			//otherDragon.GetComponent<Rigidbody2D>().useGravity  = true;
 			otherDragon.transform.Translate ( 0f, 0f, -15.0f, Space.World );
 		}
 
@@ -239,8 +241,8 @@ public class script_playerProperties : MonoBehaviour
 		}
 	}
 
-
-	void OnTriggerEnter ( Collider other )
+	//void OnTriggerEnter ( Collider other )
+    void OnTriggerEnter2D( Collider2D other )
 	{
 		GameObject otherPos = other.gameObject;
 
@@ -376,7 +378,6 @@ public class script_playerProperties : MonoBehaviour
 		
 	}
 
-
 	void Check_cubeQuestionMark ( GameObject gameObjectCollidedWith )
 	{
 		anim_cube_questionMark = gameObjectCollidedWith.gameObject.GetComponent<Animator>();
@@ -461,7 +462,7 @@ public class script_playerProperties : MonoBehaviour
 	{
 		Transform parent = this.transform.parent;
 		parent.transform.GetChild(1).GetComponent<script_cameraSmoothFollow2D>().enabled = true;
-		transform.GetComponent<Rigidbody>().isKinematic = true;
+		transform.GetComponent<Rigidbody2D>().isKinematic = true;
 
 		yield return new WaitForSeconds (seconds);
 
@@ -482,7 +483,7 @@ public class script_playerProperties : MonoBehaviour
 			parent.transform.GetChild(1).GetComponent<script_cameraSmoothFollow2D>().enabled = false;
 
 			script_playerAnimation.dead_animation( playerController );
-			transform.GetComponent<Rigidbody>().isKinematic 	 	= false;
+			transform.GetComponent<Rigidbody2D>().isKinematic 	 	= false;
 
 			transform.Translate ( -0.2f, 100.0f * Time.deltaTime, -5.0f, Space.World );
 
@@ -560,29 +561,40 @@ public class script_playerProperties : MonoBehaviour
 			
 		}
 	}
-	
 
+    
+    
 	
 	void player_scale_small			()
 	{	
-		playerTransform.localScale	=	new Vector3	( 0.5f, 0.5f, 0.5f );
-		playerTransform.Translate	(0f, 0f, - 1.3f);
-		playerController.height		=	5.92f;
+		playerTransform.localScale	=	new Vector3	( 5.0f, 5.0f, 5.0f );
+        playerTransform.Translate(0f, 1.3f, 0f);
 
+        playerControllerHeight = playerController.size;
+        playerControllerHeight = new Vector2 (0.4f, 0.4f);
+        playerController.size = playerControllerHeight;
+
+        /*
 		Vector3 playerControllerCenter = playerController.center;
 		playerControllerCenter.z = 2.0f;
 		playerController.center = playerControllerCenter;
+        */
 	}
 	
 	void player_scale_normal			()
 	{
-		playerTransform.Translate	(0f, 0f, - 1.3f);
-		playerTransform.localScale	=	new Vector3	( 0.5f, 0.7f, 0.5f);
-		playerController.height		=	6.0f;
+        playerTransform.Translate(0f, 1.3f, 0f);
+		playerTransform.localScale	=	new Vector3	( 5.0f, 5.0f, 5.0f);
+        
+        playerControllerHeight = playerController.size;
+        playerControllerHeight = new Vector2 ( 0.4f, 0.8f );
+        playerController.size = playerControllerHeight;
 
+        /*
 		Vector3 playerControllerCenter = playerController.center;
 		playerControllerCenter.z = 0.8f;
 		playerController.center = playerControllerCenter;
+        */
 	}
 	
 	
@@ -595,7 +607,6 @@ public class script_playerProperties : MonoBehaviour
 	{
 		return this.crouchJumpSound;
 	}
-
 
 }
 

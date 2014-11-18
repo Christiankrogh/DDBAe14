@@ -13,9 +13,24 @@ public  class script_playerMovement : MonoBehaviour
 	static float					fallSpeed					= script_playerProperties.fallSpeed;
 	static float					collision_repel_above		= script_playerProperties.collision_repel_above;
 
-
+    public static bool              grounded = false;
+            Transform               groundCheck;
+            float                   groundRadius = 0.2f;
+    public  LayerMask               whatIsGround;
 
 	#region						Player Movement Functions
+
+
+
+    void FixedUpdate()
+    {
+        Debug.Log("Grounded: " + grounded);
+
+        groundCheck = transform.GetChild(3).transform;
+
+        grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
+    }
+
 
 	public static void run_movement ( ref Vector3 velocity)
 	{
@@ -37,9 +52,9 @@ public  class script_playerMovement : MonoBehaviour
 		}
 	}
 	
-	public static void set_player_ground_velocity ( ref Vector3 velocity, ref CharacterController playerController )
+	public static void set_player_ground_velocity ( ref Vector3 velocity, ref BoxCollider2D playerController )
 	{
-		if ( playerController.isGrounded == true )
+		if ( grounded == true )
 		{
             /*
 			if ( Input.anyKey )
@@ -53,14 +68,14 @@ public  class script_playerMovement : MonoBehaviour
 				velocity		=   new Vector3 ( script_gameController.move_Horizontal, 0, 0 );
 			}
             */
-            velocity            = new Vector3(script_gameController.move_Horizontal, 0, 0);
+            velocity            = new Vector3(-script_gameController.move_Horizontal, 0, 0);    // (Collision2D update): move_horizontal had to be minus for some reason
 
 			velocity            =   playerController.transform.TransformDirection(velocity);
 			velocity.x          =   velocity.x * walkSpeed; 
 		}
 	}
 	
-	public static void set_player_air_velocity ( ref Vector3 velocity, ref CharacterController playerController )
+	public static void set_player_air_velocity ( ref Vector3 velocity, ref BoxCollider2D playerController )
 	{	
         /*
 		if ( Input.GetButton ("Fire1") )
@@ -81,18 +96,19 @@ public  class script_playerMovement : MonoBehaviour
 		{
 			velocity.x = -script_gameController.move_Horizontal * walkSpeed; 
 		}
-		
-		if (playerController.collisionFlags == CollisionFlags.Above)												// if the player's head collides with an object, repel the player downwards
+		/*
+		if (playerController. == CollisionFlags.Above)												// if the player's head collides with an object, repel the player downwards
 		{
 			velocity.y	=	0;
 			velocity.y	=	velocity.y - collision_repel_above;
 		}
+        */
 		
 	}
 	
-	public	static void	player_acceleration_from_gravity ( ref Vector3 velocity, ref CharacterController playerController)
+	public	static void	player_acceleration_from_gravity ( ref Vector3 velocity, ref BoxCollider2D playerController)
 	{
-		if ( playerController.isGrounded == false )
+		if ( grounded == false )
 		{
 			velocity.y          =	velocity.y - (gravity * Time.deltaTime);
 		}
@@ -158,7 +174,7 @@ public  class script_playerMovement : MonoBehaviour
 			velocity.y = velocity.y - fallSpeed;																// subtract current height from 1 if the jump button is up
 		}
 	}
-	
+
 	#endregion
 }
 

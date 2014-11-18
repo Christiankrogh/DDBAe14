@@ -189,10 +189,10 @@ public class script_gameTimer : MonoBehaviour
 	
 	void time_commands ()
 	{
-		set_new_start_time		();
-		reset_startTime			();
+		//set_new_start_time		();
+		//reset_startTime			();
 		stop_time				();
-		pause_time				();
+		//pause_time				();
 		continue_time			();
 		countdown				();			
 		
@@ -227,6 +227,7 @@ public class script_gameTimer : MonoBehaviour
 	
 	void reset_startTime()														// press '2' to activate the start of scene time (from Load), playTime and realTime are not being tracked
 	{
+        
 		if ( Input.GetKeyDown ( "2" ) )
 		{
 			fromLoadTime			=		Time.timeSinceLevelLoad;					// stores the current fromLoadTime

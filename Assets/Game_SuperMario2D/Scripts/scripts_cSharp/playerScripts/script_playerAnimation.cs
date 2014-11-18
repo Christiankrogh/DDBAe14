@@ -5,12 +5,12 @@ public static class script_playerAnimation
 {
 	#region							Player Animation Functions
 
-	public static void 			dead_animation 					( CharacterController playerController )
+	public static void 			dead_animation 					( BoxCollider2D playerController )
 	{
 		script_aniSprite.aniSprite( playerController, 16, 16, 0, 6, 1, 1);
 	}
 
-	public static void			idle_animation					(ref CharacterController playerController, float moveDirection)
+	public static void			idle_animation					(ref BoxCollider2D playerController, float moveDirection)
 	{
 		if (moveDirection == 1)												// sets player animation to idle right
 		{
@@ -23,7 +23,7 @@ public static class script_playerAnimation
 		}
 	}
 	
-	public static void			walk_animation					(ref CharacterController playerController, ref Vector3 velocity)
+	public static void			walk_animation					(ref BoxCollider2D playerController, ref Vector3 velocity)
 	{
 		if (velocity.x < 0)																		// sets player animation to walk left
 		{								
@@ -36,7 +36,7 @@ public static class script_playerAnimation
 		}
 	}
 	
-	public static void			run_animation					(ref CharacterController playerController, ref Vector3 velocity)
+	public static void			run_animation					(ref BoxCollider2D playerController, ref Vector3 velocity)
 	{
         if (velocity.x < 0 && Input.GetButton("Fire1") || velocity.x < 0 && script_gameController.canRun )										// sets player animation to run left()
 		{					
@@ -49,22 +49,22 @@ public static class script_playerAnimation
 		}
 	}
 	
-	public static void			crouch_animation				(ref CharacterController playerController, ref Vector3 velocity, float moveDirection)
+	public static void			crouch_animation				(ref BoxCollider2D playerController, ref Vector3 velocity, float moveDirection)
 	{
-        if (velocity.x == 0 && Input.GetAxis("Vertical") < 0 || velocity.x == 0 && script_gameController.move_Vertical < 0 )
+        if (velocity.x == 0 && Input.GetAxis("Vertical") < 0 || velocity.x == 0 && script_gameController.move_Vertical < 0)
         {
-			if (moveDirection == -1)														// player is facing left
+            if (moveDirection == -1)														// player is facing left
             {
-				script_aniSprite.aniSprite( playerController, 16, 16, 0, 9, 1, 1);				// sets player animation to crouch left
-			}
-			if (moveDirection == 1)															// player is facing right
+                script_aniSprite.aniSprite(playerController, 16, 16, 0, 9, 1, 1);				// sets player animation to crouch left
+            }
+            if (moveDirection == 1)															// player is facing right
             {
-				script_aniSprite.aniSprite( playerController, 16, 16, 0, 8, 1, 1);				// sets player animation to crouch right
-			}
-		}
+                script_aniSprite.aniSprite(playerController, 16, 16, 0, 8, 1, 1);				// sets player animation to crouch right
+            }
+        }
 	}
 	
-	public static void			jump_animation					(ref CharacterController playerController, ref Vector3 velocity, float moveDirection)
+	public static void			jump_animation					(ref BoxCollider2D playerController, ref Vector3 velocity, float moveDirection)
 	{
 		if (moveDirection == -1)														// use a jump animation facing the left
 		{

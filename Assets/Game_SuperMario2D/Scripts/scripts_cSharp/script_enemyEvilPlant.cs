@@ -6,7 +6,7 @@ public class script_enemyEvilPlant : MonoBehaviour
 
 	public  GameObject guiText;
 
-	void OnCollisionEnter ( Collision other )
+	void OnCollisionEnter2D ( Collision2D other )
 	{
 		if ( other.gameObject.tag == "fireball" )
 		{

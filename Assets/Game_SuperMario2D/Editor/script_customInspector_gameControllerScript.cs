@@ -13,8 +13,8 @@ public class script_customInspector_gameControllerScript : Editor
 	
 		EditorGUILayout.HelpBox("Description: PIN-numbers for all input/output", MessageType.Info );
 
-		//DrawDefaultInspector();
-
+		DrawDefaultInspector();
+        /*
 		EditorGUILayout.LabelField("Control buttons");
 		gameController.button_up 		= EditorGUILayout.IntField("  - Up\t: "		, gameController.button_up);
 		gameController.button_down 		= EditorGUILayout.IntField("  - Down\t: "	, gameController.button_down);
@@ -48,5 +48,6 @@ public class script_customInspector_gameControllerScript : Editor
 		gameController.led_04_blue 		= EditorGUILayout.IntField("  - Blue\t: "	, gameController.led_04_blue);
 
 		EditorGUILayout.LabelField("");
+        */ 
 	}
 }

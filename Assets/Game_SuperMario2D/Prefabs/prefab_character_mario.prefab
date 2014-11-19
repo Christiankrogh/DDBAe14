@@ -988,14 +988,14 @@ MonoBehaviour:
   led_04_red: 26
   led_04_green: 27
   led_04_blue: 28
-  button_up: 10
-  button_down: 12
-  button_left: 5
-  button_right: 6
-  button_B: 7
-  button_Y: 2
-  button_X: 3
-  button_A: 4
+  button_up: 57
+  button_down: 56
+  button_left: 55
+  button_right: 54
+  button_B: 58
+  button_Y: 59
+  button_X: 60
+  button_A: 61
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1

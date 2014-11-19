@@ -52,7 +52,7 @@ public class script_gameController : MonoBehaviour
                     bool        button_4_shoot          = false;
 	
     // Program 3 specific: 
-    public          List<string>indexArray              = new List<string>();
+    private         List<string>indexArray              = new List<string>();
     private         bool        reMap                   = true; 
 
     // Program 4 specific: 
@@ -61,41 +61,41 @@ public class script_gameController : MonoBehaviour
 	#endregion
 
 	#region LED'pins' 		
-	public 			int 		led_01_red				= 50;
-	public 			int 		led_01_green			= 51;
-	public 			int 		led_01_blue				= 52;
+	private			int 		led_01_red				= 37;
+    private 		int 		led_01_green			= 35;
+    private 		int 		led_01_blue				= 33;
 
-	public 			int 		led_02_red				= 42;
-	public 			int 		led_02_green			= 43;
-	public 			int 		led_02_blue				= 44;
+    private 		int 		led_02_red				= 40;
+    private 		int 		led_02_green			= 42;
+    private 		int 		led_02_blue				= 44;
 
-	public 			int 		led_03_red				= 34;
-	public 			int 		led_03_green			= 35;
-	public 			int 		led_03_blue				= 36;
+    private 		int 		led_03_red				= 48;
+    private 		int 		led_03_green			= 50;
+    private 		int 		led_03_blue				= 52;
 
-	public 			int 		led_04_red				= 26;
-	public 			int 		led_04_green			= 27;
-	public 			int 		led_04_blue				= 28;
+    private 		int 		led_04_red				= 10;
+    private 		int 		led_04_green			= 9;
+    private 		int 		led_04_blue				= 8;
 	#endregion
 
 	#region Button'pins' 	[ControlPad]
-	public 			int 		button_up 				= 10;						// the number of the pushbutton pin
-	public 			int 		button_down				= 12;
-	public 			int 		button_left				= 5;
-	public 			int 		button_right			= 6; // 6		 
+    private 		int 		button_up 				= 57;   // A3
+    private 		int 		button_down				= 56;   // A2
+    private 		int 		button_left				= 55;   // A1
+    private 		int 		button_right			= 54; 	// A0
 	#endregion
 
 	#region Button'pins' 	[Actions]
-	public 			int 		button_B 				= 7;
-	public 			int 		button_Y 				= 2;
-	public 			int 		button_X 				= 3;
-	public 			int 		button_A 				= 4;
+    private 		int 		button_B 				= 58;    // A4 / run   / Yellow
+    private 		int 		button_Y 				= 59;    // A5 / jump  / Green
+    private 		int 		button_X 				= 60;    // A6 / --    / Blue
+    private 		int 		button_A 				= 61;    // A7 / shoot / Red
 	#endregion
 
 	#region Button'states' 	
 	private			int 		buttom_up_state 		= 0;						// Variable for reading the pushbutton status
 	private			int 		button_down_state 		= 0;
-	private			int 		button_left_state 		= 0;
+    private			int 		button_left_state 		= 0;
 	private			int 		button_right_state 		= 0;
 
 	private			int 		button_A_state 			= 0;
@@ -149,22 +149,22 @@ public class script_gameController : MonoBehaviour
 		#endregion
 	}
 	#endregion
-
+    
 	void Start () 
 	{
         AddIndexNumberToArray ();                                   // Used as part of program 3
 		arduino = Arduino.global;									// Searches for the one and only Arduino connected to Unity
-		arduino.Setup (ConfigurePins);								// Set up pins
+        arduino.Setup (ConfigurePins);								// Set up pins
         GUI = GameObject.FindGameObjectWithTag("GUI").transform;
-	}
-
+    }
+   
 	void Update () 													
 	{
         CheckButtonState();
 
         ProgramZapping  ();
 	}
-
+    
 	#region CheckButtonState
 	void CheckButtonState ()
 	{
@@ -172,7 +172,7 @@ public class script_gameController : MonoBehaviour
 		{
 			buttom_up_state 	= arduino.digitalRead ( button_up 		);
 			button_down_state 	= arduino.digitalRead ( button_down 	);
-			button_left_state 	= arduino.digitalRead ( button_left 	);
+			button_left_state 	= arduino.digitalRead ( button_left 	);  
 			button_right_state 	= arduino.digitalRead ( button_right 	);
 
 			button_A_state 		= arduino.digitalRead ( button_A 		);
@@ -308,7 +308,7 @@ public class script_gameController : MonoBehaviour
             program_3_active = false;
             program_4_active = false;
             program_2_active = true;
-            Notification_main("Program 2 - konsekvent-mapping");
+            Notification_main("Program 2 - Konstant-mapping");
             Notification_description("Description: On input, controls rotate right.");
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -873,9 +873,157 @@ public class script_gameController : MonoBehaviour
 
     #region Program 4   [GameplaySpecial-mapping]
 
+    public bool reShuffle = false;                      // can be called from other scripts to reShuffle mapping
+
     void Program_4()
-    { 
-    
+    {
+        // This program is almost identical to program 3
+        // It uses the same functions as program 3: WaitFor(), AddIndexNumberToArray() and RandomMapping()
+        // The diffenrent being the reShuffle boolean, which can be triggered from other scripts 
+
+        if ( reShuffle )
+        {
+            Debug.Log("Mapping reShuffles!");
+
+            #region Button up & down
+            if ( buttom_up_state == Arduino.LOW && button_down_state == Arduino.LOW )
+            {
+                move_Vertical = 0;
+            }
+
+            if ( buttom_up_state == Arduino.HIGH )
+            {
+                //Debug.Log ( "buttom_up [pressed]" );
+                move_Vertical = 1;
+            }
+
+            if ( button_down_state == Arduino.HIGH )
+            {
+                //Debug.Log ( "buttom_down [pressed]" );
+                move_Vertical = -1;
+            }
+            #endregion
+
+            #region Button left & right
+            if ( button_left_state == Arduino.LOW && button_right_state == Arduino.LOW )
+            {
+                move_Horizontal = 0;
+            }
+
+            if ( button_left_state == Arduino.HIGH )
+            {
+                //Debug.Log ( "buttom_left [pressed]" );
+                move_Horizontal = 1;
+            }
+
+            if ( button_right_state == Arduino.HIGH )
+            {
+                //Debug.Log ( "buttom_right [pressed]" );
+                move_Horizontal = -1;
+            }
+            #endregion
+
+            #region Action disable check
+            if ( button_A_state == Arduino.LOW && button_B_state == Arduino.LOW && button_X_state == Arduino.LOW && button_Y_state == Arduino.LOW )
+            {
+                reMap = true;
+                canJump = false;
+                canRun = false;
+                canShoot = false;
+            }
+            #endregion
+
+            string      color_run       = "Yellow";
+            string      color_jump      = "Blue";
+            string      color_shoot     = "Red";
+            float       delay           = 0.1f;
+
+            #region Button_B
+            if ( button_B_state == Arduino.HIGH )
+            {
+                //Debug.Log("buttom_B (1) [pressed]");
+
+                if ( indexArray[ 0 ] == color_run )
+                {
+                    canRun = true;
+                }
+                if ( indexArray[ 0 ] == color_jump )
+                {
+                    canJump = true;
+                }
+                if ( indexArray[ 0 ] == color_shoot )
+                {
+                    canShoot = true;
+                }
+                StartCoroutine( WaitFor( delay ) );
+            }
+            #endregion
+
+            #region Button_Y
+            if ( button_Y_state == Arduino.HIGH )
+            {
+                //Debug.Log ( "buttom_Y (2) [pressed]" );
+
+                if ( indexArray[ 1 ] == color_run )
+                {
+                    canRun = true;
+                }
+                if ( indexArray[ 1 ] == color_jump )
+                {
+                    canJump = true;
+                }
+                if ( indexArray[ 1 ] == color_shoot )
+                {
+                    canShoot = true;
+                }
+                StartCoroutine( WaitFor( delay ) );
+            }
+            #endregion
+
+            #region Button_X
+            if ( button_X_state == Arduino.HIGH )
+            {
+                //Debug.Log ( "buttom_X [pressed]" );
+
+                if ( indexArray[ 2 ] == color_run )
+                {
+                    canRun = true;
+                }
+                if ( indexArray[ 2 ] == color_jump )
+                {
+                    canJump = true;
+                }
+                if ( indexArray[ 2 ] == color_shoot )
+                {
+                    canShoot = true;
+                }
+                StartCoroutine( WaitFor( delay ) );
+            }
+            #endregion
+
+            #region Button_A
+            if ( button_A_state == Arduino.HIGH )
+            {
+                //Debug.Log ( "buttom_A [pressed]" );
+
+                if ( indexArray[ 3 ] == color_run )
+                {
+                    canRun = true;
+                }
+                if ( indexArray[ 3 ] == color_jump )
+                {
+                    canJump = true;
+                }
+                if ( indexArray[ 3 ] == color_shoot )
+                {
+                    canShoot = true;
+                }
+                StartCoroutine( WaitFor( delay ) );
+            }
+            #endregion
+
+            reShuffle = false;                              // making reShuffle equals false prevents multiple remappings
+        }
     }
 
     #endregion

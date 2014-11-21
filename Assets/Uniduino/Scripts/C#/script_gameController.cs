@@ -53,10 +53,11 @@ public class script_gameController : MonoBehaviour
 	
     // Program 3 specific: 
     private         List<string>indexArray              = new List<string>();
-    private         bool        reMap                   = true; 
+    public static   bool        reMap                   = true; 
 
     // Program 4 specific: 
-                  // - 
+    //public static   bool        reShuffle               = false;                      // can be called from other scripts to reShuffle mapping
+    public static   bool        canDoSomethingSpecial   = false;
 
 	#endregion
 
@@ -149,7 +150,7 @@ public class script_gameController : MonoBehaviour
 		#endregion
 	}
 	#endregion
-    
+
 	void Start () 
 	{
         AddIndexNumberToArray ();                                   // Used as part of program 3
@@ -256,51 +257,83 @@ public class script_gameController : MonoBehaviour
 
     #region Notifications
 
-    void Notification_main(string text)
+    void Notification_main(string text, bool showControls )
     {
         Transform notifications_main            = GUI.transform.GetChild(7).transform.GetChild(0);
         Text notifications_main_text            = notifications_main.GetComponent<Text>();
         notifications_main_text.text            = text;
 
-        StartCoroutine(Notification_Decay_in(10.0f, notifications_main_text));
+        StartCoroutine( Notification_Decay_in( 10.0f, notifications_main_text, showControls ) );
     }
 
-    void Notification_description(string text)
+    void Notification_description(string text, bool showControls )
     {
         Transform notifications_description     = GUI.transform.GetChild(7).transform.GetChild(1);
         Text notifications_description_text     = notifications_description.GetComponent<Text>();
         notifications_description_text.text     = text;
 
-        StartCoroutine(Notification_Decay_in(10.0f, notifications_description_text));
+        StartCoroutine( Notification_Decay_in( 10.0f, notifications_description_text, showControls ) );
     }
 
-    IEnumerator Notification_Decay_in( float seconds, Text textToGoAway )
+    IEnumerator Notification_Decay_in( float seconds, Text textToGoAway, bool showControl )
     {
-        Transform controlsDisplay               = GUI.transform.GetChild(7).transform.GetChild(2);
+        Transform controlsDisplay   = GUI.transform.GetChild(7).transform.GetChild(2);
 
-            textToGoAway.enabled = true;
-            controlsDisplay.gameObject.SetActive(true);
+            //StartCoroutine( FadeColorOverTime( textToGoAway, 1.0f, 0.0f, 2.0f ) );
+
+            textToGoAway.enabled    = true;
+
+            if ( showControl )
+            {
+                controlsDisplay.gameObject.SetActive( true );
+            }
 
         yield return new WaitForSeconds(seconds);
-   
-            textToGoAway.enabled = false;
-            controlsDisplay.gameObject.SetActive(false);
-    }
 
+            textToGoAway.enabled    = false;
+
+            if ( showControl )
+            {
+                controlsDisplay.gameObject.SetActive( false );
+            }
+    }
+    /*
+    IEnumerator FadeColorOverTime ( Text text, float startLevel, float endLevel, float time )
+    {
+        float speed = 1.0f / time;
+
+        for ( float t = 0.0f; t < 1.0; t += Time.deltaTime * speed )
+        {
+            float a         = Mathf.Lerp( startLevel, endLevel, t );
+            text.color      = new Color( text.color.r, text.color.g, text.color.b, a ); 
+            yield return 0;
+        }
+      
+    }
+    */
     #endregion
 
     #region ProgramZapping  // Real-time switching between programs
 
     void ProgramZapping()
     {
+        if ( !program_1_active && !program_2_active && !program_3_active && !program_4_active )
+        {
+            Debug.Log("Please select a program...");
+            SetColor( 1, indexArray[ 0 ] );
+            SetColor( 2, indexArray[ 1 ] );
+            SetColor( 3, indexArray[ 2 ] );
+            SetColor( 4, indexArray[ 3 ] );
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             program_2_active = false;
             program_3_active = false;
             program_4_active = false;
             program_1_active = true;
-            Notification_main("Program 1 - Normal-mapping");
-            Notification_description("Description: Controls behave as you would expect.");
+            Notification_main("Program 1 - Normal-mapping", true);
+            Notification_description("Description: Controls behave as you would expect.", true);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -308,8 +341,8 @@ public class script_gameController : MonoBehaviour
             program_3_active = false;
             program_4_active = false;
             program_2_active = true;
-            Notification_main("Program 2 - Konstant-mapping");
-            Notification_description("Description: On input, controls rotate right.");
+            Notification_main("Program 2 - Konstant-mapping", true);
+            Notification_description("Description: On input, controls rotate right.", true);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
@@ -317,8 +350,8 @@ public class script_gameController : MonoBehaviour
             program_2_active = false;
             program_4_active = false;
             program_3_active = true;
-            Notification_main("Program 3 - Random-mapping");
-            Notification_description("Description: On input, random button layout.");
+            Notification_main("Program 3 - Random-mapping", true);
+            Notification_description("Description: On input, random button layout.", true);
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
@@ -326,8 +359,8 @@ public class script_gameController : MonoBehaviour
             program_2_active = false;
             program_3_active = false;
             program_4_active = true;
-            Notification_main("Program 4 - Gameplay'Special-mapping");
-            Notification_description("Description: ---- ");
+            Notification_main("Program 4 - Gameplay'Special-mapping", true);
+            Notification_description("Description: ---- ", true);
         }
 
         if (program_1_active)
@@ -865,6 +898,11 @@ public class script_gameController : MonoBehaviour
             SetColor( 3, indexArray[ 2 ] );
             SetColor( 4, indexArray[ 3 ] );
 
+            if ( program_4_active )
+            {
+                Notification_description( "Action buttons remapped!", false);
+            }
+
 			reMap = false;
 		}
     }
@@ -873,157 +911,174 @@ public class script_gameController : MonoBehaviour
 
     #region Program 4   [GameplaySpecial-mapping]
 
-    public bool reShuffle = false;                      // can be called from other scripts to reShuffle mapping
-
     void Program_4()
     {
         // This program is almost identical to program 3
         // It uses the same functions as program 3: WaitFor(), AddIndexNumberToArray() and RandomMapping()
         // The diffenrent being the reShuffle boolean, which can be triggered from other scripts 
 
-        if ( reShuffle )
+        string      color_run       = "Yellow";
+        string      color_jump      = "Blue";   // means green
+        string      color_shoot     = "Red";
+        string      color_blue      = "Green";  // Actually means blue
+        float       delay           = 0.1f;
+
+        #region Button up & down
+        if ( buttom_up_state == Arduino.LOW && button_down_state == Arduino.LOW )
         {
-            Debug.Log("Mapping reShuffles!");
-
-            #region Button up & down
-            if ( buttom_up_state == Arduino.LOW && button_down_state == Arduino.LOW )
-            {
-                move_Vertical = 0;
-            }
-
-            if ( buttom_up_state == Arduino.HIGH )
-            {
-                //Debug.Log ( "buttom_up [pressed]" );
-                move_Vertical = 1;
-            }
-
-            if ( button_down_state == Arduino.HIGH )
-            {
-                //Debug.Log ( "buttom_down [pressed]" );
-                move_Vertical = -1;
-            }
-            #endregion
-
-            #region Button left & right
-            if ( button_left_state == Arduino.LOW && button_right_state == Arduino.LOW )
-            {
-                move_Horizontal = 0;
-            }
-
-            if ( button_left_state == Arduino.HIGH )
-            {
-                //Debug.Log ( "buttom_left [pressed]" );
-                move_Horizontal = 1;
-            }
-
-            if ( button_right_state == Arduino.HIGH )
-            {
-                //Debug.Log ( "buttom_right [pressed]" );
-                move_Horizontal = -1;
-            }
-            #endregion
-
-            #region Action disable check
-            if ( button_A_state == Arduino.LOW && button_B_state == Arduino.LOW && button_X_state == Arduino.LOW && button_Y_state == Arduino.LOW )
-            {
-                reMap = true;
-                canJump = false;
-                canRun = false;
-                canShoot = false;
-            }
-            #endregion
-
-            string      color_run       = "Yellow";
-            string      color_jump      = "Blue";
-            string      color_shoot     = "Red";
-            float       delay           = 0.1f;
-
-            #region Button_B
-            if ( button_B_state == Arduino.HIGH )
-            {
-                //Debug.Log("buttom_B (1) [pressed]");
-
-                if ( indexArray[ 0 ] == color_run )
-                {
-                    canRun = true;
-                }
-                if ( indexArray[ 0 ] == color_jump )
-                {
-                    canJump = true;
-                }
-                if ( indexArray[ 0 ] == color_shoot )
-                {
-                    canShoot = true;
-                }
-                StartCoroutine( WaitFor( delay ) );
-            }
-            #endregion
-
-            #region Button_Y
-            if ( button_Y_state == Arduino.HIGH )
-            {
-                //Debug.Log ( "buttom_Y (2) [pressed]" );
-
-                if ( indexArray[ 1 ] == color_run )
-                {
-                    canRun = true;
-                }
-                if ( indexArray[ 1 ] == color_jump )
-                {
-                    canJump = true;
-                }
-                if ( indexArray[ 1 ] == color_shoot )
-                {
-                    canShoot = true;
-                }
-                StartCoroutine( WaitFor( delay ) );
-            }
-            #endregion
-
-            #region Button_X
-            if ( button_X_state == Arduino.HIGH )
-            {
-                //Debug.Log ( "buttom_X [pressed]" );
-
-                if ( indexArray[ 2 ] == color_run )
-                {
-                    canRun = true;
-                }
-                if ( indexArray[ 2 ] == color_jump )
-                {
-                    canJump = true;
-                }
-                if ( indexArray[ 2 ] == color_shoot )
-                {
-                    canShoot = true;
-                }
-                StartCoroutine( WaitFor( delay ) );
-            }
-            #endregion
-
-            #region Button_A
-            if ( button_A_state == Arduino.HIGH )
-            {
-                //Debug.Log ( "buttom_A [pressed]" );
-
-                if ( indexArray[ 3 ] == color_run )
-                {
-                    canRun = true;
-                }
-                if ( indexArray[ 3 ] == color_jump )
-                {
-                    canJump = true;
-                }
-                if ( indexArray[ 3 ] == color_shoot )
-                {
-                    canShoot = true;
-                }
-                StartCoroutine( WaitFor( delay ) );
-            }
-            #endregion
-
-            reShuffle = false;                              // making reShuffle equals false prevents multiple remappings
+            move_Vertical = 0;
         }
+
+        if ( buttom_up_state == Arduino.HIGH )
+        {
+            //Debug.Log ( "buttom_up [pressed]" );
+            move_Vertical = 1;
+        }
+
+        if ( button_down_state == Arduino.HIGH )
+        {
+            //Debug.Log ( "buttom_down [pressed]" );
+            move_Vertical = -1;
+        }
+        #endregion
+
+        #region Button left & right
+        if ( button_left_state == Arduino.LOW && button_right_state == Arduino.LOW )
+        {
+            move_Horizontal = 0;
+        }
+
+        if ( button_left_state == Arduino.HIGH )
+        {
+            //Debug.Log ( "buttom_left [pressed]" );
+            move_Horizontal = 1;
+        }
+
+        if ( button_right_state == Arduino.HIGH )
+        {
+            //Debug.Log ( "buttom_right [pressed]" );
+            move_Horizontal = -1;
+        }
+        #endregion
+
+        #region Action disable check
+        if ( button_A_state == Arduino.LOW && button_B_state == Arduino.LOW && button_X_state == Arduino.LOW && button_Y_state == Arduino.LOW )
+        {
+            //reMap                 = true;       // In program 4, reMap is set to true elsewhere
+            canJump                 = false;
+            canRun                  = false;
+            canShoot                = false;
+            canDoSomethingSpecial   = false;      // turns false here? :/ maybe somewhere else. 
+        }
+        #endregion 
+
+        if ( program_4_active )
+        {
+            Debug.Log( "Mapping reShuffles!" );
+            //Debug.Log( "IndexArray: " + indexArray[ 0 ] + "," + indexArray[ 1 ] + "," + indexArray[ 2 ] + "," + indexArray[ 3 ] );
+
+            StartCoroutine( WaitFor( delay ) );
+        }
+
+        #region Button_B
+        if ( button_B_state == Arduino.HIGH )
+        {
+            //Debug.Log("buttom_B (1) [pressed]");
+
+            if ( indexArray[ 0 ] == color_run )
+            {
+                canRun = true;
+            }
+            if ( indexArray[ 0 ] == color_jump )
+            {
+                canJump = true;
+            }
+            if ( indexArray[ 0 ] == color_shoot )
+            {
+                canShoot = true;
+            }
+            if ( indexArray[ 0 ] == color_blue )
+            {
+                // Something special happens
+                canDoSomethingSpecial = true;
+            }
+        }
+        #endregion
+
+        #region Button_Y
+        if ( button_Y_state == Arduino.HIGH )
+        {
+            //Debug.Log ( "buttom_Y (2) [pressed]" );
+
+            if ( indexArray[ 1 ] == color_run )
+            {
+                canRun = true;
+            }
+            if ( indexArray[ 1 ] == color_jump )
+            {
+                canJump = true;
+            }
+            if ( indexArray[ 1 ] == color_shoot )
+            {
+                canShoot = true;
+            }
+            if ( indexArray[ 1 ] == color_blue )
+            {
+                // Something special happens
+                canDoSomethingSpecial = true;
+            }
+        }
+        #endregion
+
+        #region Button_X
+        if ( button_X_state == Arduino.HIGH )
+        {
+            //Debug.Log ( "buttom_X [pressed]" );
+
+            if ( indexArray[ 2 ] == color_run )
+            {
+                canRun = true;
+            }
+            if ( indexArray[ 2 ] == color_jump )
+            {
+                canJump = true;
+            }
+            if ( indexArray[ 2 ] == color_shoot )
+            {
+                canShoot = true;
+            }
+            if ( indexArray[ 2 ] == color_blue )
+            {
+                // Something special happens
+                canDoSomethingSpecial = true;
+            }
+        }
+        #endregion
+
+        #region Button_A
+        if ( button_A_state == Arduino.HIGH )
+        {
+            //Debug.Log ( "buttom_A [pressed]" );
+
+            if ( indexArray[ 3 ] == color_run )
+            {
+                canRun = true;
+            }
+            if ( indexArray[ 3 ] == color_jump )
+            {
+                canJump = true;
+            }
+            if ( indexArray[ 3 ] == color_shoot )
+            {
+                canShoot = true;
+            }
+            if ( indexArray[ 3 ] == color_blue )
+            {
+                // Something special happens
+                canDoSomethingSpecial = true;
+            }
+        }
+        #endregion
     }
 
     #endregion

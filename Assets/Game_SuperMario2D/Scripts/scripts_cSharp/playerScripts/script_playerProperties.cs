@@ -136,7 +136,7 @@ public class script_playerProperties : MonoBehaviour
 	#endregion
 
    
-	void Shoot ()
+	void                Shoot                   ()
 	{	
 		float 		playerDirection	=	script_playerControls.moveDirection;
        
@@ -178,14 +178,14 @@ public class script_playerProperties : MonoBehaviour
 		}
 	}
 
-    IEnumerator BulletDelay(float seconds )
+    IEnumerator         BulletDelay             (float seconds )
     {
         yield return new WaitForSeconds(seconds);
 
         shootNow = true;
     }
 
-	void OnControllerColliderHit ( ControllerColliderHit col )
+	void                OnControllerColliderHit ( ControllerColliderHit col )
 	{
 		GameObject otherPos = col.gameObject;
 
@@ -215,7 +215,9 @@ public class script_playerProperties : MonoBehaviour
 
 		if ( col.gameObject.tag == "enemyDragonHead" )
 		{
-			Debug.Log ("Mario killed dragon!" );
+            Debug.Log ("Mario killed dragon!" );
+
+            script_gameController.reMap = true; // Enabled program 4 if active!
 
 			AddToTotalCoinCollected(200);
 			PopGuiText ( "+200", otherPos );
@@ -239,8 +241,7 @@ public class script_playerProperties : MonoBehaviour
 		}
 	}
 
-
-	void OnTriggerEnter ( Collider other )
+	void                OnTriggerEnter          ( Collider other )
 	{
 		GameObject otherPos = other.gameObject;
 
@@ -344,7 +345,7 @@ public class script_playerProperties : MonoBehaviour
 		}
 	}
 
-	void Check_cubeZspin ( GameObject gameObjectCollidedWith )
+	void                Check_cubeZspin         ( GameObject gameObjectCollidedWith )
 	{
 		anim_cube_Zspin 	= gameObjectCollidedWith.gameObject.GetComponent<Animator>();
 		cubeZspin 			= gameObjectCollidedWith.GetComponent<script_cube_Zspin>();
@@ -376,8 +377,7 @@ public class script_playerProperties : MonoBehaviour
 		
 	}
 
-
-	void Check_cubeQuestionMark ( GameObject gameObjectCollidedWith )
+	void                Check_cubeQuestionMark  ( GameObject gameObjectCollidedWith )
 	{
 		anim_cube_questionMark = gameObjectCollidedWith.gameObject.GetComponent<Animator>();
 		anim_cube_questionMark.SetBool("shouldPop", true);
@@ -413,22 +413,22 @@ public class script_playerProperties : MonoBehaviour
 		}
 	}
 
-	public static void Addcoins ( int numCoin )
+	public static void  Addcoins                ( int numCoin )
 	{
 		coins		+= numCoin;
 	}
 	
-	public static void AddToTotalCoinCollected ( float CoinCollected )
+	public static void  AddToTotalCoinCollected ( float CoinCollected )
 	{
 		totalCoinCollected	+= CoinCollected;
 	}
 
-	void AddBigCoins ( int bigCoin )
+	void                AddBigCoins             ( int bigCoin )
 	{
 		bigCoins += bigCoin;
 	}
 
-	void PopGuiText ( string scoreText, GameObject GO )
+	void                PopGuiText              ( string scoreText, GameObject GO )
 	{
 		GameObject clone;
 		clone = (GameObject)Instantiate ( guiText, GO.transform.position, Quaternion.identity); 
@@ -438,7 +438,7 @@ public class script_playerProperties : MonoBehaviour
 		cloneComponent.SetScoreText(scoreText);
 	}
 
-	void UpdatePlayerState ( PlayerState playerState )
+	void                UpdatePlayerState       ( PlayerState playerState )
 	{
 		active_player_state = playerState;
 
@@ -449,7 +449,7 @@ public class script_playerProperties : MonoBehaviour
 		SetPlayerState ();
 	}
 
-	public void change_player_state()
+	public void         change_player_state     ()
 	{
 		if (changeMario == true)
 		{ 
@@ -457,7 +457,7 @@ public class script_playerProperties : MonoBehaviour
 		}
 	}
 
-	IEnumerator MarioRespawn ( float seconds )
+	IEnumerator         MarioRespawn            ( float seconds )
 	{
 		Transform parent = this.transform.parent;
 		parent.transform.GetChild(1).GetComponent<script_cameraSmoothFollow2D>().enabled = true;
@@ -469,8 +469,7 @@ public class script_playerProperties : MonoBehaviour
 		this.transform.position = spawnPos;
 	}
 
-
-	void UpdateMarioLifeSituation ()
+	void                UpdateMarioLifeSituation()
 	{
 		if ( active_player_state == PlayerState.MarioSmall && cannotBeKilled == false )
 		{
@@ -510,8 +509,7 @@ public class script_playerProperties : MonoBehaviour
 		}
 	}
 
-
-	IEnumerator WaitFor ( float seconds )
+	IEnumerator         WaitFor                 ( float seconds )
 	{
 		cannotBeKilled = true;
 
@@ -520,8 +518,7 @@ public class script_playerProperties : MonoBehaviour
 		cannotBeKilled = false;
 	}
 
-
-	public void	SetPlayerState ()
+	public void	        SetPlayerState          ()
 	{
 		
 		switch ( active_player_state )
@@ -561,9 +558,7 @@ public class script_playerProperties : MonoBehaviour
 		}
 	}
 	
-
-	
-	void player_scale_small			()
+	void                player_scale_small	    ()
 	{	
 		playerTransform.localScale	=	new Vector3	( 0.5f, 0.5f, 0.5f );
 		playerTransform.Translate	(0f, 0f, - 1.3f);
@@ -574,7 +569,7 @@ public class script_playerProperties : MonoBehaviour
 		playerController.center = playerControllerCenter;
 	}
 	
-	void player_scale_normal			()
+	void                player_scale_normal		()
 	{
 		playerTransform.Translate	(0f, 0f, - 1.3f);
 		playerTransform.localScale	=	new Vector3	( 0.5f, 0.7f, 0.5f);
@@ -585,13 +580,12 @@ public class script_playerProperties : MonoBehaviour
 		playerController.center = playerControllerCenter;
 	}
 	
-	
-	public AudioClip get_jump_sound				()
+	public AudioClip    get_jump_sound			()
 	{
 		return this.jumpSound;
 	}
 	
-	public AudioClip get_crouch_jump_sound		()
+	public AudioClip    get_crouch_jump_sound	()
 	{
 		return this.crouchJumpSound;
 	}

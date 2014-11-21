@@ -36143,7 +36143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a268c01896616a14f9f6a1cfa933e7ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reShuffle: 0
 --- !u!82 &1639338480
 AudioSource:
   m_ObjectHideFlags: 0

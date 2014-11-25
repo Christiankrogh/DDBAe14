@@ -975,27 +975,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a268c01896616a14f9f6a1cfa933e7ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indexArray: []
-  led_01_red: 50
-  led_01_green: 51
-  led_01_blue: 52
-  led_02_red: 42
-  led_02_green: 43
-  led_02_blue: 44
-  led_03_red: 34
-  led_03_green: 35
-  led_03_blue: 36
-  led_04_red: 26
-  led_04_green: 27
-  led_04_blue: 28
-  button_up: 57
-  button_down: 56
-  button_left: 55
-  button_right: 54
-  button_B: 58
-  button_Y: 59
-  button_X: 60
-  button_A: 61
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1

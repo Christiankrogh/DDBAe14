@@ -3,14 +3,38 @@ using System.Collections;
 
 public class script_enemyDragon : MonoBehaviour 
 {
-	public 	bool dragonDead = false;
-			bool startWalk	= false;
-			bool walkLeft 	= true;
+    private Transform   playerPos;
+    public float        playerTriggerDistance = 40;
 
-	public  GameObject guiText;
+	public 	bool        dragonDead = false;
+			bool        startWalk	= false;
+			bool        walkLeft 	= true;
+
+    private bool        grantScore = true;
+	public  GameObject  guiText;
+
+            Vector3     startPos; 
+
+    void Start()
+    {
+        startPos  = transform.position;
+        playerPos = GameObject.FindGameObjectWithTag( "Player" ).transform;
+    }
 
 	void Update () 
 	{
+        if ( script_playerProperties.marioDead || script_sceneManager.level_restart )
+        {
+            transform.GetComponent<Rigidbody>().isKinematic  = true;
+            transform.GetComponent<Rigidbody>().useGravity   = false;
+            //transform.GetComponent<SpriteRenderer>().enabled = true;
+            transform.position = startPos;
+            startWalk = false;
+            dragonDead = false;
+        }
+        
+        DistanceToPlayer();
+
 		if ( dragonDead )
 		{
 			StartCoroutine( WaitASecond (3.0f) );
@@ -21,53 +45,67 @@ public class script_enemyDragon : MonoBehaviour
 			if ( walkLeft ) // Walk left
 			{
 				this.transform.Translate ( -5.0f * Time.deltaTime, 0f, 0f );
+                transform.Rotate(0, 0, 0);
 			}
 			else 			// Walk right
 			{
 				this.transform.Translate ( 5.0f * Time.deltaTime, 0f, 0f );
+                transform.Rotate( 0, 180, 0 );
 			}
 		}
 	}
 
-	void OnTriggerEnter ( Collider other )
-	{
-		if ( other.gameObject.tag == "Player" )
-		{
-			//Debug.Log ( "Player activated Dragon!" );
-			
-			startWalk = true;
-			
-			StartCoroutine( WaitASecond (10.0f) );
-		}
+    void DistanceToPlayer()
+    {
+        float dist = Vector3.Distance( playerPos.position, transform.position );
 
-		if ( other.gameObject.tag == "changeDirection" )
-		{
-			Debug.Log ("Dragon changes direction");
-			//walkLeft = !walkLeft;
-		}
-	}
+        if ( dist <= playerTriggerDistance )
+        {
+            Debug.Log("Player triggered dragon!");
 
-	void OnCollisionEnter ( Collision other )
+            startWalk = true;
+
+            StartCoroutine( WaitASecond( 30.0f ) );
+        }
+    }
+
+  
+    void OnTriggerEnter( Collider other )
 	{
 		if ( other.gameObject.tag == "fireball" )
 		{
 			Destroy(other.gameObject);
 
-			script_playerProperties.AddToTotalCoinCollected(200);
-			PopGuiText ("+200", this.gameObject);
-
+            if ( grantScore )
+            {
+                script_playerProperties.AddToTotalCoinCollected( 200 );
+                PopGuiText( "+200", this.gameObject );
+                grantScore = false;
+            }
 			//Debug.Log ("Hit Dragon!");
 			GetComponent<Rigidbody>().isKinematic = false;
 			GetComponent<Rigidbody>().useGravity  = true;
 			transform.Translate ( 0f, 0f, -15.0f, Space.World );
 		}
+
+        
+        if ( other.gameObject.tag == "changeDirection" )
+        {
+            Debug.Log( "Dragon changes direction" );
+            walkLeft = !walkLeft;
+        }
+        
 	}
 	
 	IEnumerator WaitASecond ( float waitFor )
 	{
 		yield return new WaitForSeconds (waitFor);
-		
-		Destroy(gameObject);
+
+        startWalk = false;
+        //transform.GetComponent<SpriteRenderer>().enabled = false;
+        transform.GetComponent<Rigidbody>().isKinematic = true;
+        transform.GetComponent<Rigidbody>().useGravity = false;
+		//Destroy(gameObject);
 	}
 
 	void PopGuiText ( string scoreText, GameObject GO )

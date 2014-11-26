@@ -189,11 +189,11 @@ public class script_gameTimer : MonoBehaviour
 	
 	void time_commands ()
 	{
-		set_new_start_time		();
-		reset_startTime			();
-		stop_time				();
-		pause_time				();
-		continue_time			();
+		//set_new_start_time		();
+		//reset_startTime			();
+		//stop_time				();
+		//pause_time				();
+		//continue_time			();
 		countdown				();			
 		
 		
@@ -215,20 +215,16 @@ public class script_gameTimer : MonoBehaviour
 	
 	void set_new_start_time()					
 	{
-		if ( Input.GetKeyDown ( "1" ) )														// press '1' to activate set 'startTime' and begin recording
-		{
 			startTime				=		Time.time;									// 'startTime' equals the current time (Time.time)
 			addToTime				=		0;											// reset
 			continueTimeDown		=		0;											// reset
 			playTimeEnabled 		=		true;										// playTimeEnabled enables the execution of many of GameTimer's methods, sets it to true
 			countDownEnabled		=		false;										// reset
-		}
 	}
 	
 	void reset_startTime()														// press '2' to activate the start of scene time (from Load), playTime and realTime are not being tracked
 	{
-		if ( Input.GetKeyDown ( "2" ) )
-		{
+	
 			fromLoadTime			=		Time.timeSinceLevelLoad;					// stores the current fromLoadTime
 			startTime				=		0;											// reset 
 			addToTime				=		0;											// reset
@@ -236,7 +232,7 @@ public class script_gameTimer : MonoBehaviour
 			realTimeEnabled			=		false;										// reset
 			countDownEnabled		=		false; 										// reset
 			fromLoadTimeEnabled		=		true; 										// enables the tracking of time since the scene was loaded
-		}
+	
 	}
 	
 	
@@ -298,7 +294,7 @@ public class script_gameTimer : MonoBehaviour
 	
 	void countdown()														// press '7' to start time countdown
 	{
-		if ( Input.GetKeyDown ( "7" ) || setTime )
+		/*if ( Input.GetKeyDown ( "7" ) || setTime )
 		{
 			countDownDelay		=		Time.time;										// store the current time in 'countDownDelay'
 			playTimeEnabled		=		true;											// starts 'playtime' for the countdown
@@ -314,7 +310,7 @@ public class script_gameTimer : MonoBehaviour
 			addToTime			=		0;												// reset
 			playTimeEnabled		=		true;											// restart the GameTimer
 			countDownEnabled	=		true;											// start the countdown
-		}
+		}*/
 		if ( playTime < 0 )																	// stops time and the countdown
 		{
 			playTimeEnabled		=		false;											// reset
@@ -322,7 +318,7 @@ public class script_gameTimer : MonoBehaviour
 		}
 	}
 	
-	
+	/*
 	void add_timeAmount()														// press '8' to add a single amount to the GameTimer
 	{
 		if ( Input.GetKeyDown ( "8" ) )
@@ -351,7 +347,7 @@ public class script_gameTimer : MonoBehaviour
 			fromLoadTimeEnabled	=	false;												// reset
 		}
 	}
-	
+	*/
 	
 	#endregion
 	

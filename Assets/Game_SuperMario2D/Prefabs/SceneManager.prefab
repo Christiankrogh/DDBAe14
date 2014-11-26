@@ -799,7 +799,7 @@ MonoBehaviour:
   delayedAmount: 0
   addToTime: 0
   addTimeAmount: 0
-  playTimeEnabled: 0
+  playTimeEnabled: 1
   realTimeEnabled: 0
   fromLoadTimeEnabled: 0
   continueTimeEnabled: 0

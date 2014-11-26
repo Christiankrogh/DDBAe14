@@ -79,7 +79,9 @@ public class script_playerProperties : MonoBehaviour
 	public 	Material								material_player_MarioFire;
 
 	public bool										changeMario						=	false;
+    public static bool                              marioDead                       =   false;
 	public bool										marioLarge						= 	false;
+    public bool                                     marioFire                       =   false;
 	public bool										hasFire							=	false;
 	
 	private static int								coinLife						=	20;
@@ -90,7 +92,7 @@ public class script_playerProperties : MonoBehaviour
 	public static Transform							playerTransform;
 	public static MeshRenderer						playerMeshRender;
 
-	public PlayerState								active_player_state				=	PlayerState.MarioSmall;
+	public static PlayerState					    active_player_state				=	PlayerState.MarioSmall;
 	
 	public  GameObject 								guiText;
 
@@ -128,6 +130,11 @@ public class script_playerProperties : MonoBehaviour
 
 		change_player_state		();
 		Shoot					();
+
+        if ( script_sceneManager.level_restart )
+        {
+            StartCoroutine( MarioRespawn( 0.0f ) );
+        }
 	}
 	
 	
@@ -185,67 +192,53 @@ public class script_playerProperties : MonoBehaviour
         shootNow = true;
     }
 
-	void                OnControllerColliderHit ( ControllerColliderHit col )
-	{
-		GameObject otherPos = col.gameObject;
+    void                OnControllerColliderHit ( ControllerColliderHit col )
+    {
+         GameObject otherPos = col.gameObject;
 
-		if ( col.gameObject.tag == "cubeQuestionMark" )
-		{
-			Check_cubeQuestionMark(col.gameObject);
-		}
-		
-		if ( col.gameObject.tag == "cubeZspin" )
-		{
-			Check_cubeZspin(col.gameObject);
-		}
+         if ( col.gameObject.tag == "cubeQuestionMark" )
+         {
+             Check_cubeQuestionMark(col.gameObject);
+         }
 
-		if ( col.gameObject.tag == "enemyCannonBall" )
-		{
-			Debug.Log ("Hit by: " + col.gameObject.name + " - Mario is dead!" );
+         if ( col.gameObject.tag == "cubeZspin" )
+         {
+             Check_cubeZspin(col.gameObject);
+         }
 
-			UpdateMarioLifeSituation ();
-		}
+         if ( col.gameObject.tag == "enemyDragonHead" )
+         {
+             MarioHitDragonHead( col, otherPos );
+         }
 
-		if ( col.gameObject.tag == "enemyDragon" )
-		{
-			Debug.Log ("Hit by: " + col.gameObject.name + " - Mario is dead!" );
+         if ( col.gameObject.tag == "enemyEvilPlant" )
+         {
+             Debug.Log ("Hit by: " + col.gameObject.name + " - Mario is dead!" );
 
-			UpdateMarioLifeSituation ();
-		}
+             UpdateMarioLifeSituation ();
+         }
+    }
 
-		if ( col.gameObject.tag == "enemyDragonHead" )
-		{
-            Debug.Log ("Mario killed dragon!" );
 
-            script_gameController.reMap = true; // Enabled program 4 if active!
-
-			AddToTotalCoinCollected(200);
-			PopGuiText ( "+200", otherPos );
-			script_playerSounds.play_sound ( ref playerAudio, jumpOnEnemySound, 0f);
-
-			transform.Translate ( 0f, 100.0f * Time.deltaTime, 0f, Space.World );
-
-			script_enemyDragon otherDragon = col.gameObject.transform.parent.transform.GetComponent<script_enemyDragon>();
-			otherDragon.dragonDead = true;
-
-			otherDragon.GetComponent<Rigidbody>().isKinematic = false;
-			otherDragon.GetComponent<Rigidbody>().useGravity  = true;
-			otherDragon.transform.Translate ( 0f, 0f, -15.0f, Space.World );
-		}
-
-		if ( col.gameObject.tag == "enemyEvilPlant" )
-		{
-			Debug.Log ("Hit by: " + col.gameObject.name + " - Mario is dead!" );
-
-			UpdateMarioLifeSituation ();
-		}
-	}
-
-	void                OnTriggerEnter          ( Collider other )
+    void                OnTriggerEnter          ( Collider other )
 	{
 		GameObject otherPos = other.gameObject;
 
-		if ( other.tag == "levelComplete" )
+        if ( other.gameObject.tag == "enemyDragon" )
+        {
+            Debug.Log( "Hit by: " + other.gameObject.name + " - Mario is dead!" );
+
+            UpdateMarioLifeSituation();
+        }
+
+        if ( other.gameObject.tag == "enemyCannonBall" )
+        {
+            Debug.Log( "Hit by: " + other.gameObject.name + " - Mario is dead!" );
+
+            UpdateMarioLifeSituation();
+        }
+
+        if ( other.tag == "levelComplete" )
 		{
 			AddToTotalCoinCollected(5000);
 			PopGuiText ( "+5000", otherPos );
@@ -281,7 +274,9 @@ public class script_playerProperties : MonoBehaviour
 			script_playerSounds.play_sound ( ref playerAudio, coinSound, 0f);
 			Transform clone;
 			clone = Instantiate ( particleCoin, other.transform.position, Quaternion.identity) as Transform;
-			Destroy(other.gameObject);
+
+            RendererAndColliderDisabling(other);
+            //Destroy(other.gameObject);
 		}
 
 		if ( other.tag == "bigCoin" )
@@ -307,7 +302,9 @@ public class script_playerProperties : MonoBehaviour
 			script_playerSounds.play_sound ( ref playerAudio, coinSound, 0f);
 			Transform clone;
 			clone = Instantiate ( particleCoin, other.transform.position, Quaternion.identity) as Transform;
-			Destroy(other.gameObject);
+
+            RendererAndColliderDisabling( other );
+            //Destroy(other.gameObject);
 		}
 
 		if ( other.gameObject.tag == "redMushRoom" )
@@ -345,7 +342,42 @@ public class script_playerProperties : MonoBehaviour
 		}
 	}
 
-	void                Check_cubeZspin         ( GameObject gameObjectCollidedWith )
+    public void MarioHitDragonHead( ControllerColliderHit col, GameObject otherPos )
+    {
+        Debug.Log( "Mario killed dragon!" );
+
+        script_gameController.reMap = true; // Enabled program 4 if active!
+
+        AddToTotalCoinCollected( 200 );
+        PopGuiText( "+200", otherPos );
+        script_playerSounds.play_sound( ref playerAudio, jumpOnEnemySound, 0f );
+
+        transform.Translate( 0f, 100.0f * Time.deltaTime, 0f, Space.World );
+
+        script_enemyDragon otherDragon = col.gameObject.transform.parent.transform.GetComponent<script_enemyDragon>();
+        otherDragon.dragonDead = true;
+
+        otherDragon.GetComponent<Rigidbody>().isKinematic = false;
+        otherDragon.GetComponent<Rigidbody>().useGravity = true;
+        otherDragon.transform.Translate( 0f, 0f, -15.0f, Space.World );
+    }
+
+    void RendererAndColliderDisabling ( Collider other )
+    {
+        Transform otherGO = other.gameObject.transform;
+
+        if ( otherGO.GetComponent<BoxCollider>() )
+        {
+             otherGO.GetComponent<BoxCollider>().enabled     = false;
+        }
+        if ( otherGO.GetComponent<SphereCollider>() )
+        {
+             otherGO.GetComponent<SphereCollider>().enabled  = false;
+        }
+        otherGO.GetComponent<SpriteRenderer>().enabled       = false;
+    }
+
+	public void         Check_cubeZspin         ( GameObject gameObjectCollidedWith )
 	{
 		anim_cube_Zspin 	= gameObjectCollidedWith.gameObject.GetComponent<Animator>();
 		cubeZspin 			= gameObjectCollidedWith.GetComponent<script_cube_Zspin>();
@@ -377,7 +409,7 @@ public class script_playerProperties : MonoBehaviour
 		
 	}
 
-	void                Check_cubeQuestionMark  ( GameObject gameObjectCollidedWith )
+	public void Check_cubeQuestionMark  ( GameObject gameObjectCollidedWith )
 	{
 		anim_cube_questionMark = gameObjectCollidedWith.gameObject.GetComponent<Animator>();
 		anim_cube_questionMark.SetBool("shouldPop", true);
@@ -465,11 +497,13 @@ public class script_playerProperties : MonoBehaviour
 
 		yield return new WaitForSeconds (seconds);
 
+        script_sceneManager.level_restart = false;
+        UpdatePlayerState( PlayerState.MarioSmall );
 		lives -= 1;
 		this.transform.position = spawnPos;
 	}
 
-	void                UpdateMarioLifeSituation()
+    public void                UpdateMarioLifeSituation()
 	{
 		if ( active_player_state == PlayerState.MarioSmall && cannotBeKilled == false )
 		{
@@ -526,32 +560,39 @@ public class script_playerProperties : MonoBehaviour
 		case	PlayerState.MarioDead:
 			//Destroy ( gameObject );
 			//gameObject.transform.renderer.enabled = false;
-			StartCoroutine(MarioRespawn ( 2.0f ));
+            marioDead                   = true;
+            StartCoroutine(MarioRespawn ( 2.0f ));
 			changeMario					= false;
 			break;
 			
 		case	PlayerState.MarioSmall:
 			
 			player_scale_small		();
-			canShoot					=	false;
+            marioDead                   =   false;
+            canShoot					=	false;
 			changeMario					=	false;
 			marioLarge					= 	false;
+            marioFire                   =   false;
 			playerMeshRender.material	=	material_player_MarioSmall;
 			break;			
 			
 		case	PlayerState.MarioLarge:
 			player_scale_normal		();
+            marioDead                   =   false;
 			canShoot					=	false;
 			changeMario					=	false;
 			marioLarge					= 	true;
+            marioFire                   =   false;
 			playerMeshRender.material	=	material_player_MarioLarge;
 			break;
 			
 		case	PlayerState.MarioFire:
 			player_scale_normal		();
+            marioDead                   =   false;
 			canShoot					=	true;
 			changeMario					=	false;
 			marioLarge					= 	false;
+            marioFire                   =   true;
 			playerMeshRender.material	=	material_player_MarioFire;
 			break;
 			
@@ -562,22 +603,30 @@ public class script_playerProperties : MonoBehaviour
 	{	
 		playerTransform.localScale	=	new Vector3	( 0.5f, 0.5f, 0.5f );
 		playerTransform.Translate	(0f, 0f, - 1.3f);
-		playerController.height		=	5.92f;
-
-		Vector3 playerControllerCenter = playerController.center;
-		playerControllerCenter.z = 2.0f;
-		playerController.center = playerControllerCenter;
+         
+        float   playerControllerHeight = playerController.height;
+        Vector3 playerControllerCenter = playerController.center;
+       
+        playerControllerCenter.z = 2.2f;
+        playerControllerHeight = 3.0f;
+      
+        playerController.center = playerControllerCenter;
+        playerController.height = playerControllerHeight;
 	}
 	
 	void                player_scale_normal		()
 	{
 		playerTransform.Translate	(0f, 0f, - 1.3f);
 		playerTransform.localScale	=	new Vector3	( 0.5f, 0.7f, 0.5f);
-		playerController.height		=	6.0f;
 
+        float   playerControllerHeight = playerController.height;
 		Vector3 playerControllerCenter = playerController.center;
-		playerControllerCenter.z = 0.8f;
-		playerController.center = playerControllerCenter;
+
+        playerControllerCenter.z = 0.8f;
+        playerControllerHeight = 5.92f;
+        
+        playerController.center = playerControllerCenter;
+        playerController.height = playerControllerHeight;
 	}
 	
 	public AudioClip    get_jump_sound			()

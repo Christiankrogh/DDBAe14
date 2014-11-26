@@ -74,7 +74,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100008
 GameObject:
   m_ObjectHideFlags: 1
@@ -90,7 +90,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100010
 GameObject:
   m_ObjectHideFlags: 1
@@ -102,11 +102,11 @@ GameObject:
   - 65: {fileID: 6500008}
   m_Layer: 8
   m_Name: collisionBoxBody
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100012
 GameObject:
   m_ObjectHideFlags: 1
@@ -252,7 +252,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: -3.09086232e-08, y: .707106829, z: -.707106829, w: -3.09086232e-08}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: .0453479998, z: 0}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children:
   - {fileID: 400014}
@@ -270,7 +270,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.75430012, y: 2.34369993, z: -2.72830007e-08}
+  m_LocalPosition: {x: -12.073, y: 2.34369993, z: 0}
   m_LocalScale: {x: .75, y: .75, z: .75}
   m_Children:
   - {fileID: 400000}
@@ -333,7 +333,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
   m_LocalRotation: {x: 0, y: 0, z: 4.37113918e-08, w: 1}
-  m_LocalPosition: {x: 1.77349997, y: 0, z: 2.80400014}
+  m_LocalPosition: {x: 1.77349997, y: -5.57179987e-07, z: .467009991}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -345,7 +345,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.77349997, y: 6.68529992e-07, z: 2.8039999}
+  m_LocalPosition: {x: -1.77349997, y: 1.11349998e-07, z: .467009991}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -626,7 +626,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 8
   m_CollisionDetection: 0
 --- !u!65 &6500000
 BoxCollider:
@@ -683,10 +683,10 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 6, z: 1}
+  m_Size: {x: 4.3499999, y: 5.9000001, z: 5}
   m_Center: {x: 0, y: 2, z: 0}
 --- !u!81 &8100008
 AudioListener:
@@ -704,12 +704,12 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 3
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Priority: 128
+  Priority: 255
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -765,12 +765,12 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
-  Priority: 128
+  Priority: 230
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -895,8 +895,8 @@ MonoBehaviour:
     type: 2}
   changeMario: 0
   marioLarge: 0
+  marioFire: 0
   hasFire: 0
-  active_player_state: 1
   guiText: {fileID: 100000, guid: cd7eff9b18ce7a24090d16b8c2f217fb, type: 2}
   reward_redMushRoom: {fileID: 100000, guid: 276e265c725ffc94080f69db2e1f9eaf, type: 2}
   reward_greenMushRoom: {fileID: 100000, guid: 276e265c725ffc94080f69db2e1f9eaf, type: 2}

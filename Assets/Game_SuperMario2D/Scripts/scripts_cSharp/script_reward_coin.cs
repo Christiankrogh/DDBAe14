@@ -20,7 +20,7 @@ public class script_reward_coin : MonoBehaviour
 	
 		StartCoroutine(DestroyGO(0.6f));
 	}
-
+ 
 	IEnumerator DestroyGO ( float waitTime )
 	{
 		GameObject clone;

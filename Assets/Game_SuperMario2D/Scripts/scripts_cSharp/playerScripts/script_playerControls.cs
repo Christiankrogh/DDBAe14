@@ -149,16 +149,38 @@ public class script_playerControls : MonoBehaviour
         
         if (velocity.x == 0 && Input.GetAxis("Vertical") < 0 )
 		{
-            Debug.Log("crouch_action_keyboard");
+            //Debug.Log("crouch_action_keyboard");
 			script_playerMovement.crouch_movement	( ref velocity);
 			script_playerAnimation.crouch_animation	( ref playerController, ref velocity, moveDirection);
 		}
-        
-        if (velocity.x == 0 && script_gameController.move_Vertical < 0 )
+
+        float   playerControllerHeight = playerController.height;
+        Vector3 playerControllerCenter = playerController.center;
+        PlayerState playerState = script_playerProperties.active_player_state;
+
+        if ( velocity.x == 0 && script_gameController.move_Vertical < 0 )
         {
-            Debug.Log("crouch_action");
-            script_playerMovement.crouch_movement(ref velocity);
-            script_playerAnimation.crouch_animation(ref playerController, ref velocity, moveDirection);
+            //Debug.Log( "crouch_action" );
+            script_playerMovement.crouch_movement( ref velocity );
+            script_playerAnimation.crouch_animation( ref playerController, ref velocity, moveDirection );
+
+            if ( playerState == PlayerState.MarioLarge )
+            {     
+                playerControllerCenter.z = 2.2f;
+                playerControllerHeight = 3.0f;
+                playerController.center = playerControllerCenter;
+                playerController.height = playerControllerHeight;
+            } 
+        }
+        else
+        {
+            if ( playerState == PlayerState.MarioLarge )
+            {  
+                playerControllerCenter.z = 0.8f;
+                playerControllerHeight = 5.92f;
+                playerController.center = playerControllerCenter;
+                playerController.height = playerControllerHeight;
+            }
         }
 	}
 	

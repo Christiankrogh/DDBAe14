@@ -20,9 +20,12 @@ public class script_sceneManager : MonoBehaviour
 	public Text		guiTotalCoinsCollected;
 
 	public static bool		level_completed = false;
+    public static bool      level_restart   = false;
 
 	private float 	remainingTime; 
 	private bool	calculateScore = false;
+
+    
 
 	void Start ()
 	{
@@ -41,7 +44,11 @@ public class script_sceneManager : MonoBehaviour
 			StartCoroutine(levelComplete());
 		}
 
-
+        if ( Input.GetKey( KeyCode.Alpha9 ) )
+        {
+            //Debug.Log("Restarting level!");
+            level_restart = true;
+        }
 	}
 
 	void CheckPlayerState ()
@@ -49,7 +56,8 @@ public class script_sceneManager : MonoBehaviour
 		// Checks if mario is large or not. If large, change icon to indicate he is
 		Transform guiContainerChild 		= transform.GetChild(0);
 			Transform guiIndicatorState 		= guiContainerChild.transform.GetChild(1);
-				Transform guiIndicatorStateChild 	= guiIndicatorState.transform.GetChild(2);
+				
+                Transform guiIndicatorStateChild 	= guiIndicatorState.transform.GetChild(2);
 					Image indicatorImage 				= guiIndicatorStateChild.gameObject.GetComponent<Image>();
 
 		if ( playerProperties.marioLarge )
@@ -60,6 +68,18 @@ public class script_sceneManager : MonoBehaviour
 		{
 			indicatorImage.enabled = false;
 		}
+
+        Transform guiIndicatorStateChild_3 	= guiIndicatorState.transform.GetChild( 3 );
+        Image indicator_3_Image 		    = guiIndicatorStateChild_3.gameObject.GetComponent<Image>();
+
+        if ( playerProperties.marioFire )
+        {
+            indicator_3_Image.enabled = true;
+        }
+        else
+        {
+            indicator_3_Image.enabled = false;
+        }
 	}
 
 	void UpdateBigCoinGui ()

@@ -13,6 +13,11 @@ public class script_reward_Mushroom : MonoBehaviour
 		StartCoroutine(WaitASecond(0.5f));
 		
 		this.transform.Translate 	( -5.0f * Time.deltaTime, 0f, 0f );
+
+        if ( script_sceneManager.level_restart )
+        {
+            Destroy( gameObject );
+        }
 	}
 
 

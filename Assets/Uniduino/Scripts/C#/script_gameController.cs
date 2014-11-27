@@ -167,6 +167,8 @@ public class script_gameController : MonoBehaviour
         CheckButtonState();
 
         ProgramZapping  ();
+
+        //canRunDelay();
 	}
 
 	#region CheckButtonState
@@ -1038,7 +1040,29 @@ public class script_gameController : MonoBehaviour
         }
     }
     #endregion
+    /*
+    void canRunDelay ()
+    {
+        if ( canRun )
+        {
+            runJumpVelocity_delay = true;
+        }
+        if ( runJumpVelocity_delay )
+        {
+            StartCoroutine( WaitForRunDelay( 1.5f ) );
+        }
+    }
+    
+    public static bool runJumpVelocity_delay = false;
 
+    IEnumerator WaitForRunDelay( float seconds )
+    {
+        Debug.Log( "Jump delay begins" );
+        yield return new WaitForSeconds( seconds );
+        Debug.Log( "Jump delay ends" );
+        runJumpVelocity_delay = false;
+    }
+    */
 }
 
 

@@ -9,7 +9,7 @@
 
 using UnityEngine;
 using System.Collections;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine.UI;
 
 [AddComponentMenu("Mario Clone/Actor/Player Properties Script")]
@@ -59,6 +59,7 @@ public class script_playerProperties : MonoBehaviour
 	public AudioClip								marioDied;
 	public AudioClip 								fireball;
 	public AudioClip 								levelBackMusic;
+    public AudioClip                                levelCompleteSound;
 
 	public Transform								particleJump;	
 	public Transform								particleCoin;
@@ -91,6 +92,7 @@ public class script_playerProperties : MonoBehaviour
 	public static CharacterController				playerController;		
 	public static Transform							playerTransform;
 	public static MeshRenderer						playerMeshRender;
+    script_gameTimer                                time;
 
 	public static PlayerState					    active_player_state				=	PlayerState.MarioSmall;
 	
@@ -107,7 +109,8 @@ public class script_playerProperties : MonoBehaviour
 	private script_cube_questionMark 				cubeQuestionMark;
 	private script_cube_Zspin						cubeZspin;
 	private bool 									cannotBeKilled 					= false;
-	private Vector3 								spawnPos;
+    private Vector3                                 startPos;
+    private Vector3 								spawnPos;
 
 	#endregion
 	
@@ -116,6 +119,7 @@ public class script_playerProperties : MonoBehaviour
 
 	void Start()
 	{
+        startPos    = transform.position;
 		spawnPos 	= transform.position;
 	}
 
@@ -127,17 +131,22 @@ public class script_playerProperties : MonoBehaviour
 		playerTransform					=	GetComponent		<Transform>				();
 		playerMeshRender				=	GetComponent		<MeshRenderer>			();		
 		playerAudio						=	GetComponent		<AudioSource>			();
+        time                            =   GameObject.FindGameObjectWithTag("sceneManager").GetComponent<script_gameTimer>();
 
 		change_player_state		();
 		Shoot					();
 
         if ( script_sceneManager.level_restart )
-        {
+        { 
+            spawnPos            = startPos;
             StartCoroutine( MarioRespawn( 0.0f ) );
+            lives = 3;
+            coins = 0;
+            bigCoins = 0;
+            totalCoinCollected = 0;
+            time.setTime = true;
         }
 	}
-	
-	
 	
 	
 	#endregion
@@ -219,7 +228,6 @@ public class script_playerProperties : MonoBehaviour
          }
     }
 
-
     void                OnTriggerEnter          ( Collider other )
 	{
 		GameObject otherPos = other.gameObject;
@@ -240,18 +248,23 @@ public class script_playerProperties : MonoBehaviour
 
         if ( other.tag == "levelComplete" )
 		{
-			AddToTotalCoinCollected(5000);
+            script_playerSounds.play_sound( ref playerAudio, levelCompleteSound, 0f );
+            AddToTotalCoinCollected(5000);
 			PopGuiText ( "+5000", otherPos );
-			Destroy(other.gameObject);
-
+            //Destroy(other.gameObject);
+            other.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            other.gameObject.GetComponent<BoxCollider>().enabled = false;
 			script_sceneManager.level_completed = true;
 		}
 
 		if ( other.tag == "savePoint" )
 		{
+            script_playerSounds.play_sound( ref playerAudio, jumpOnEnemySound, 0f );
 			spawnPos = transform.position;
 			PopGuiText ( "Checkpoint!", otherPos );
-			Destroy(other.gameObject);
+            other.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            other.gameObject.GetComponent<BoxCollider>().enabled = false;
+			//Destroy(other.gameObject);
 		}
 
 		if ( other.tag == "killbox" )
@@ -417,7 +430,7 @@ public class script_playerProperties : MonoBehaviour
 		cubeQuestionMark 	= gameObjectCollidedWith.GetComponent<script_cube_questionMark>();
 		Vector3 goPos 		= gameObjectCollidedWith.transform.position;
 		GameObject clone;
-		
+
 		if ( cubeQuestionMark.rewardRedMushroom )	// Red Mushroom
 		{
 			script_playerSounds.play_sound ( ref playerAudio, pickUpSound, 0f);
@@ -499,11 +512,10 @@ public class script_playerProperties : MonoBehaviour
 
         script_sceneManager.level_restart = false;
         UpdatePlayerState( PlayerState.MarioSmall );
-		lives -= 1;
-		this.transform.position = spawnPos;
+        transform.position = spawnPos;
 	}
 
-    public void                UpdateMarioLifeSituation()
+    public void         UpdateMarioLifeSituation()
 	{
 		if ( active_player_state == PlayerState.MarioSmall && cannotBeKilled == false )
 		{
@@ -561,8 +573,17 @@ public class script_playerProperties : MonoBehaviour
 			//Destroy ( gameObject );
 			//gameObject.transform.renderer.enabled = false;
             marioDead                   = true;
-            StartCoroutine(MarioRespawn ( 2.0f ));
+            StartCoroutine(MarioRespawn ( 2.0f )); 
 			changeMario					= false;
+            if ( lives > 0 )
+            {
+                lives -= 1;
+            }
+            if ( lives == 0 )
+            {
+                Debug.Log("Game Over!");
+            }
+
 			break;
 			
 		case	PlayerState.MarioSmall:

@@ -3,18 +3,31 @@ using System.Collections;
 
 public class script_enemyEvilPlant : MonoBehaviour 
 {
-
 	public  GameObject guiText;
+    bool       grantScore = true;
+
+
+    void Update()
+    {
+        if ( script_sceneManager.level_restart )
+        {
+            Visible( true );
+        }
+    }
 
 	void OnCollisionEnter ( Collision other )
 	{
 		if ( other.gameObject.tag == "fireball" )
 		{
-			Destroy(other.gameObject);
+            Visible( false );
+			//Destroy(other.gameObject);
 
-			script_playerProperties.AddToTotalCoinCollected(500);
-			PopGuiText ("+500", this.gameObject);
-
+            if ( grantScore )
+            {
+                script_playerProperties.AddToTotalCoinCollected( 500 );
+                PopGuiText( "+500", this.gameObject );
+                grantScore = false;
+            }
 			transform.Translate ( 0f, -50.0f * Time.deltaTime, 0f, Space.World );
 
 			StartCoroutine(WaitASecond(2.0f));
@@ -35,7 +48,13 @@ public class script_enemyEvilPlant : MonoBehaviour
 	{
 		yield return new WaitForSeconds (waitFor);
 		
-		Destroy(gameObject);
+        Visible( false );
+		//Destroy(gameObject);
 	}
-	
+
+    void Visible( bool visible )
+    {
+        GetComponent<BoxCollider>().enabled     = visible;
+        GetComponent<SpriteRenderer>().enabled  = visible;
+    }
 }

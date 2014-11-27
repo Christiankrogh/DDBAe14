@@ -22,6 +22,8 @@ TagManager:
   - fireball
   - levelComplete
   - GUI
+  - sceneManager
+  - gimmick
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

@@ -25,8 +25,8 @@ public class script_gameTimer : MonoBehaviour
 
 	public Text			countDownText; 
 	public float		countDownDelay			=		0.0f;								// used to delay time during a countdown
-	public float		countDownAmount			=		0.0f;								// amount to delay
-	private bool		setTime 				= 		true;
+	public float    	countDownAmount			=		400.0f;								// amount to delay
+	public bool		setTime 				= 		true;
 	public float		delayTime				=		0.0f;
 	public float		delayedAmount			=		0.0f;
 	
@@ -222,9 +222,8 @@ public class script_gameTimer : MonoBehaviour
 			countDownEnabled		=		false;										// reset
 	}
 	
-	void reset_startTime()														// press '2' to activate the start of scene time (from Load), playTime and realTime are not being tracked
+	public void reset_startTime()														// press '2' to activate the start of scene time (from Load), playTime and realTime are not being tracked
 	{
-	
 			fromLoadTime			=		Time.timeSinceLevelLoad;					// stores the current fromLoadTime
 			startTime				=		0;											// reset 
 			addToTime				=		0;											// reset
@@ -232,7 +231,6 @@ public class script_gameTimer : MonoBehaviour
 			realTimeEnabled			=		false;										// reset
 			countDownEnabled		=		false; 										// reset
 			fromLoadTimeEnabled		=		true; 										// enables the tracking of time since the scene was loaded
-	
 	}
 	
 	
@@ -275,10 +273,12 @@ public class script_gameTimer : MonoBehaviour
 		}
 	}
 	
-	void reset_time()														// press '6' to continue recording 'playTime'
+	public void reset_time()														// press '6' to continue recording 'playTime'
 	{
-		if ( Input.GetKeyDown ( "6" ) )
-		{
+		//if ( Input.GetKeyDown ( "6" ) )
+		//{
+            set_new_start_time();
+
 			playTime				=		0.0f;										// reset 
 			playStopTime			=		0.0f;										// reset 
 			continueTimeDown		=		0.0f;										// reset
@@ -286,15 +286,18 @@ public class script_gameTimer : MonoBehaviour
 			
 			playTimeEnabled			=		false;										// reset
 			continueTimeEnabled		=		false;										// reset
-			realTimeEnabled			=		false;										// reset
-			countDownEnabled		=		false; 										// reset
+			realTimeEnabled			=		false;										// reset								
 			fromLoadTimeEnabled		=		false; 										// reset 
-		}
+
+            
+            countDownAmount         = 400;
+            countDownEnabled = true; 
+		//}
 	}
 	
 	void countdown()														// press '7' to start time countdown
 	{
-		/*if ( Input.GetKeyDown ( "7" ) || setTime )
+		if ( Input.GetKeyDown ( "7" ) || setTime )
 		{
 			countDownDelay		=		Time.time;										// store the current time in 'countDownDelay'
 			playTimeEnabled		=		true;											// starts 'playtime' for the countdown
@@ -302,7 +305,7 @@ public class script_gameTimer : MonoBehaviour
 			addToTime			=		0;												// reset
 			setTime				= false;
 		}
-		
+		/*
 		if (Input.GetKeyDown("t"))															// press 't' to countdown from current stopTime
 		{
 			continueTimeDown	=		playStopTime - ( countDownDelay - Time.time + countDownAmount);  // get the time to continue from

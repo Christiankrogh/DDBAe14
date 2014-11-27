@@ -59,7 +59,8 @@ public  class script_playerMovement : MonoBehaviour
 			velocity.x          =   velocity.x * walkSpeed; 
 		}
 	}
-	
+
+    
 	public static void set_player_air_velocity ( ref Vector3 velocity, ref CharacterController playerController )
 	{	
         /*
@@ -73,7 +74,8 @@ public  class script_playerMovement : MonoBehaviour
 			//velocity.x          =   -Input.GetAxis("Horizontal") * 6.0f;//walkSpeed;									// the player can change the direction of movement while they're 
 		}
         */
-        if (script_gameController.canRun )
+
+        if ( script_gameController.canRun )//|| script_gameController.runJumpVelocity_delay )
 		{
             velocity.x = -script_gameController.move_Horizontal * runSpeed * 2.0f; // 2.0f = miltiplier
 		}
@@ -87,9 +89,9 @@ public  class script_playerMovement : MonoBehaviour
 			velocity.y	=	0;
 			velocity.y	=	velocity.y - collision_repel_above;
 		}
-		
 	}
-	
+
+
 	public	static void	player_acceleration_from_gravity ( ref Vector3 velocity, ref CharacterController playerController)
 	{
 		if ( playerController.isGrounded == false )

@@ -44,10 +44,16 @@ public class script_sceneManager : MonoBehaviour
 			StartCoroutine(levelComplete());
 		}
 
-        if ( Input.GetKey( KeyCode.Alpha9 ) )
+        if ( Input.GetKey( KeyCode.Alpha9 ) || Input.GetKey (KeyCode.Space) )
         {
             //Debug.Log("Restarting level!");
             level_restart = true;
+        }
+
+        if ( Input.GetKey( KeyCode.Alpha8 ) )
+        {
+            Debug.Log("Reloading level...");
+            Application.LoadLevel("scene_loading_01");
         }
 	}
 
@@ -159,7 +165,7 @@ public class script_sceneManager : MonoBehaviour
 		Debug.Log (remainingTime);
 
 		yield return new WaitForSeconds (1.0f);
-
+        /*
 		// Activate blackscreen
 		Transform guiLevel_childOne 	= guiLevel.GetChild(0);
 			
@@ -167,7 +173,7 @@ public class script_sceneManager : MonoBehaviour
 				  guiLevel_childOne.GetComponent<Animator>().enabled = true;
 
 		yield return new WaitForSeconds (1.5f);
-
+        */
 		// Activate Header
 		Transform guiLevel_childTwo 	= guiLevel.GetChild(1);
 

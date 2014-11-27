@@ -4,4 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Game_SuperMario2D/Scenes/scene_loading_01.unity
+  - enabled: 1
+    path: Assets/Game_SuperMario2D/Scenes/scene_Yoshis_Island_1.unity

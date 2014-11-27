@@ -162,7 +162,7 @@ public class script_sceneManager : MonoBehaviour
 		time.stopTime = true;
 		remainingTime = time.playTime;
 
-		Debug.Log (remainingTime);
+		//Debug.Log (remainingTime);
 
 		yield return new WaitForSeconds (1.0f);
         /*

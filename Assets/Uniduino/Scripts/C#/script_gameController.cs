@@ -167,8 +167,6 @@ public class script_gameController : MonoBehaviour
         CheckButtonState();
 
         ProgramZapping  ();
-
-        //canRunDelay();
 	}
 
 	#region CheckButtonState
@@ -418,7 +416,7 @@ public class script_gameController : MonoBehaviour
             program_4_active = false;
             program_1_active = true;
             Notification_main("Program 1 - Normal-mapping", true);
-            Notification_description("Description: Controls behave as you would expect.", true);
+            Notification_description("Beskrivelse: Du styrer som forventet.", true);
             RecalibrateColorArray();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -428,7 +426,7 @@ public class script_gameController : MonoBehaviour
             program_4_active = false;
             program_2_active = true;
             Notification_main("Program 2 - Konstant-mapping", true);
-            Notification_description("Description: On input, controls rotate right.", true);
+            Notification_description("Beskrivelse: Mappingen roterer med uret efter hvert input.", true);
             RecalibrateColorArray();
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -437,8 +435,8 @@ public class script_gameController : MonoBehaviour
             program_2_active = false;
             program_4_active = false;
             program_3_active = true;
-            Notification_main("Program 3 - Random-mapping", true);
-            Notification_description("Description: On input, random button layout.", true);
+            Notification_main("Program 3 - Random-mapping 1.0", true);
+            Notification_description("Beskrivelse: Knappernes remappes random efter hvert input.", true);
             RecalibrateColorArray();
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
@@ -447,8 +445,8 @@ public class script_gameController : MonoBehaviour
             program_2_active = false;
             program_3_active = false;
             program_4_active = true;
-            Notification_main("Program 4 - Gameplay'Special-mapping", true);
-            Notification_description("Description: ---- ", true);
+            Notification_main("Program 4 - Random-mapping 2.0", true);
+            Notification_description("Beskrivelse: Knapperne remappes random hver gang Mario rammer et dragehoved.", true);
             RecalibrateColorArray();
         }
         if (program_1_active)
@@ -1040,29 +1038,7 @@ public class script_gameController : MonoBehaviour
         }
     }
     #endregion
-    /*
-    void canRunDelay ()
-    {
-        if ( canRun )
-        {
-            runJumpVelocity_delay = true;
-        }
-        if ( runJumpVelocity_delay )
-        {
-            StartCoroutine( WaitForRunDelay( 1.5f ) );
-        }
-    }
-    
-    public static bool runJumpVelocity_delay = false;
-
-    IEnumerator WaitForRunDelay( float seconds )
-    {
-        Debug.Log( "Jump delay begins" );
-        yield return new WaitForSeconds( seconds );
-        Debug.Log( "Jump delay ends" );
-        runJumpVelocity_delay = false;
-    }
-    */
+   
 }
 
 

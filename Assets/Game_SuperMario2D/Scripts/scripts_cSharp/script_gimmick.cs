@@ -6,7 +6,7 @@ public class script_gimmick : MonoBehaviour
     public  GameObject 		coinText;
     public  GameObject 		poofParticle;
     bool            grantScore = true;
-
+    bool            playSound = true;
 
     void OnTriggerEnter( Collider col )
     {
@@ -35,7 +35,11 @@ public class script_gimmick : MonoBehaviour
         child_01.GetComponent<SpriteRenderer>().enabled = true;
         child_01.GetComponent<Animator>()      .enabled = true;
 
-        audio.Play();
+        if ( playSound )
+        {
+            audio.Play();
+            playSound = false;
+        }
     }
 
     void PopGuiText( string scoreText )

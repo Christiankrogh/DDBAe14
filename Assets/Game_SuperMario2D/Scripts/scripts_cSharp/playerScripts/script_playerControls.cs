@@ -164,7 +164,7 @@ public class script_playerControls : MonoBehaviour
             script_playerMovement.crouch_movement( ref velocity );
             script_playerAnimation.crouch_animation( ref playerController, ref velocity, moveDirection );
 
-            if ( playerState == PlayerState.MarioLarge )
+            if ( playerState == PlayerState.MarioLarge || playerState == PlayerState.MarioFire )
             {     
                 playerControllerCenter.z = 2.2f;
                 playerControllerHeight = 3.0f;
@@ -174,7 +174,7 @@ public class script_playerControls : MonoBehaviour
         }
         else
         {
-            if ( playerState == PlayerState.MarioLarge )
+            if ( playerState == PlayerState.MarioLarge || playerState == PlayerState.MarioFire )
             {  
                 playerControllerCenter.z = 0.8f;
                 playerControllerHeight = 5.92f;

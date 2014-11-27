@@ -612,7 +612,7 @@ public class script_playerProperties : MonoBehaviour
             marioDead                   =   false;
 			canShoot					=	true;
 			changeMario					=	false;
-			marioLarge					= 	false;
+			marioLarge					= 	true;
             marioFire                   =   true;
 			playerMeshRender.material	=	material_player_MarioFire;
 			break;

@@ -24,8 +24,11 @@ public class script_sceneManager : MonoBehaviour
 
 	private float 	remainingTime; 
 	private bool	calculateScore = false;
-
-    
+    Transform guiLevel_childTwo;
+    Transform guiContainerChild;
+    Transform guiLevel;
+    Transform guiLevel_childThree;
+    Text 	  guiTimeBonusScore;	
 
 	void Start ()
 	{
@@ -151,7 +154,14 @@ public class script_sceneManager : MonoBehaviour
 		guiTotalCoinsCollected.text = totalCoinCollected.ToString ("f0");
 
 		UpdateBigCoinGui ();
+
+        if ( level_restart )
+        {
+            guiLevel_childTwo.GetComponent<Text>().enabled = false;
+            guiTimeBonusScore.enabled = false;
+        }
 	}
+    
 
 	IEnumerator levelComplete ()
 	{
@@ -162,22 +172,12 @@ public class script_sceneManager : MonoBehaviour
 		time.stopTime = true;
 		remainingTime = time.playTime;
 
-		//Debug.Log (remainingTime);
-
 		yield return new WaitForSeconds (1.0f);
-        /*
-		// Activate blackscreen
-		Transform guiLevel_childOne 	= guiLevel.GetChild(0);
-			
-				  guiLevel_childOne.GetComponent<Image>().enabled 	 = true;
-				  guiLevel_childOne.GetComponent<Animator>().enabled = true;
 
-		yield return new WaitForSeconds (1.5f);
-        */
 		// Activate Header
-		Transform guiLevel_childTwo 	= guiLevel.GetChild(1);
+		guiLevel_childTwo 	= guiLevel.GetChild(1);
 
-				  guiLevel_childTwo.GetComponent<Text>().enabled  	 = true;
+	    guiLevel_childTwo.GetComponent<Text>().enabled  	 = true;
 
 		yield return new WaitForSeconds (1.5f);
 
@@ -195,22 +195,23 @@ public class script_sceneManager : MonoBehaviour
 		level_completed = false;
 	}
 
-
+    
 	void CalculateScore ()
 	{
 		if ( calculateScore )
 		{
 			//Debug.Log (remainingTime);
-			Transform guiContainerChild  		= transform.GetChild(0);
+
+                      guiContainerChild         = transform.GetChild( 0 );
 			Transform guiTime			 		= guiContainerChild.GetChild(5);
 			Transform guiTime_childOne 			= guiTime.GetChild(0);
 			Text 	  guiTimeDisplay 			= guiTime_childOne.GetComponent<Text>();
 
 					  guiTimeDisplay.text 		= remainingTime.ToString("f0");
 
-			Transform guiLevel			 		= guiContainerChild.GetChild(0);
-			Transform guiLevel_childThree 		= guiLevel.GetChild(2);
-			Text 	  guiTimeBonusScore 		= guiLevel_childThree.GetComponent<Text>();
+            guiLevel			 		        = guiContainerChild.GetChild( 0 );
+            guiLevel_childThree 		        = guiLevel.GetChild( 2 );
+            guiTimeBonusScore 		            = guiLevel_childThree.GetComponent<Text>();
 
 			float 	  timeBonusScore			= remainingTime * 50;
 
